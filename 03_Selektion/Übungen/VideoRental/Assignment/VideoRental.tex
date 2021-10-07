@@ -1,0 +1,52 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[german]{babel}
+\usepackage[applemac]{inputenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{multicol}
+\title{Timespan Converter}
+\author{P. Bauer}
+
+\begin{document}
+
+\maketitle
+
+\section{Einführung}
+Schreiben Sie ein Programm {\tt VideoRental}, in welchem die Verleihgebühren für ein Video ausgerechnet werden. Es sollen die Tagesgebühr für ein Video und die Anzahl der Tage, wie lange das Video ausgeliehen wurde, eingegeben werden. Dann gibt das Programm die Gebühren für die gesamte Verleihdauer aus. Zur Verdeutlichung betrachten Sie folgende Beispiele:
+
+\begin{center}
+\includegraphics[scale=.7]{SampleOutput.png}
+\end{center}
+
+\section{Hinweise}
+\begin{enumerate}
+	\item Wie im ersten Beispiel zu sehen ist, wird ``normalerweise'' die Verleihgebühr durch Multiplikation der Tagesgebühr mit der Anzahl der Tage ermittelt. Das gilt aber nur bei einer Verleihdauer von bis zu drei Tagen.
+	
+	\item Wie im zweiten Beispiel zu sehen ist, wird ab dem vierten Tag die Tagesgebühr für die restlichen Tage um 20 \% gesenkt, d.h., die Verleihgebühr errechnet sich aus $3 \; \textrm{Tage} \cdot 4 \; \textrm{Euro Tagesgebühr} + (1 \; \textrm{weiterer Tag} \cdot 4 \cdot 0.8 \; \textrm{um 20 \% reduzierte Tagesgebühr}) = 3 \cdot 4 + 3.2 = 15.2$.
+	
+	\item Wie aus dem dritten Beispiel zu sehen ist, kann der Verleihbetrag 20 Euro nicht übersteigen.
+	
+	\item Fehlerhafte Eingaben, wie  Verleihgebühren $\leq 0$ und Tagesangaben $< 1$ sollen eine Fehlermeldung ergeben und es soll keine Berechnung erfolgen.\label{hint:wronginput}
+	
+	\item Das Beispiel ist mit Notepad++ und mit Hilfe des Compileraufrufs in der Eingabeaufforderung zu lösen.
+\end{enumerate}
+
+\section{Lösungsidee}
+\begin{enumerate}
+	\item Sie prüfen die Eingaben, ob Sie valide sind (siehe Hinweis~\ref{hint:wronginput}). Wenn diese ok sind, dann kommen folgende Schritte:
+	\item Sie legen eine Variable an, die den Gesamtbetrag speichert (beispielsweise {\tt totalAmount}). Welcher Datentyp ist erforderlich?
+	\item Wenn die Anzahl der Verleihtage zwischen 1 und 3 ist, berechnen Sie {\tt totalAmount} durch Multiplikation der Tage mit der Tagesgebühr.
+	\item Sonst:
+	\begin{enumerate}
+		\item Sie berechnen die Verleihgebühren für die ersten 3 Tage durch Multiplikation von 3 mit der Tagesgebühr.
+		\item Sie berechnen die Verleihgebühren für die restlichen Tage durch Multiplikation der Gesamttage minus 3 mit der reduzierten Tagesgebühr (= Tagesgebühr $\cdot \; 0.8$).
+		\item {\tt totalAmount} ist nun die Summe der beiden oben ermittelten Gebühren.
+	\end{enumerate}
+	\item Wenn der Gesamtbetrag $>$ 20 ist, setzen Sie ihn auf 20.
+	\item Sie geben das Ergebnis aus.
+\end{enumerate}
+\section{Source Code Qualität}
+Achten Sie darauf, dass Sie korrekte Einrückungen machen und dass die Variablennamen richtig geschrieben werden (Groß- und Kleinschreibung).
+
+\end{document}

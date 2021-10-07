@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage[applemac]{inputenc}
+\usepackage[german]{babel}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Percent to Grade}
+\author{P. Bauer}
+\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section{Einführung}
+Schreiben Sie ein Programm {\tt PercentToGrade}, in welchem die Prozente, die bei einer Leistungsbeurteilung erreicht wurden, eingegeben werden können und das daraufhin die erreichte Note (von ``Sehr Gut'' bis ``Nicht Genügend'') ausgibt.
+
+\section{Zuordnung Prozente zu Note}
+Die Ermittlung der Note soll aufgrund der folgenden Tabelle erfolgen:
+
+\begin{tabular}{|l|c|}
+	\hline
+	Prozente & Note \\ \hline
+	[88; $\infty$[ & Sehr Gut \\ \hline
+	[75; 88[ & Gut \\ \hline
+	[63; 75[ & Befriedigend \\ \hline
+	[50;  63[ & Genügend \\ \hline
+	[0; 50[ & Nicht Genügend \\ \hline
+	sonst & Fehlermeldung \\ \hline
+\end{tabular}
+
+\begin{itemize}
+	\item Beachten Sie, dass der Prozentwert nicht nur ganzzahlig sein muss.
+	\item Falls ein Prozentwert unter 0 eingegeben wird, soll die Fehlermeldung ``Ungültige Eingabe'' ausgegeben werden
+\end{itemize}
+
+\section{Beispiel}
+Folgende Abbildung zeigt, wie sich das Programm mit einer konkreten Eingabe verhalten soll. Beachten Sie, dass Ihre Implementierung genau dieses Verhalten abbilden soll. 
+
+%\begin{figure}
+\begin{center}
+\includegraphics[scale=.7]{SampleOutput.png}
+\end{center}
+%\caption{Beispiel}
+%\label{fig:insertion_sort}
+%\end{figure}
+
+
+
+\section{Source Code Qualität}
+Achten Sie darauf, dass Sie korrekte Einrückungen machen und dass die Variablennamen richtig geschrieben werden.
+
+\end{document}  
