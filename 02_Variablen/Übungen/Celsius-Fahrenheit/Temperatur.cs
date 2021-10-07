@@ -31,19 +31,19 @@ else
     Console.Write("Grade in Fahrenheit: ");
 }
 
-eingabe = Console.ReadLine();
+eingabe           = Console.ReadLine();
 vorgabeTemperatur = Convert.ToDouble(eingabe);
 
 // Verarbeitung
 if (auswahl == "C")
 {
-    celsius = vorgabeTemperatur;
+    celsius    = vorgabeTemperatur;
     fahrenheit = celsius * 9.0 / 5.0 + 32;
 }
 else
 {
     fahrenheit = vorgabeTemperatur;
-    celsius = (fahrenheit - 32) * 5.0 / 9.0;
+    celsius    = (fahrenheit - 32) * 5.0 / 9.0;
 }
 
 // Ausgabe

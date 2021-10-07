@@ -13,38 +13,32 @@
 
 using System;
 
-const double EINER_WERT = 1;
-const double ZWEIER_WERT = 2;
+const double EINER_WERT       = 1;
+const double ZWEIER_WERT      = 2;
 const double FUENFZIGERL_WERT = 0.5;
 
 string input;
 double ersparnis;
-int einerAnzahl, zweierAnzahl, fuenfzigerlAnzahl;
+int    einerAnzahl, zweierAnzahl, fuenfzigerlAnzahl;
 
 Console.WriteLine("Das Programm, welches dein Sparschwein entschlüsselt");
 Console.WriteLine("  von Prof. Gerhard Gehrer");
 Console.WriteLine();
 
-// Beginn: Eingabe der Berechnungsdaten (E)
 Console.Write("Wie viele Fünfziger? ");
-input = Console.ReadLine();
+input             = Console.ReadLine();
 fuenfzigerlAnzahl = Convert.ToInt32(input);
 
 Console.Write("Wie viele Eurostücke? ");
-input = Console.ReadLine();
+input       = Console.ReadLine();
 einerAnzahl = Convert.ToInt32(input);
 
 Console.Write("Wie viele Zweieurostücke? ");
-input = Console.ReadLine();
+input        = Console.ReadLine();
 zweierAnzahl = Convert.ToInt32(input);
-// Ende: Eingabe
 
-// Beginn: Verarbeitung der Daten
 ersparnis = fuenfzigerlAnzahl * FUENFZIGERL_WERT
-          + einerAnzahl * EINER_WERT
-          + zweierAnzahl * ZWEIER_WERT;
-// Ende: Verarbeitung
+            + einerAnzahl * EINER_WERT
+            + zweierAnzahl * ZWEIER_WERT;
 
-// Beginn: Ausgabe
 Console.WriteLine("Dein Sparschwein enthält: {0:f} EUR", ersparnis);
-// Ende: Ausgabe

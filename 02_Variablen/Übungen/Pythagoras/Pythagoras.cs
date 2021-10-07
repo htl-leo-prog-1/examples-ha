@@ -20,10 +20,10 @@ double a = Convert.ToDouble(Console.ReadLine());
 Console.Write("Geben Sie die Länge der Seite b ein: ");
 double b = Convert.ToDouble(Console.ReadLine());
 
-double c = Math.Sqrt(a * a + b * b);
-double p = a * a / c;
-double q = c - p;
-double h = Math.Sqrt(p * q);
+double c    = Math.Sqrt(a * a + b * b);
+double p    = a * a / c;
+double q    = c - p;
+double h    = Math.Sqrt(p * q);
 double area = c * h / 2;
 
 Console.WriteLine();

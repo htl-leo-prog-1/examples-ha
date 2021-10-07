@@ -19,7 +19,7 @@ Console.WriteLine();
 
 Console.Write("Erste Zahl: ");
 string userInput = Console.ReadLine();
-int operand1 = Convert.ToInt32(userInput);
+int    operand1  = Convert.ToInt32(userInput);
 Console.Write("Zweite Zahl: ");
 userInput = Console.ReadLine();
 int operand2 = Convert.ToInt32(userInput);
@@ -29,9 +29,8 @@ int sum = operand1 + operand2;
 
 Console.WriteLine("Ergebnis:");
 Console.WriteLine("=========");
-Console.WriteLine("{0,20:n0}", operand1);
+Console.WriteLine("{0,20:n0}",   operand1);
 Console.WriteLine("+ {0,18:n0}", operand2);
 Console.WriteLine("--------------------");
 Console.WriteLine("{0,20:n0}", sum);
 Console.WriteLine("====================");
-			

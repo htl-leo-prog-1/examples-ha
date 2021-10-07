@@ -10,9 +10,9 @@
 using System;
 
 // Variablendefinitionen
-int leftOperand;
-int rightOperand;
-int result;
+int    leftOperand;
+int    rightOperand;
+int    result;
 string userInput;
 
 // Eingabe
@@ -20,10 +20,10 @@ Console.WriteLine("Einfacher Addierer für ganze Zahlen");
 Console.WriteLine("===================================");
 Console.WriteLine();
 Console.Write("Linker Operand [int]: ");
-userInput = Console.ReadLine();
+userInput   = Console.ReadLine();
 leftOperand = Convert.ToInt32(userInput);
 Console.Write("Rechter Operand [int]: ");
-userInput = Console.ReadLine();
+userInput    = Console.ReadLine();
 rightOperand = Convert.ToInt32(userInput);
 
 // Verarbeitung
