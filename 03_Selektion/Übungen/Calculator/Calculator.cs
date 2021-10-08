@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------
- *				HTBLA-Leonding / Class: 1AHIF
+ *				HTBLA-Leonding / Class: xAHIF
  *--------------------------------------------------------------
  * Exercise Number: 04
  * File:			    PocketCalculator.cs
@@ -31,6 +31,7 @@ userInput = Console.ReadLine();
 double operand2 = Convert.ToDouble(userInput);
 
 double result = 0.0;
+
 switch (op)
 {
     case "+":
@@ -46,4 +47,4 @@ switch (op)
         break;
 }
 
-Console.WriteLine("Ergebnis von " + operand1 + " " + op + " " + operand2 + " = " + result);
+Console.WriteLine($"Ergebnis von {operand1} {op} {operand2} = {result}");
