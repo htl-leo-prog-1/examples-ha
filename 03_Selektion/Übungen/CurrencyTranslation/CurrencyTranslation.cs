@@ -48,4 +48,3 @@ switch (startCurrency)
         break;
     }
 }
-}

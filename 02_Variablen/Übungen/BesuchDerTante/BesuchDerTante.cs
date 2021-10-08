@@ -17,7 +17,6 @@ Console.WriteLine();
 /**
  * Eingabe
  **/
-
 Console.Write("Entfernung in km: ");
 string distanceInput = Console.ReadLine();
 double distance      = Convert.ToDouble(distanceInput);

@@ -9,7 +9,6 @@
 
 using System;
 
-// Variablendefinitionen
 int    leftOperand;
 int    rightOperand;
 int    result;
@@ -30,4 +29,4 @@ rightOperand = Convert.ToInt32(userInput);
 result = leftOperand + rightOperand;
 
 // Ausgabe
-Console.WriteLine("Ergebnis von {0} + {1} = {2}", leftOperand, rightOperand, result);
+Console.WriteLine($"Ergebnis von {leftOperand} + {rightOperand} = {result}");

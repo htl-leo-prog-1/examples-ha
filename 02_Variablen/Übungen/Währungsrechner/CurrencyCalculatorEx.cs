@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------
- *		 	 	 HTBLA-Leonding / Class: 1AHIF
+ *		 	 	 HTBLA-Leonding / Class: xAHIF
  *--------------------------------------------------------------
  * Exercise Number:  03
  * File:	 	 	 CurrencyCalculator.cs
@@ -49,11 +49,11 @@ switch (baseCurrency)
 
 if (eurAmount > 0.0)
 {
-    Console.WriteLine("Umrechungsergebnis:\n" +
-                      "===================");
-    Console.WriteLine("-  EUR: {0:0.00}", eurAmount);
-    Console.WriteLine("-  USD: {0:0.00}", usdAmount);
-    Console.WriteLine("-  CHF: {0:0.00}", chfAmount);
+    Console.WriteLine("Umrechungsergebnis:");
+    Console.WriteLine("===================");
+    Console.WriteLine($"-  EUR: {eurAmount:0.00}");
+    Console.WriteLine($"-  USD: {usdAmount:0.00}");
+    Console.WriteLine($"-  CHF: {chfAmount:0.00}");
 }
 else
 {

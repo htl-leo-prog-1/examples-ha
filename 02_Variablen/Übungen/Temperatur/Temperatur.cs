@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+ *				HTBLA-Leonding / Class: xAHIF
+ *--------------------------------------------------------------
+ *                Musterlösung 
+ *--------------------------------------------------------------
+ * Description: Umrechnung Celsius nach Fahrenheit
+ *--------------------------------------------------------------
+*/
+
+using System;
 
 // Eingabe
 Console.WriteLine("Umrechnung Celsius => Fahrenheit");
@@ -13,9 +22,5 @@ double fahrenheit = celsius * 9.0 / 5.0 + 32;
 Console.WriteLine();
 Console.WriteLine("Umrechnungsergebnis:");
 Console.WriteLine("--------------------");
-Console.WriteLine("Celsius:    {0,8:f1}  ", celsius);
-Console.WriteLine("Fahrenheit: {0,8:f1}  ", fahrenheit);
-
-Console.WriteLine();
-Console.Write("Zum Beenden Eingabetaste drücken ...");
-Console.ReadKey();
+Console.WriteLine($"Celsius:    {celsius,8:f1}");
+Console.WriteLine($"Fahrenheit: {fahrenheit,8:f1}");

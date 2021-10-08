@@ -41,4 +41,4 @@ ersparnis = fuenfzigerlAnzahl * FUENFZIGERL_WERT
             + einerAnzahl * EINER_WERT
             + zweierAnzahl * ZWEIER_WERT;
 
-Console.WriteLine("Dein Sparschwein enthält: {0:f} EUR", ersparnis);
+Console.WriteLine($"Dein Sparschwein enthält: {ersparnis:f} EUR");

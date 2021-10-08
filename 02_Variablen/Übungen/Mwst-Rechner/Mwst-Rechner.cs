@@ -10,7 +10,6 @@
 
 using System;
 
-// Definitionen
 string eingabe;
 double brutto10;
 double brutto5;
@@ -30,7 +29,7 @@ eingabe = Console.ReadLine();
 brutto10  = Convert.ToDouble(eingabe);
 netto     = brutto10 / 1.1;
 mwst10    = brutto10 - netto;
-mwst5     = mwst10 / 2;
+mwst5     = mwst10 / 2.0;
 brutto5   = netto + mwst5;
 ersparnis = mwst10 - mwst5;
 

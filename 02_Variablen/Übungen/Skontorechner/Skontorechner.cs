@@ -24,12 +24,10 @@ Console.Write("- Bankzinsen (%):         ");
 double interestRate = Convert.ToDouble(Console.ReadLine());
 Console.WriteLine("--------------------------");
 
-double discountAmount = amount * discount / 100;
-double interestAmount = amount * interestRate / 100 * (paymentLimit - discountLimit) / 365;
+double discountAmount = amount * discount / 100.0;
+double interestAmount = amount * interestRate / 100.0 * (paymentLimit - discountLimit) / 365.0;
 
 Console.WriteLine("Skontorechner - Ausgabe:");
 Console.WriteLine("========================");
-Console.WriteLine("Bei Zahlung nach {0} Tagen wird ein Skonto von {1:f2} abgezogen und es ist ein Betrag von {2:f2} zu bezahlen.",
-    discountLimit, discountAmount, (amount - discountAmount));
-Console.WriteLine("Bei Zahlung nach {0} Tagen entsteht ein Zinsvorteil von {1:f5} und die Gesamtbelastung wäre {2:f2}.",
-    paymentLimit, interestAmount, (amount - interestAmount));
+Console.WriteLine($"Bei Zahlung nach {discountLimit} Tagen wird ein Skonto von {discountAmount:f2} abgezogen und es ist ein Betrag von {amount - discountAmount:f2} zu bezahlen.");
+Console.WriteLine($"Bei Zahlung nach {paymentLimit} Tagen entsteht ein Zinsvorteil von {interestAmount:f5} und die Gesamtbelastung wäre {amount - interestAmount:f2}.");
