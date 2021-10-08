@@ -1,0 +1,13 @@
+.svn
+.vscode
+*.suo
+*.bak
+*.sdf
+*.user
+
+Debug/
+Release/
+ipch/
+.vs/
+PublishProfiles/
+obj
