@@ -13,10 +13,10 @@ using System;
 Console.WriteLine("Day of year calculation");
 Console.WriteLine("-----------------------");
 
-Console.Write("Please enter month [1..12]");
+Console.Write("Please enter month [1..12] ");
 var month = Convert.ToInt32(Console.ReadLine());
 
-Console.Write("Please enter day [1..31]");
+Console.Write("Please enter day [1..31] ");
 var day = Convert.ToInt32(Console.ReadLine());
 
 int daysInMonth;
