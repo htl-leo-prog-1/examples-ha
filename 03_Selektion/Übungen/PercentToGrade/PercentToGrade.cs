@@ -1,33 +1,52 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+ *				HTBLA-Leonding / Klasse: 1BHIF 2015/2016
+ *--------------------------------------------------------------
+ * Übung: 02
+ * Datei:			    PercentToGrade.cs
+ * Autor:		        Max Mustermann
+ * Erstellungsdatum:    07.10.2015
+ *--------------------------------------------------------------
+ * Beschreibung:
+ *--------------------------------------------------------------
+*/
 
+using System;
+
+string input;
+double percent;
+string result = "";
 Console.WriteLine("Percent to Grade!");
-
+Console.WriteLine("=================");
 Console.Write("Bitte geben Sie die Prozente ein, die Sie erreicht haben: ");
-double percent = Convert.ToDouble(Console.ReadLine());
-
-string grade;
-bool   inputOk = true;
-
+input   = Console.ReadLine();
+percent = Convert.ToDouble(input);
 if (0 <= percent && percent < 50)
-    grade = "Nicht Genügend";
-else if (50 <= percent && percent < 63)
-    grade = "Genügend";
-else if (63 <= percent && percent < 75)
-    grade = "Befriedigend";
-else if (75 <= percent && percent < 88)
-    grade = "Gut";
-else if (percent >= 88)
-    grade = "Sehr Gut";
-else
 {
-    inputOk = false;
-    grade   = "Die Eingabe war ungültig";
+    result = "Nicht Genügend";
+}
+else if (percent < 62.5)
+{
+    result = "Genügend";
+}
+else if (percent < 75)
+{
+    result = "Befriedigend";
+}
+else if (percent < 87.5)
+{
+    result = "Gut";
+}
+else if (percent <= 100)
+{
+    result = "Sehr Gut";
 }
 
-string message;
-if (inputOk)
-    message = "Sie haben die Note " + grade + " erreicht.";
+// Ausgabe
+if (percent >= 0 && percent <= 100)
+{
+    Console.WriteLine("{0} Prozent ergeben die Note {1}", input, result);
+}
 else
-    message = grade;
-
-Console.WriteLine(message);
+{
+    Console.WriteLine("Die Eingabe war {0} ungültig", input);
+}
