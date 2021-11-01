@@ -30,7 +30,7 @@ while (val > 1)
     }
     else
     {
-        Console.Write($"{val} / 2     =");
+        Console.Write($"{val} / 2 =");
         val /= 2;
     }
 
