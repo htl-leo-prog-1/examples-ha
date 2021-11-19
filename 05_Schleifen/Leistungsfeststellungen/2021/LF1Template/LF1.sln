@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingCharge", "ParckingCharge\ParkingCharge.csproj", "{1FECEC9D-5A25-4739-B21C-F019D505709F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingCharge", "ParkingCharge\ParkingCharge.csproj", "{1FECEC9D-5A25-4739-B21C-F019D505709F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3XPlus1", "3XPlus1\3XPlus1.csproj", "{12E89869-9907-42F7-A130-0275306799B5}"
 EndProject
