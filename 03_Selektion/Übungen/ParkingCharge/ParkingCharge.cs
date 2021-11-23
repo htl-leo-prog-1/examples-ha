@@ -26,7 +26,9 @@ while (parkingHours > 0)
 {
     var charge = 0.0;
 
-    parkingHours = Math.Ceiling(parkingHours);
+    // parkingHours = Math.Ceiling(parkingHours);
+    // round 1/2 hour
+    parkingHours = Math.Ceiling(parkingHours * 2.0) / 2.0;
 
     if (parkingHours > 24)
     {
