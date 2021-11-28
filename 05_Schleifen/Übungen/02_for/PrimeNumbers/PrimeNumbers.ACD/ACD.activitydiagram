@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="e9e2ad87-99aa-4f34-90f2-93ce73d14daa" name="ACD" linkedPackageId="561d2425-c7d0-4cd2-962f-ac763a19328f" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="ef5fc3be-a39c-40bf-bc0a-cc353579c055">
+      <profileInstance Id="af2cb78d-ef43-435b-bc1f-19e151df0336" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="08f2dddc-a996-42f0-a895-13d0e238880f">
+      <profileInstance Id="c9e993b6-b99c-40cf-b02c-4fa3abf5b62e" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="d3e6006a-cc6a-4e03-9c88-bfb64cefae23" name="ACD" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="fc6cbcaf-7068-4f40-a29b-565b8e636a46" />
+        <nodes>
+          <initialNode Id="4dc92b15-39c4-4df6-b7aa-eb9f78925b12" name="Initial1" isLeaf="false">
+            <elementDefinition Id="e9877d36-2fc9-430d-8100-5ad401c7f44d" />
+            <flowNodeTargets>
+              <controlFlow Id="c3f81f1b-29e1-440e-a903-f813284731a5" isLeaf="false">
+                <opaqueActionMoniker Id="e356cfc8-ee97-439d-96b8-9c1f1738a948" LastKnownName="Zahl n einlesen" />
+                <elementDefinition Id="630659b4-375a-4e54-a10b-a4400635a987" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="e356cfc8-ee97-439d-96b8-9c1f1738a948" name="Zahl n einlesen" isLeaf="false">
+            <elementDefinition Id="37e7dbd1-0c62-4ee6-9052-e76256f7db9b" />
+            <flowNodeTargets>
+              <controlFlow Id="4c382558-9c7c-46f2-8f05-2096a4c1bd3f" isLeaf="false">
+                <decisionNodeMoniker Id="d0dece56-f52c-4ddc-a4e6-e7dca4b17e10" LastKnownName="Decision1" />
+                <elementDefinition Id="209d3494-d33b-4f63-8d1b-2bca657bf6b7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="d0dece56-f52c-4ddc-a4e6-e7dca4b17e10" name="Decision1" isLeaf="false">
+            <elementDefinition Id="b59fec42-fc26-40ed-b13e-36e0556ea009" />
+            <flowNodeTargets>
+              <controlFlow Id="2cd61504-e954-454c-a889-61bcbcb3a3c6" guard="n&lt;2" isLeaf="false">
+                <opaqueActionMoniker Id="b9e13821-2202-481d-bc5c-bc2c0fcb5a90" LastKnownName="isPrime=false" />
+                <elementDefinition Id="8f704fd5-3bc0-4ae1-82f7-47fb8c874ebf" />
+              </controlFlow>
+              <controlFlow Id="7aabaecc-6945-46d2-b903-bf481f1a78a0" guard="sonst" isLeaf="false">
+                <decisionNodeMoniker Id="097f8c8a-daa7-458c-9a9a-f8aef3b56148" LastKnownName="Decision2" />
+                <elementDefinition Id="8c8890a6-ff45-49b0-ae7c-8856caf137bf" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="b9e13821-2202-481d-bc5c-bc2c0fcb5a90" name="isPrime=false" isLeaf="false">
+            <elementDefinition Id="dfe12e13-4a72-4ace-81ff-4d6655902fea" />
+          </opaqueAction>
+          <decisionNode Id="097f8c8a-daa7-458c-9a9a-f8aef3b56148" name="Decision2" isLeaf="false">
+            <elementDefinition Id="48a1f4a2-dd13-4c58-b5ce-217eaa3a1298" />
+            <flowNodeTargets>
+              <controlFlow Id="e2f3da0c-c87e-4355-bad7-608ffdfb3eec" guard="(isDivisable==False) &amp;&amp; (divisor&lt;=n/2)" isLeaf="false">
+                <opaqueActionMoniker Id="bd2ae563-4cc4-4a39-8082-80b134846a78" LastKnownName="isDivisable=n%divisor==0" />
+                <elementDefinition Id="c967fa7c-2ae8-4446-8f13-250b6702fed1" />
+              </controlFlow>
+              <controlFlow Id="ea007a6e-8606-4be6-b3cc-1a61086aa906" guard="sonst" isLeaf="false">
+                <decisionNodeMoniker Id="d2816ecf-5625-4c39-9dd5-3f9da342d581" LastKnownName="Decision3" />
+                <elementDefinition Id="29959ac6-9be1-4a17-b8fe-ca3b84b57368" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="bd2ae563-4cc4-4a39-8082-80b134846a78" name="isDivisable=n%divisor==0" isLeaf="false">
+            <elementDefinition Id="ad1e90ba-dfdf-40f1-abde-5bba4242b54e" />
+            <flowNodeTargets>
+              <controlFlow Id="3c5fc3c2-433f-45f2-b3d1-749d0a84a3d7" isLeaf="false">
+                <opaqueActionMoniker Id="8acfdd69-8073-4712-b342-be3c0c56c3db" LastKnownName="divisor=divisor+1" />
+                <elementDefinition Id="347e3ac4-e28a-4c8a-8399-4644e4ab5466" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="8acfdd69-8073-4712-b342-be3c0c56c3db" name="divisor=divisor+1" isLeaf="false">
+            <elementDefinition Id="6a5a897c-37fd-4e37-94a9-a373ad1276e3" />
+          </opaqueAction>
+          <decisionNode Id="d2816ecf-5625-4c39-9dd5-3f9da342d581" name="Decision3" isLeaf="false">
+            <elementDefinition Id="4cb9356f-e19c-4515-81bf-3e7a100f07ec" />
+            <flowNodeTargets>
+              <controlFlow Id="2e54aa65-08f9-43dd-83c4-6539b72229ce" guard="isPrime==true" isLeaf="false">
+                <opaqueActionMoniker Id="767fcdab-368c-4d25-a840-a5ed75490548" LastKnownName="Ausgabe Primzahl" />
+                <elementDefinition Id="964a200e-93e7-45b8-b15b-57402b028836" />
+              </controlFlow>
+              <controlFlow Id="072f6a12-abde-478c-a144-26c2155aea41" guard="else" isLeaf="false">
+                <opaqueActionMoniker Id="169b81e6-3daf-4495-8ce7-955fc77e7b86" LastKnownName="Ausgabe keine Primzahl" />
+                <elementDefinition Id="384cb900-0a03-4173-875a-6effbd20f281" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="767fcdab-368c-4d25-a840-a5ed75490548" name="Ausgabe Primzahl" isLeaf="false">
+            <elementDefinition Id="aaed7950-1614-487a-8387-79bbab54b0be" />
+            <flowNodeTargets>
+              <controlFlow Id="8821be50-0259-456a-81cc-5bbafbf6b88d" isLeaf="false">
+                <activityFinalNodeMoniker Id="4674f5c6-3789-4002-81b1-a212403e5eaf" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="59840c01-9511-482e-bdf0-4738d5595485" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="169b81e6-3daf-4495-8ce7-955fc77e7b86" name="Ausgabe keine Primzahl" isLeaf="false">
+            <elementDefinition Id="e5dc2b67-4c5e-432b-acbd-1ccfebfbc6c5" />
+            <flowNodeTargets>
+              <controlFlow Id="b15a9cae-9cd7-4830-8a91-7117bcd3055c" isLeaf="false">
+                <activityFinalNodeMoniker Id="4674f5c6-3789-4002-81b1-a212403e5eaf" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="0d67fe5f-8074-4b2a-9067-f729467d71ef" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="4674f5c6-3789-4002-81b1-a212403e5eaf" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="76ac1f26-be53-429a-9a8e-3e5be1a26d7d" />
+          </activityFinalNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="561d2425-c7d0-4cd2-962f-ac763a19328f" name="PrimeNumbers.ACD">
+    <elementDefinition Id="dce925d5-d55a-4b8a-8ab5-1c98e315ace6" />
+  </package>
+</activityRootModel>
