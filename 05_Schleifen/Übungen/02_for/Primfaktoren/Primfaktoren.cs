@@ -9,7 +9,7 @@
 
 using System;
 
-Console.WriteLine("Get Prime factors");
+Console.WriteLine("Factorize Number");
 Console.WriteLine("==========================");
 Console.WriteLine();
 

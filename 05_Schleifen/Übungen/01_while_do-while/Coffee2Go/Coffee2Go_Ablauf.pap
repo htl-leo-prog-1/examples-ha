@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8" CHECKSUM="CA01DF5682483342">
+  <PROJECT FORMAT="1.00" NAME="ErstesDiagramm" AUTHOR="robreder" CREATED="2015.11.07 17:45:45" MODIFIED="2015.12.16 20:07:52">
+    <DIAGRAMS>
+      <DIAGRAM FORMAT="1.00" ID="0" NAME="Coffee2Go" CREATED="2015.11.07 17:45:57" MODIFIED="2015.12.16 20:07:52">
+        <LAYOUT FORMAT="1.00" COLUMNS="3" ROWS="18">
+          <ENTRIES>
+            <ENTRY COLUMN="0" ROW="10">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="67">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="11">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="70">
+                <TEXT><![CDATA[Erhöhe sumOfMoney um den Wert der aktuellen Münze.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="12">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="84">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="0" ANCHOR="True">
+              <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
+                <TEXT><![CDATA[Coffee2Go]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="1">
+              <FIGURE SUBTYPE="PapStart" FORMAT="1.00" ID="1">
+                <TEXT><![CDATA[Start]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="2">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="45">
+                <TEXT><![CDATA[Fixierung des Kaffeepreises mit der Konstanten PRICE = 50. Initialisierung von sumOfMoney, currentCoin, centsToReturn.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="3">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="39">
+                <TEXT><![CDATA[Ausgabe von Begrüßungstext des Kaffeeautomaten]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="4">
+              <FIGURE SUBTYPE="PapLoopStart" FORMAT="1.00" ID="41" ASSOCIATE="43">
+                <TEXT><![CDATA[do]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="5">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="47">
+                <TEXT><![CDATA[Setze sumOfMoney auf 0.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="6">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="49">
+                <TEXT><![CDATA[Ausgabe von Trennzeilen "***...***".]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="7">
+              <FIGURE SUBTYPE="PapLoopStart" FORMAT="1.00" ID="51" ASSOCIATE="53">
+                <TEXT><![CDATA[do]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="8">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="55">
+                <TEXT><![CDATA[Ausgabe von aktuellen Stand von sumOfMoney. Sowie Aufforderung für die nächste Münze.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="9">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="57">
+                <TEXT><![CDATA[Eingabe von aktueller Münze => currentCoin.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="10">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="59">
+                <TEXT><![CDATA[Ist es eine gültige Münze?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="12">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="71">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="13">
+              <FIGURE SUBTYPE="PapLoopEnd" FORMAT="1.00" ID="53" ASSOCIATE="51">
+                <TEXT><![CDATA[while (Noch nicht genug Geld erhalten)]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="14">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="88">
+                <TEXT><![CDATA[Berechnung des Wertes der Geldrückgabe.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="15">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="90">
+                <TEXT><![CDATA[Ausgabe von KAFFEE. Ausgabe von Restgeld und Frage, ob noch eine Tasse Kaffee gewünscht ist.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="16">
+              <FIGURE SUBTYPE="PapLoopEnd" FORMAT="1.00" ID="43" ASSOCIATE="41">
+                <TEXT><![CDATA[while (Noch eine Tasse? (J))]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="17">
+              <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
+                <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="10">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="68">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="11">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="75">
+                <TEXT><![CDATA[Ausgabe von Hinweis, dass nur gültige Münzen akzeptiert werden.]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="12">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="81">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+          </ENTRIES>
+        </LAYOUT>
+        <CONNECTIONS>
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="45" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="40" FROM="39" TO="41" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="44" FROM="43" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="42" FROM="41" TO="47" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="46" FROM="45" TO="39" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="48" FROM="47" TO="49" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="50" FROM="49" TO="51" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="54" FROM="53" TO="88" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="52" FROM="51" TO="55" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="56" FROM="55" TO="57" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="58" FROM="57" TO="59" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="86" FROM="84" TO="71" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="65" FROM="59" TO="67" TEXT="Ja" />
+          <CONNECTION FORMAT="1.00" ID="69" FROM="59" TO="68" TEXT="Nein" />
+          <CONNECTION FORMAT="1.00" ID="82" FROM="75" TO="81" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="74" FROM="67" TO="70" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="76" FROM="68" TO="75" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="83" FROM="81" TO="71" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="85" FROM="70" TO="84" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="87" FROM="71" TO="53" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="89" FROM="88" TO="90" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="91" FROM="90" TO="43" TEXT="" />
+        </CONNECTIONS>
+      </DIAGRAM>
+    </DIAGRAMS>
+  </PROJECT>
+</FRAME>
