@@ -9,9 +9,9 @@
 
 using System;
 
-Random random = new Random();
+var random = new Random();
 
-for (int i = 1; i < 32; i++)
+for (var i = 1; i < 32; i++)
 {
     int grade = random.Next(1, 6);
     Console.WriteLine($"Kat-Nr. {i}: {grade}");
