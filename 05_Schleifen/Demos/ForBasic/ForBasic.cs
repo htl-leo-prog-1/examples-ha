@@ -40,9 +40,9 @@ for (int i = count - 1; i >= 0; i--)
 }
 */
 
-for (var x = 0; x < count; x++)
+for (var y = 0; y < count; y++)
 {
-    for (var y = 0; y < count; y++)
+    for (var x = 0; x < count; x++)
     {
         Console.Write("*");
     }
