@@ -8,6 +8,18 @@
 *--------------------------------------------------------------
 */
 
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
+// Das ist ein Beispiel wie man es NICHT machen soll!
+
 using System;
 
 Console.WriteLine("Goto Demo");
@@ -52,8 +64,13 @@ for (int i= 0; i < number; i++)
     if (i == number/2 && first)
     {
         Console.WriteLine("We have reached the middle");
+        goto AfterLoop;
     }
 }
+
+Console.WriteLine("We finished without first");
+
+AfterLoop:
 Console.WriteLine("We finished");
 
 if (first)
