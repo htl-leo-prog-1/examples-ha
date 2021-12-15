@@ -22,10 +22,10 @@ do
 
     if (timeToConvert.Length > 0)
     {
-        int colonCount = 0;
-        string hourStr = "";
-        string minStr = "";
-        string secStr = "";
+        int    colonCount = 0;
+        string hourStr    = "";
+        string minStr     = "";
+        string secStr     = "";
 
         bool isValid = true;
 
@@ -57,7 +57,7 @@ do
             }
         }
 
-        int hour = 0;
+        int hour   = 0;
         int minute = 0;
         int second = 0;
 
