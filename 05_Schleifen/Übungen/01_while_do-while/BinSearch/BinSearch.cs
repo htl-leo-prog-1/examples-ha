@@ -43,7 +43,7 @@ while (!isEndGame)
     switch (answer)
     {
         case "g":
-            if (minGuess == guess)
+            if (maxGuess == guess)
             {
                 Console.Write($"You are cheating!");
                 isEndGame = true;
