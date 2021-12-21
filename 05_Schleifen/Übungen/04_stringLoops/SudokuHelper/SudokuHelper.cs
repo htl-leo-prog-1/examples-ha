@@ -66,13 +66,12 @@ do
 
             if (nothingFound)
             {
-                Console.Write("nothing");
+                Console.Write(" nothing");
             }
 
             Console.WriteLine(" is possible");
         }
-
-        if (!isValid)
+        else
         {
             Console.WriteLine("invalid input");
         }
