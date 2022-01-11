@@ -7,29 +7,30 @@
 *--------------------------------------------------------------
 */
 
-using System;
-using MyProject;
+namespace MyProject;
 
-Console.WriteLine("Calculate prime numbers");
-Console.WriteLine("=======================");
-
-int count = 0;
-
-for (int i = 10; i <= 1000; i++)
+public static class PrimeNumbers
 {
-    if (PrimeNumbers.IsPrime(i))
+    public static bool IsPrime(int number)
     {
-        if (count != 0)
+        if (number < 0)
         {
-            Console.Write(",");
+            number = -number;
         }
 
-        if (count != 0 && count % 10 == 0)
+        if (number < 2)
         {
-            Console.WriteLine();
+            return false;
         }
 
-        Console.Write(i);
-        count++;
+        for (int i = 2; i <= number / 2; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
