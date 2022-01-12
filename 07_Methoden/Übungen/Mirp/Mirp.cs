@@ -11,8 +11,18 @@ using System;
 
 static bool IsPrim(int number)
 {
+    if (number < 2)
+    {
+        return false;
+    }
+
+    if (number == 2)
+    {
+        return true;
+    }
+
     int i;
-    for (i = 2; i < number; i++)
+    for (i = 3; i < number; i += 2)
     {
         if (number % i == 0)
             return false;
@@ -36,13 +46,27 @@ static int Reverse(int number)
     return reverseNumber;
 }
 
-static bool IstMirp(int number)
+static bool IsMirp(int number)
 {
-    int reverseNumber = Reverse(number);
+    var reverseNumber = Reverse(number);
 
     return number != reverseNumber && IsPrim(number) && IsPrim(reverseNumber);
 }
 
+void PrintNumber(int number, int count, int countPerLine)
+{
+    if (count != 0)
+    {
+        Console.Write(",");
+    }
+
+    if (count != 0 && count % countPerLine == 0)
+    {
+        Console.WriteLine();
+    }
+
+    Console.Write(number);
+}
 
 Console.WriteLine("Find Mirp Numbers ");
 Console.WriteLine("****************************");
@@ -51,17 +75,9 @@ int count = 0;
 
 for (int i = 10; i <= 1000; i++)
 {
-    if (IstMirp(i))
+    if (IsMirp(i))
     {
-        if (count != 0)
-        {
-            Console.Write(",");
-        }
-        if (count != 0 && count % 10 == 0)
-        {
-            Console.WriteLine();
-        }
-        Console.Write(i);
+        PrintNumber(i, count, 10);
         count++;
     }
 }
