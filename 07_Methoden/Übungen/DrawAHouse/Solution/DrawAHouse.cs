@@ -26,17 +26,18 @@ void DrawDot(int x, int y, ConsoleColor color)
 
 void DrawLine(int x0, int y0, int x1, int y1, ConsoleColor color)
 {
-    int diffX = x1 - x0;
-    int diffY = y1 - y0;
-    int mulX = diffX >= 0 ? 1 : -1;
-    int mulY = diffY >= 0 ? 1 : -1;
+    int distanceX = x1 - x0;
+    int distanceY = y1 - y0;
 
-    int diff = Math.Max(Math.Abs(diffX), Math.Abs(diffY));
+    int distance = Math.Max(Math.Abs(distanceX), Math.Abs(distanceY));
 
-    for (int i = 0; i <= diff; i++)
+    int roundOffsetX = distanceX >= 0 ? distance / 2 : -distance / 2;
+    int roundOffsetY = distanceY >= 0 ? distance / 2 : -distance / 2;
+
+    for (int i = 0; i <= distance; i++)
     {
-        int x = x0 + (i * diffX + mulX * diff / 2) / diff;
-        int y = y0 + (i * diffY + mulY * diff / 2) / diff;
+        int x = x0 + (i * distanceX + roundOffsetX) / distance;
+        int y = y0 + (i * distanceY + roundOffsetY) / distance;
         DrawDot(x, y, color);
     }
 }
@@ -73,18 +74,18 @@ void DrawAWindow(int x, int y, ConsoleColor color)
 
 void DrawADoor(int x, int y, ConsoleColor color)
 {
-    FillBox(x, y, x + 4, y + 4, color);
+    FillBox(x, y+1, x + 4, y + 4, color);
 }
 
 void DrawAHouse(int x, int y, ConsoleColor color)
 {
-    DrawADoor(x + 3, 1, ConsoleColor.DarkRed);
-    DrawAWindow(x + 10, 3, ConsoleColor.Gray);
-    DrawAWindow(x + 3, 7, ConsoleColor.Gray);
-    DrawAWindow(x + 10, 7, ConsoleColor.Gray);
-    DrawLine(x - 1, 10, x + 8, 19, ConsoleColor.White);
-    DrawLine(x + 9, 19, x + 18, 10, ConsoleColor.White);
-    DrawBox(x, 1, x + 17, 11, ConsoleColor.White);
+    DrawADoor(x + 3, y + 0, ConsoleColor.DarkRed);
+    DrawAWindow(x + 10, y + 2, ConsoleColor.Gray);
+    DrawAWindow(x + 3, y + 6, ConsoleColor.Gray);
+    DrawAWindow(x + 10, y + 6, ConsoleColor.Gray);
+    DrawLine(x - 1, y + 9, x + 8, y + 18, color);
+    DrawLine(x + 9, y + 18, x + 18, y + 9, color);
+    DrawBox(x, y, x + 17, y + 10, color);
 }
 
 Console.WriteLine("Draw a house with our own library ");
@@ -94,9 +95,10 @@ Initialize();
 
 DrawLine(0, 0, COLS - 1, 0, ConsoleColor.Green);
 DrawAHouse(5, 1, ConsoleColor.White);
-
-DrawAHouse(30, 1, ConsoleColor.White);
+DrawAHouse(30, 2, ConsoleColor.Magenta);
+DrawAHouse(55, 3, ConsoleColor.Yellow);
 
 Console.ResetColor();
 Console.SetCursorPosition(0, ROWS - 1);
 Console.WriteLine();
+Console.ReadLine();
