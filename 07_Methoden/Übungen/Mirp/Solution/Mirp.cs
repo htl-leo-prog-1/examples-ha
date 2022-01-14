@@ -9,7 +9,7 @@
 
 using System;
 
-static bool IsPrim(int number)
+bool IsPrim(int number)
 {
     if (number < 2)
     {
@@ -31,7 +31,7 @@ static bool IsPrim(int number)
     return true;
 }
 
-static int Reverse(int number)
+int Reverse(int number)
 {
     int reverseNumber = 0;
 
@@ -46,7 +46,7 @@ static int Reverse(int number)
     return reverseNumber;
 }
 
-static bool IsMirp(int number)
+bool IsMirp(int number)
 {
     var reverseNumber = Reverse(number);
 

@@ -51,9 +51,15 @@ void DrawBox(int x0, int y0, int x1, int y1, ConsoleColor color)
 
 void FillBox(int x0, int y0, int x1, int y1, ConsoleColor color)
 {
-    for (int x = x0; x <= x1; x++)
+    int xStart = Math.Min(x0, x1);
+    int xEnd = Math.Max(x0, x1);
+
+    int yStart = Math.Min(y0, y1);
+    int yEnd = Math.Max(y0, y1);
+
+    for (int x = xStart; x <= xEnd; x++)
     {
-        for (int y = y0; y <= y1; y++)
+        for (int y = yStart; y <= yEnd; y++)
         {
             DrawDot(x, y, color);
         }
@@ -76,8 +82,8 @@ void DrawAHouse(int x, int y, ConsoleColor color)
     DrawAWindow(x + 10, 3, ConsoleColor.Gray);
     DrawAWindow(x + 3, 7, ConsoleColor.Gray);
     DrawAWindow(x + 10, 7, ConsoleColor.Gray);
-    DrawLine(x - 1, 10, x+8, 19, ConsoleColor.White);
-    DrawLine(x + 9, 19, x+18, 10, ConsoleColor.White);
+    DrawLine(x - 1, 10, x + 8, 19, ConsoleColor.White);
+    DrawLine(x + 9, 19, x + 18, 10, ConsoleColor.White);
     DrawBox(x, 1, x + 17, 11, ConsoleColor.White);
 }
 
