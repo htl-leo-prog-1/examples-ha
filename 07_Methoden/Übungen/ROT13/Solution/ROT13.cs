@@ -33,6 +33,11 @@ char EncodeChar(char fromCh)
     return toCh;
 }
 
+string Decode(string plainText)
+{
+    return Encode(plainText);
+}
+
 string Encode(string plainText)
 {
     var encode = "";
@@ -51,7 +56,7 @@ Console.Write("Please enter a text: ");
 var plainText = Console.ReadLine();
 
 var encodedText = Encode(plainText);
-var plainAgainText = Encode(encodedText);
+var plainAgainText = Decode(encodedText);
 
 Console.WriteLine($"Plain:     {plainText}");
 Console.WriteLine($"Encrypted: {encodedText}");
