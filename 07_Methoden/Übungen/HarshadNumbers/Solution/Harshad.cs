@@ -9,11 +9,11 @@
 
 using System;
 
-bool HarshadNumbers(int number)
+bool IsHarshadNumbers(int number)
 {
     int sumOfDigit = SumOfDigit(number);
 
-    return number % sumOfDigit == 0;
+    return (number % sumOfDigit) == 0;
 }
 
 int SumOfDigit(int number)
@@ -53,7 +53,7 @@ int count = 0;
 
 for (int i = 1; i < 500; i++)
 {
-    if (HarshadNumbers(i))
+    if (IsHarshadNumbers(i))
     {
         PrintNumber(i, count, 10);
         count++;
@@ -69,7 +69,7 @@ int findTo = 1000000;
 
 for (int i = findFrom; i < findTo; i++)
 {
-    if (HarshadNumbers(i))
+    if (IsHarshadNumbers(i))
     {
         harshadCount++;
     }
