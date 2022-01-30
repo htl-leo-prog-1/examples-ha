@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeleteDoubles
 {
@@ -33,11 +29,7 @@ namespace DeleteDoubles
             } while (counter < 10 && number != 0);
             // Ausgabe
             Console.WriteLine();
-            Console.Write("Ursprüngliches Array mit Duplikaten: ");
-            for (int i = 0; i < counter && numbers[i] != 0; i++)
-            {
-                Console.Write("{0} ", numbers[i]);
-            }
+            WriteArray(numbers,"Ursprüngliches Array mit Duplikaten: ");
             // Verarbeitung
             // Doppelte Elemente aus dem Array löschen ==> 0 setzen
             for (int i = 0; i < counter - 1; i++)
@@ -51,11 +43,7 @@ namespace DeleteDoubles
                 }
             }
             Console.WriteLine();
-            Console.Write("Array mit gelöschten Duplikaten:     ");
-            for (int i = 0; i < counter; i++)
-            {
-                Console.Write("{0} ", numbers[i]);
-            }
+            WriteArray(numbers, "Array mit gelöschten Duplikaten:     ");
             // Array verdichten
             for (int i = 0; i < counter; i++)
             {
@@ -69,15 +57,28 @@ namespace DeleteDoubles
             }
             // Ausgabe
             Console.WriteLine();
-            Console.Write("Verdichtetes Array:                  ");
-            for (int i = 0; i < counter; i++)
-            {
-                Console.Write("{0} ", numbers[i]);
-            }
+            WriteArray(numbers, "Verdichtetes Array:                  ");
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Beenden mit Eingabetaste ...");
             Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Gibt das Array auf den Bildschirm aus. Die einzelnen Zahlen
+        /// werden durch ein Leerzeichen getrennt.
+        /// Der Text wird vor dem Array ausgegeben
+        /// </summary>
+        /// <param name="numbers">Array mit int-Zahlen</param>
+        /// <param name="text"></param>
+        static void WriteArray(int[] numbers, string text)
+        {
+            Console.Write(text);
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.Write("{0} ", numbers[i]);
+            }
+
         }
     }
 }
