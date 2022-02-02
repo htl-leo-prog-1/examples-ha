@@ -9,24 +9,37 @@
 
 using System;
 
+bool OnlyContainsDigits(string str)
+{
+    for (int i = 0; i < str.Length; i++)
+    {
+        if (str[i] < '0' || str[i] > '9')
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool IsSvNumberValid(string svNumber)
 {
     int[] weight = {3, 7, 9, 0, 5, 8, 4, 2, 1, 6};
 
-    bool isSVOk = false;
+    bool isSvOk = svNumber.Length == 10 && OnlyContainsDigits(svNumber);
 
-    if (svNumber.Length == 10)
+    if (isSvOk)
     {
         int sum = 0;
-        for (int i = 0; i < svNumber.Length && char.IsDigit(svNumber[i]); i++)
+        for (int i = 0; i < svNumber.Length; i++)
         {
             sum += weight[i] * (svNumber[i] - '0');
         }
 
-        isSVOk = (svNumber[3] - '0') == sum % 11;
+        isSvOk = (svNumber[3] - '0') == sum % 11;
     }
 
-    return isSVOk;
+    return isSvOk;
 }
 
 Console.WriteLine("Check a SV Number");
