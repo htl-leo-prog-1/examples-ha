@@ -11,16 +11,15 @@ using System;
 
 bool IsValidBigInteger(string str)
 {
-    bool isDigitOnly = true;
-    for (int i = 0; i < str.Length && isDigitOnly; i++)
+    for (int i = 0; i < str.Length; i++)
     {
         if (!char.IsDigit(str[i]))
         {
-            isDigitOnly = false;
+            return false;
         }
     }
 
-    return isDigitOnly;
+    return true;
 }
 
 string ReadBigInteger(string inputRequestMessage)
@@ -43,18 +42,21 @@ string ReadBigInteger(string inputRequestMessage)
     return input;
 }
 
+int GetDigit(string a, int idxFromLast)
+{
+    return (a.Length - idxFromLast >= 0) ? a[^idxFromLast] - '0' : 0;
+}
+
 string AddBigIntegers(string a, string b)
 {
     int maxLength = Math.Max(a.Length, b.Length);
 
     int carry = 0;
-    string result = "";
+    string result = string.Empty;
 
     for (int i = 1; i <= maxLength; i++)
     {
-        int aa = (a.Length - i >= 0) ? a[^i] - '0' : 0;
-        int bb = (b.Length - i >= 0) ? b[^i] - '0' : 0;
-        int sumOfCurrentDigits = aa + bb + carry;
+        int sumOfCurrentDigits = GetDigit(a,i) + GetDigit(b, i) + carry;
 
         result = (sumOfCurrentDigits % 10) + result;
         carry = sumOfCurrentDigits / 10;
@@ -70,7 +72,7 @@ string AddBigIntegers(string a, string b)
 
 string MultiplyBigIntegerWithDigit(string multiplicand, int digit)
 {
-    string result = "";
+    string result = string.Empty;
     int carry = 0;
     for (int i = multiplicand.Length - 1; i >= 0; i--)
     {
@@ -81,7 +83,7 @@ string MultiplyBigIntegerWithDigit(string multiplicand, int digit)
 
     if (carry > 0)
     {
-        result = Convert.ToString(carry) + result;
+        result = carry + result;
     }
 
     return result;
@@ -89,7 +91,7 @@ string MultiplyBigIntegerWithDigit(string multiplicand, int digit)
 
 string MultiplyBigIntegers(string multiplicand, string multiplier)
 {
-    string result = "";
+    string result = string.Empty;
     for (int i = 0; i < multiplier.Length; i++)
     {
         string product = MultiplyBigIntegerWithDigit(multiplicand, multiplier[i] - '0');
@@ -108,7 +110,7 @@ do
     string number1 = ReadBigInteger("Please enter 1. number: ");
     string number2 = ReadBigInteger("Please enter 2. number: ");
     Console.WriteLine();
-    Console.WriteLine("Summe:   " + AddBigIntegers(number1, number2));
+    Console.WriteLine("Sum:     " + AddBigIntegers(number1, number2));
     Console.WriteLine("Product: " + MultiplyBigIntegers(number1, number2));
     Console.WriteLine();
     Console.Write("Continue with \"y\": ");
