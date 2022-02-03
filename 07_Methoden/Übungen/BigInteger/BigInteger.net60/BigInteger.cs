@@ -11,15 +11,17 @@ using System;
 
 bool IsValidBigInteger(string str)
 {
-    for (int i = 0; i < str.Length; i++)
+    bool isOK = !string.IsNullOrEmpty(str);
+
+    for (int i = 0; i < str.Length && isOK; i++)
     {
         if (!char.IsDigit(str[i]))
         {
-            return false;
+            isOK = false;
         }
     }
 
-    return true;
+    return isOK;
 }
 
 string ReadBigInteger(string inputRequestMessage)
@@ -42,9 +44,13 @@ string ReadBigInteger(string inputRequestMessage)
     return input;
 }
 
-int GetDigit(string a, int idxFromLast)
+int GetDigit(string bigInteger, int position)
 {
-    return (a.Length - idxFromLast >= 0) ? a[^idxFromLast] - '0' : 0;
+    // e.g.: GetDigit("123",0) => 3
+    // e.g.: GetDigit("123",1) => 2
+    // e.g.: GetDigit("123",10) => 0  (return 0 if not exist) 
+    int idx = bigInteger.Length - 1 - position;
+    return idx >= 0 ? bigInteger[idx] - '0' : 0;
 }
 
 string AddBigIntegers(string a, string b)
@@ -54,9 +60,9 @@ string AddBigIntegers(string a, string b)
     int carry = 0;
     string result = string.Empty;
 
-    for (int i = 1; i <= maxLength; i++)
+    for (int i = 0; i < maxLength; i++)
     {
-        int sumOfCurrentDigits = GetDigit(a,i) + GetDigit(b, i) + carry;
+        int sumOfCurrentDigits = GetDigit(a, i) + GetDigit(b, i) + carry;
 
         result = (sumOfCurrentDigits % 10) + result;
         carry = sumOfCurrentDigits / 10;
@@ -74,9 +80,9 @@ string MultiplyBigIntegerWithDigit(string multiplicand, int digit)
 {
     string result = string.Empty;
     int carry = 0;
-    for (int i = multiplicand.Length - 1; i >= 0; i--)
+    for (int i = 0; i < multiplicand.Length; i++)
     {
-        int productOfCurrentDigits = (multiplicand[i] - '0') * digit + carry;
+        int productOfCurrentDigits = GetDigit(multiplicand,i) * digit + carry;
         result = (productOfCurrentDigits % 10) + result;
         carry = productOfCurrentDigits / 10;
     }
@@ -89,13 +95,18 @@ string MultiplyBigIntegerWithDigit(string multiplicand, int digit)
     return result;
 }
 
+string MultiplyBigIntegerWith10(string bigInteger)
+{
+    return bigInteger + "0";
+}
+
 string MultiplyBigIntegers(string multiplicand, string multiplier)
 {
     string result = string.Empty;
     for (int i = 0; i < multiplier.Length; i++)
     {
         string product = MultiplyBigIntegerWithDigit(multiplicand, multiplier[i] - '0');
-        result = AddBigIntegers(result + "0", product);
+        result = AddBigIntegers(MultiplyBigIntegerWith10(result), product);
     }
 
     return result;
