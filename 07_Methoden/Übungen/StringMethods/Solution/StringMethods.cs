@@ -11,15 +11,7 @@ using System;
 
 bool Contains(string str, char ch)
 {
-    for (int i = 0; i < str.Length; i++)
-    {
-        if (str[i] == ch)
-        {
-            return true;
-        }
-    }
-
-    return false;
+    return IndexOf(str, ch, 0) >= 0;
 }
 
 int IndexOf(string str, char ch, int startIdx)
