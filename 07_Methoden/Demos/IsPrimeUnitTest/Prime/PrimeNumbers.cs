@@ -7,7 +7,7 @@
 *--------------------------------------------------------------
 */
 
-namespace MyProject;
+namespace Prime;
 
 public static class PrimeNumbers
 {
@@ -32,5 +32,25 @@ public static class PrimeNumbers
         }
 
         return true;
+    }
+
+    public static int NextPrime(int number)
+    {
+        do
+        {
+            number ++;
+        } while (!IsPrime(number));
+
+        return number;
+    }
+
+    public static int PrevPrime(int number)
+    {
+        do
+        {
+            number--;
+        } while (!IsPrime(number));
+
+        return number;
     }
 }
