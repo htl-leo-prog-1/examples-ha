@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: FilterVocals with UnitTests
+*--------------------------------------------------------------
+*/
+
+using System;
 
 namespace FilterVocals
 {
@@ -6,15 +15,8 @@ namespace FilterVocals
     {
         static void Main()
         {
-            Console.WriteLine("Vokale aus Text extrahieren");
-            Console.WriteLine("===========================");
-            
-            //TODO
-
-            Console.Write("Beenden mit Eingabetaste ...");
-            Console.ReadLine();
+			//TODO: Implement Main Program
         }
-
 
         /// <summary>
         /// Aus einem Text sind alle Vokale a,e,i,o,u zu filtern.
@@ -27,7 +29,7 @@ namespace FilterVocals
         /// <returns>Text, der die Vokale enthält</returns>
         public static string FilterVocals(string text)
         {
-            throw new NotImplementedException();
+			//TODO: Implement FilterVocals
         }
     }
 }

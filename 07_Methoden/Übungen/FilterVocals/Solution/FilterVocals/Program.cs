@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: FilterVocals with UnitTests
+*--------------------------------------------------------------
+*/
+
+using System;
 
 namespace FilterVocals
 {
@@ -37,12 +46,11 @@ namespace FilterVocals
                     ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
                 {
                     var searchIndex = 0;
-                    //! Spezialistenaufgabe: Nur hinzufügen, wenn noch nicht drinnen
                     while (searchIndex < result.Length && char.ToLower(result[searchIndex]) != char.ToLower(ch))
                     {
                         searchIndex++;
                     }
-                    if (searchIndex == result.Length)  // Vokal wurde nicht gefunden
+                    if (searchIndex == result.Length)
                     {
                         result += ch;
                     }
