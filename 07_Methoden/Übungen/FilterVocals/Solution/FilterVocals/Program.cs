@@ -17,15 +17,15 @@ namespace FilterVocals
         {
             Console.WriteLine("Vokale aus Text extrahieren");
             Console.WriteLine("===========================");
-            Console.Write("Text: ");
-            var input = Console.ReadLine();
-            Console.WriteLine();
-            var result = FilterVocals(input);
-            Console.WriteLine($"Der Text \"{input}\" enthält {result.Length} Vokale: {result}");
-            Console.Write("Beenden mit Eingabetaste ...");
-            Console.ReadLine();
+            string input;
+            do
+            {
+                Console.Write("Text: ");
+                input = Console.ReadLine();
+                var result = FilterVocals(input);
+                Console.WriteLine($"Der Text \"{input}\" enthält {result.Length} Vokale: {result}");
+            } while (!string.IsNullOrEmpty(input));
         }
-
 
         /// <summary>
         /// Aus einem Text sind alle Vokale a,e,i,o,u zu filtern.
