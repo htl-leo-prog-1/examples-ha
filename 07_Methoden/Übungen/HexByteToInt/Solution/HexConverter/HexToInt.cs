@@ -1,6 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: HexConverter with UnitTests
+*--------------------------------------------------------------
+*/
+
+using System;
 
 namespace HexConverter
 {
@@ -34,6 +41,7 @@ namespace HexConverter
             {
                 return false;
             }
+
             return IsHexChar(hexString[0]) && IsHexChar(hexString[1]);
         }
 
@@ -51,10 +59,12 @@ namespace HexConverter
             {
                 return 10 + hexChar - 'A';
             }
+
             if (hexChar >= '0' && hexChar <= '9')
             {
                 return hexChar - '0';
             }
+
             return -1;
         }
 
@@ -70,13 +80,8 @@ namespace HexConverter
             {
                 return -1;
             }
+
             return HexCharToInt(hexString[0]) * 16 + HexCharToInt(hexString[1]);
         }
-
-
-
-
-
-        
     }
 }
