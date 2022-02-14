@@ -1,30 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: AverageGrade
+*--------------------------------------------------------------
+*/
 
 namespace AverageGrade
 {
+    using System;
+
     class Program
     {
         static void Main(string[] args)
         {
-            int sum = 0;
-            double average;
-            int[] grades = new int[5];
-            bool hasFour = false; // hat der Schüler einen 4er
-            bool isNegative = false; // hat der Schüler einen 5er
+            int[] grades = ReadGrades();
 
-            // Eingabe
+            double average;
+            bool hasFour;
+            bool isNegative;
+
+            Calculate(grades, out average, out hasFour, out isNegative);
+
+            ReportResults(average, hasFour, isNegative);
+        }
+
+        public static int[] ReadGrades()
+        {
+            var grades = new int[5];
+
             Console.WriteLine("Berechnung des Mittelwertes über fünf Noten");
             Console.WriteLine("Geben Sie bitte die 5 Noten ein");
             for (int i = 0; i < 5; i++)
             {
-                Console.Write("Note {0}: ", i + 1);
+                Console.Write($"Note {i + 1}: ");
                 grades[i] = int.Parse(Console.ReadLine());
             }
-            // Berechnung
+
+            return grades;
+        }
+
+        public static void Calculate(int[] grades,
+            out double average,
+            out bool hasFour,
+            out bool isNegative)
+        {
+            int sum = 0;
+            hasFour = false;
+            isNegative = false;
+
             for (int i = 0; i < 5; i++)
             {
                 sum += grades[i];
@@ -32,18 +57,23 @@ namespace AverageGrade
                 {
                     hasFour = true;
                 }
+
                 if (grades[i] == 5)
                 {
                     isNegative = true;
                 }
             }
+
             average = sum / 5.0;
-            // Ausgabe
+        }
+
+        private static void ReportResults(double average, bool hasFour, bool isNegative)
+        {
             if (isNegative)
             {
                 Console.WriteLine("Leider nicht bestanden!");
             }
-            else  // auf jeden Fall bestanden
+            else
             {
                 if (!hasFour && average <= 1.5)
                 {
@@ -61,10 +91,8 @@ namespace AverageGrade
                     }
                 }
             }
-            Console.WriteLine("Durchschnittsnote: {0,5:f2}", average);
-            Console.WriteLine();
-            Console.WriteLine("Beenden, bitte Eingabetaste drücken ...");
-            Console.ReadLine();
+
+            Console.WriteLine($"Durchschnittsnote: {average,5:f2}");
         }
     }
 }
