@@ -15,15 +15,8 @@ namespace AverageGrade
     {
         static void Main(string[] args)
         {
-            int[] grades = ReadGrades();
-
-            double average;
-            bool hasFour;
-            bool isNegative;
-
-            Calculate(grades, out average, out hasFour, out isNegative);
-
-            ReportResults(average, hasFour, isNegative);
+            var grades = ReadGrades();
+            ReportResults(grades);
         }
 
         public static int[] ReadGrades()
@@ -32,49 +25,65 @@ namespace AverageGrade
 
             Console.WriteLine("Berechnung des Mittelwertes über fünf Noten");
             Console.WriteLine("Geben Sie bitte die 5 Noten ein");
+            
             for (int i = 0; i < 5; i++)
             {
-                Console.Write($"Note {i + 1}: ");
-                grades[i] = int.Parse(Console.ReadLine());
+                grades[i] = ReadGrade($"Note {i + 1}: ");
             }
 
             return grades;
         }
 
-        public static void Calculate(int[] grades,
-            out double average,
-            out bool hasFour,
-            out bool isNegative)
+        public static int ReadGrade(string message)
         {
-            int sum = 0;
-            hasFour = false;
-            isNegative = false;
-
-            for (int i = 0; i < 5; i++)
+            int grade;
+            bool parseOk;
+            do
             {
-                sum += grades[i];
-                if (grades[i] == 4)
-                {
-                    hasFour = true;
-                }
+                Console.Write(message);
+                parseOk = int.TryParse(Console.ReadLine(), out grade);
 
-                if (grades[i] == 5)
+            } while (!parseOk || grade < 1 || grade > 5);
+
+            return grade;
+
+        }
+
+        public static bool Contains(int[] grades, int grade)
+        {
+            foreach (var g in grades)
+            {
+                if (g == grade)
                 {
-                    isNegative = true;
+                    return true;
                 }
             }
 
-            average = sum / 5.0;
+            return false;
         }
 
-        private static void ReportResults(double average, bool hasFour, bool isNegative)
+        public static double Average(int[] grades)
         {
-            if (isNegative)
+            int sum = 0;
+            foreach (var grade in grades)
+            {
+                sum += grade;
+            }
+
+            return sum / 5.0;
+        }
+
+        private static void ReportResults(int[] grades)
+        {
+            double average = Average(grades);
+
+            if (Contains(grades, 5))
             {
                 Console.WriteLine("Leider nicht bestanden!");
             }
             else
             {
+                bool hasFour = Contains(grades, 4);
                 if (!hasFour && average <= 1.5)
                 {
                     Console.WriteLine("Super, mit Auszeichnung bestanden!");
