@@ -1,7 +1,16 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: CreditcardChecker
+*--------------------------------------------------------------
+*/
 
 namespace CreditcardChecker
 {
+    using System;
+
     public class Program
     {
         public const int CARDNUMBERLENGHT = 16;
@@ -21,23 +30,12 @@ namespace CreditcardChecker
         /// <returns>True falls die Kartennummer gültig ist, false sonst</returns>
         public static bool IsCreditCardValid(string creditCardNumber)
         {
-            // Länge überprüfen
-            if (creditCardNumber.Length != CARDNUMBERLENGHT)
+            if (creditCardNumber.Length != CARDNUMBERLENGHT || 
+                OnlyContainsDigits(creditCardNumber) == false)
             {
                 return false;
             }
 
-            // Prüfen, ob nur Ziffern in der Zeichenfolge enthalten sind.
-            int index = 0;
-            while (index < creditCardNumber.Length)
-            {
-                if (Char.IsDigit(creditCardNumber[index]) == false)
-                {
-                    return false;
-                }
-                index = index + 1; // == idx++;
-            }
-            // Ermitteln der Summen (gerader und ungerader Stellen)
             int oddSum = 0;
             int evenSum = 0;
             for (int i = 0; i < creditCardNumber.Length - 1; i++)
@@ -45,16 +43,17 @@ namespace CreditcardChecker
                 int digit = creditCardNumber[i] - '0';
                 if (i % 2 == 0)
                 {
-                    evenSum += CalculateDigitSum(digit * 2);  // liefert 0 - 9 => 0*2=>0, 9*2=18 => 9
+                    evenSum += CalculateDigitSum(digit * 2);
                 }
                 else
                 {
                     oddSum += digit;
                 }
             }
-            // Prüfziffer ermitteln
+
+
             int chkDigit = CalculateCheckDigit(oddSum, evenSum);
-            // Prüfziffer mit der letzten Ziffer in der Kreditkartennummer vergleichen
+
             return chkDigit == (creditCardNumber[creditCardNumber.Length - 1] - '0');
         }
 
@@ -68,8 +67,11 @@ namespace CreditcardChecker
         public static int CalculateCheckDigit(int oddSum, int evenSum)
         {
             int chkDigit = 0;
-            if ((oddSum + evenSum) % 10 != 0)  // 0 bleibt erhalten
+            if ((oddSum + evenSum) % 10 != 0)
+            {
                 chkDigit = 10 - ((oddSum + evenSum) % 10);
+            }
+
             return chkDigit;
         }
 
@@ -86,7 +88,21 @@ namespace CreditcardChecker
                 sum += number % 10;
                 number = number / 10;
             } while (number != 0);
+
             return sum;
+        }
+
+        private static bool OnlyContainsDigits(string creditCardNumber)
+        {
+            foreach (char ch in creditCardNumber)
+            {
+                if (Char.IsDigit(ch) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
