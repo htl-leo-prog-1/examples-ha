@@ -25,9 +25,9 @@ namespace FibonacciArray
             WriteArray(numbers);
         }
 
-        public static int[] CreateFibonacciArray(int maxIndex)
+        public static ulong[] CreateFibonacciArray(int maxIndex)
         {
-            int[] fibonacci = new int[maxIndex];
+            var fibonacci = new ulong[maxIndex];
 
             fibonacci[0] = 1;
             fibonacci[1] = 1;
@@ -40,7 +40,7 @@ namespace FibonacciArray
             return fibonacci;
         }
 
-        public static void WriteArray(int[] numbers)
+        public static void WriteArray(ulong[] numbers)
         {
             for (int i = 0; i < numbers.Length; i++)
             {
