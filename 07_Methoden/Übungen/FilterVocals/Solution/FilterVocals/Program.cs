@@ -42,21 +42,31 @@ namespace FilterVocals
             for (int i = 0; i < text.Length; i++)
             {
                 char ch = text[i];
-                if (ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U' ||
-                    ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+                if (IsVocal(ch) && !Contains(result,ch))
                 {
-                    var searchIndex = 0;
-                    while (searchIndex < result.Length && char.ToLower(result[searchIndex]) != char.ToLower(ch))
-                    {
-                        searchIndex++;
-                    }
-                    if (searchIndex == result.Length)
-                    {
-                        result += ch;
-                    }
+                    result += ch;
                 }
             }
             return result;
+        }
+
+        private static bool IsVocal(char ch)
+        {
+            ch = char.ToUpper(ch);
+            return ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';
+        }
+
+        private static bool Contains(string text, char ch)
+        {
+            ch = char.ToUpper(ch);
+            foreach (char textCh in text)
+            {
+                if (ch == char.ToUpper(textCh))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
