@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RemoveDoubleNumbers
 {
@@ -27,27 +21,18 @@ namespace RemoveDoubleNumbers
             compressedArray = CompressArray(numbers, doublesCount);
             Console.Write("Array nach der Komprimierung:           ");
             WriteArray(compressedArray);
-            Console.Write("Beenden mit Eingabetaste ...");
-            Console.ReadLine();
         }
 
-
-        /// <summary>
-        /// Im Array numbers befindet sich doubles mal eine 0.
-        /// Im Ergebnisarray werden diese 0en unterdrückt.
-        /// </summary>
-        /// <param name="numbers"></param>
-        /// <returns>Komprimiertes Array</returns>
-        private static int[] CompressArray(int[] numbers, int doubles)
+        private static int[] CompressArray(int[] numbers, int removeCount)
         {
-            int[] result = new int[numbers.Length - doubles];
-            int desitnationIndex = 0;
+            var result = new int[numbers.Length - removeCount];
+            var idx = 0;
             for (int i = 0; i < numbers.Length; i++)
             {
                 if (numbers[i] != 0)
                 {
-                    result[desitnationIndex] = numbers[i];
-                    desitnationIndex++;
+                    result[idx] = numbers[i];
+                    idx++;
                 }
 
             }
@@ -58,7 +43,7 @@ namespace RemoveDoubleNumbers
         {
             for (int i = 0; i < numbers.Length; i++)
             {
-                Console.Write("{0,3}", numbers[i]);
+                Console.Write($"{numbers[i],3}");
             }
             Console.WriteLine();
         }
@@ -82,16 +67,13 @@ namespace RemoveDoubleNumbers
 
         private static int[] GetIntArray()
         {
-            int[] numbers = new int[10];
-            //int[] numbers = {22, 15, 12, 15, 4, 19, 22, 3, 9, 22};
-            //return numbers;
-            string input;
+            var numbers = new int[10];
+
             Console.WriteLine("10 Ganzzahlen > 0 eingeben");
             for (int i = 0; i < numbers.Length; i++)
             {
                 Console.Write($"Zahl {i + 1} [>0]: ");
-                input = Console.ReadLine();
-                numbers[i] = Convert.ToInt32(input);
+                numbers[i] = int.Parse(Console.ReadLine());
             }
             return numbers;
         }
