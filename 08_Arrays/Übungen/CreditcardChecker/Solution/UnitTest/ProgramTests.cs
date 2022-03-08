@@ -78,7 +78,6 @@ namespace UnitTest
             int oddSum = 0;
             int evenSum = 0;
             int expected = 0;
-            int actual;
             Program.CalculateCheckDigit(oddSum, evenSum).Should().Be(expected);
         }
 
@@ -91,7 +90,6 @@ namespace UnitTest
             int oddSum = 49;
             int evenSum = 34;
             int expected = 7;
-            int actual;
             Program.CalculateCheckDigit(oddSum, evenSum).Should().Be(expected);
         }
     }
