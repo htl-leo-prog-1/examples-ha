@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertFile", "ConvertFile\ConvertFile.csproj", "{747D8ADF-7A13-45EC-BCA6-070B11D214D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{747D8ADF-7A13-45EC-BCA6-070B11D214D5}.Debug|x86.ActiveCfg = Debug|x86
+		{747D8ADF-7A13-45EC-BCA6-070B11D214D5}.Debug|x86.Build.0 = Debug|x86
+		{747D8ADF-7A13-45EC-BCA6-070B11D214D5}.Release|x86.ActiveCfg = Release|x86
+		{747D8ADF-7A13-45EC-BCA6-070B11D214D5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ConvertFile\ConvertFile.csproj
+	EndGlobalSection
+EndGlobal
