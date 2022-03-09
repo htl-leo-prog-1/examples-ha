@@ -21,7 +21,7 @@ public class Anagram
     /// </summary>
     /// <param name="text"></param>
     /// <param name="compareWith"></param>
-    /// <returns>Returns a array for converting text to compareWith</returns>
+    /// <returns>Returns a array for converting text to compareWith. Resturns null if text/compareWith is not an anagram.</returns>
     public static int[] GetAnagramConversion(string text, string compareWith)
     {
         if (!IsAnagram(text, compareWith))
