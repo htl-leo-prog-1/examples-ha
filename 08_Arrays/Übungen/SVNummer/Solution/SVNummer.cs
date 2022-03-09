@@ -22,6 +22,11 @@ bool OnlyContainsDigits(string str)
     return true;
 }
 
+int CharToDigit(char ch)
+{
+    return ch - '0';
+}
+
 bool IsSvNumberValid(string svNumber)
 {
     int[] weight = {3, 7, 9, 0, 5, 8, 4, 2, 1, 6};
@@ -33,10 +38,10 @@ bool IsSvNumberValid(string svNumber)
         int sum = 0;
         for (int i = 0; i < svNumber.Length; i++)
         {
-            sum += weight[i] * (svNumber[i] - '0');
+            sum += weight[i] * CharToDigit(svNumber[i]);
         }
 
-        isSvOk = (svNumber[3] - '0') == sum % 11;
+        isSvOk = CharToDigit(svNumber[3]) == sum % 11;
     }
 
     return isSvOk;
