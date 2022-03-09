@@ -32,7 +32,7 @@ public class Program
         }
         else
         {
-            Console.WriteLine($"\"{firstWord}\" and {secondWord} are no anagrams!");
+            Console.WriteLine($"\"{firstWord}\" and \"{secondWord}\" are no anagrams!");
         }
     }
 
