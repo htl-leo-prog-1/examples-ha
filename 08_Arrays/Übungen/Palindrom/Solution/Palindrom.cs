@@ -89,7 +89,7 @@ bool[] CheckPalindrome(string text)
 
     bool isPalindrome = length > 2 && !ContainsDigitOrWhitespace(text);
 
-    bool isStartEndEqual = length > 0 ? IsSameChar(text[0], text[length - 1]) : false;
+    bool isStartEndEqual = length > 0 && IsSameChar(text[0], text[length - 1]);
     bool isEvenCharCount = length % 2 == 0;
 
     for (int i = 0; i < length / 2 && isPalindrome; i++)
