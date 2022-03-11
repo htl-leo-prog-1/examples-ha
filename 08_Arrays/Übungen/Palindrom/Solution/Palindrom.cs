@@ -12,12 +12,13 @@ using System;
 string[] examples =
 {
     "", "a", "AA", "AAa", "A A", "deified", "potato",
-    "civic", "car", "radar", "hannah", "Otto", "#Otto#"
+    "civic", "car", "radar", "hannah", "Otto", "#Otto#", "1Otto1"
 };
 
 Console.WriteLine("*** Palindrome Checker ***");
 Console.WriteLine();
 Console.WriteLine("Here are a couple of examples to get you started:");
+Console.WriteLine();
 
 foreach (var word in examples)
 {
@@ -86,7 +87,7 @@ bool[] CheckPalindrome(string text)
 {
     int length = text.Length;
 
-    bool isPalindrome = length > 2;
+    bool isPalindrome = length > 2 && !ContainsDigitOrWhitespace(text);
 
     bool isStartEndEqual = length > 0 ? IsSameChar(text[0], text[length - 1]) : false;
     bool isEvenCharCount = length % 2 == 0;
