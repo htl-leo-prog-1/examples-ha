@@ -32,7 +32,7 @@ namespace SortCompare
             var arraySize = int.Parse(Console.ReadLine());
 
 
-            var numbers = CreateTable(arraySize);
+            var numbers = CreateRandom(arraySize);
             int[] numbersSorted;
 
             Console.WriteLine($"Ticks for sorting {arraySize} numbers: ");
@@ -48,7 +48,7 @@ namespace SortCompare
             CallSort(SortingStrategy.SelectionSort, numbersSorted, out numbersSorted);
         }
 
-        static int[] CreateTable(int arraySize)
+        static int[] CreateRandom(int arraySize)
         {
             var dice = new Random();
             var numbers = new int[arraySize];

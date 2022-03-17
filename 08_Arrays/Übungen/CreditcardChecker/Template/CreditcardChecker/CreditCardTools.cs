@@ -7,8 +7,11 @@
 *--------------------------------------------------------------
 */
 
-using System;
+namespace CreditcardChecker;
 
-Console.WriteLine("Programm wird über Unittests gestartet!");
-Console.Write("Beenden mit Eingabetaste ...");
-Console.ReadLine();
+public class CreditCardTools
+{
+    public const int CARDNUMBERLENGHT = 16;
+
+    //TODO Implement CreditCard methods here
+}
