@@ -30,12 +30,11 @@ namespace PrimeSieb
             {
                 Console.WriteLine("Die größte Zahl muss größer als 1 sein!");
                 Console.Write("Bis zu welcher Zahl wollen Sie Primzahlen ausgeben:");
-                maxNumber = Convert.ToInt32(Console.ReadLine());
+                maxNumber = int.Parse(Console.ReadLine());
             }
 
             var isPrime = CalcIsPrime(maxNumber);
 
-            //Ausgabe
             Console.WriteLine("Primzahlen von 1 - " + maxNumber + ":");
             int lineCounter = 1;
             for (int i = 2; i <= maxNumber; i++)
@@ -69,9 +68,12 @@ namespace PrimeSieb
             int maxCheck = (int) (Math.Sqrt(maxNumber));
             for (int i = 2; i <= maxCheck; i++)
             {
-                for (int multiplicator = 2; (multiplicator * i) <= maxNumber; multiplicator++)
+                if (isPrime[i])
                 {
-                    isPrime[multiplicator * i] = false;
+                    for (int multiplicator = 2; (multiplicator * i) <= maxNumber; multiplicator++)
+                    {
+                        isPrime[multiplicator * i] = false;
+                    }
                 }
             }
 
