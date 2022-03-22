@@ -1,0 +1,10 @@
+Merzinger;Manuel;Rudolf-Kunst-Gasse 20 b;4030;Linz
+Moser;Stefan;Leonfeldnerstraﬂe 55;4040;Linz
+Neudorfer;Martin;Deisenham 17;4902;Wolfsegg am Hausruck
+Nguyen Vo;Minh Ly;Karl-Steiger-Straﬂe 64;4030;Linz
+Osmanov;Magomed;Semmelweisstraﬂe 52/7;4020;Linz
+P¸hringer;Paul;Kroiﬂenweg 2;4209;Engerwitzdorf
+Rechberger;Simon;Limberg 20;4201;Gramastetten
+Reisinger;Michael;Libellenweg 24;4030;Linz
+Setik;Erik;Julius-Raab Straﬂe 15;4040;Linz
+Sormaz;Miroslav;Guido Holzknecht-Straﬂe 27/12;4050;Traun

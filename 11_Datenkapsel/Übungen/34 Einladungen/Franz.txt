@@ -1,0 +1,15 @@
+Coban;Abdulsamet;Auer-Welsbachstraße 18;4050;Traun
+Drössler;Maximilian Klaus Ludwig;Marco-Polo-Straße 7;4600;Wels
+Filzmoser;Nico Julian;Bahnhofstraße 33;4240;Freistadt
+Freller;Ralf;Rübenstraße 11a;4063;Hörsching
+Gangl;Markus;Holzingerstraße 36;4020;Linz
+Gogic;Anel;Wimmer Straße 10/3/20;4060;Leonding
+Pühringer;Paul;Kroißenweg 2;4209;Engerwitzdorf
+Rechberger;Simon;Limberg 20;4201;Gramastetten
+Reisinger;Michael;Libellenweg 24;4030;Linz
+Setik;Erik;Julius-Raab Straße 15;4040;Linz
+Sormaz;Miroslav;Guido Holzknecht-Straße 27/12;4050;Traun
+Teodoro;Joel;Schickmayrstraße 21;4030;Linz
+Tesanovic;Nikola;Wimmerstraße 10/4;4060;Leonding
+Wandl;Markus;Oberlainsitz 21;3971;Sankt Martin
+Yaprak;Hasan Alper;Dragonerstraße 27;4600;Wels
