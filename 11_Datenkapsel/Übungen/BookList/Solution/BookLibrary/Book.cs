@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: Book Library
+*--------------------------------------------------------------
+*/
 
 namespace BookLibrary
 {
@@ -52,8 +55,5 @@ namespace BookLibrary
         {
             return _isbn;
         }
-
-
-
     }
 }

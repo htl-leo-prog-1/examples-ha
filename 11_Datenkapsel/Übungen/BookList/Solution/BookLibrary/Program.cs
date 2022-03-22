@@ -1,9 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: Book Library
+*--------------------------------------------------------------
+*/
 
 namespace BookLibrary
 {
+    using System;
+    using System.IO;
+    using System.Text;
+
     public class Program
     {
         const string FILENAME_BOOKS = "books.csv";
@@ -60,6 +69,7 @@ namespace BookLibrary
                     invalidCounter++;
                 }
             }
+
             invalidBooks = ResizeArray(invalidBooks, invalidCounter);
             return invalidBooks;
         }
@@ -86,11 +96,11 @@ namespace BookLibrary
                     duplicateCounter++;
                 }
             }
+
             validBooks = ResizeArray(validBooks, validCounter);
             duplicateBooks = ResizeArray(duplicateBooks, duplicateCounter);
             WriteCSVFile(duplicateFileName, duplicateBooks);
             return validBooks;
-
         }
 
         private static Book[] RemoveInvalidBooks(Book[] books, string invalidFileName)
@@ -101,7 +111,7 @@ namespace BookLibrary
             int validCounter = 0;
             for (int i = 0; i < books.Length; i++)
             {
-               if (!CheckIsbn(books[i].GetISBN()))
+                if (!CheckIsbn(books[i].GetISBN()))
                 {
                     invalidBooks[invalidCounter] = books[i];
                     invalidCounter++;
@@ -112,6 +122,7 @@ namespace BookLibrary
                     validCounter++;
                 }
             }
+
             invalidBooks = ResizeArray(invalidBooks, invalidCounter);
             validBooks = ResizeArray(validBooks, validCounter);
             WriteCSVFile(invalidFileName, invalidBooks);
@@ -125,6 +136,7 @@ namespace BookLibrary
             {
                 resized[i] = books[i];
             }
+
             return resized;
         }
 
@@ -151,6 +163,7 @@ namespace BookLibrary
             {
                 return (bookRight.GetAuthor().CompareTo(bookLeft.GetAuthor()) == -1);
             }
+
             return (bookRight.GetPublisher().CompareTo(bookLeft.GetPublisher()) == -1);
         }
 
@@ -166,9 +179,7 @@ namespace BookLibrary
                     books[i].GetPublisher(),
                     books[i].GetAuthor(),
                     books[i].GetTitle()
-
-
-                    );
+                );
                 counter++;
                 if (counter == 20)
                 {
@@ -178,6 +189,7 @@ namespace BookLibrary
                     {
                         break;
                     }
+
                     counter = 0;
                     Console.Clear();
                     WriteTitle();
@@ -198,10 +210,11 @@ namespace BookLibrary
             for (int i = 0; i < books.Length; i++)
             {
                 lines[i + 1] = books[i].GetAuthor() + ";"
-                    + books[i].GetTitle() + ";"
-                    + books[i].GetPublisher() + ";"
-                    + books[i].GetISBN();
+                                                    + books[i].GetTitle() + ";"
+                                                    + books[i].GetPublisher() + ";"
+                                                    + books[i].GetISBN();
             }
+
             File.WriteAllLines(fileName, lines, Encoding.Default);
         }
 
@@ -218,6 +231,7 @@ namespace BookLibrary
                 books[i].SetPublisher(columns[2]);
                 books[i].SetISBN(columns[3]);
             }
+
             return books;
         }
 
@@ -239,6 +253,7 @@ namespace BookLibrary
                 //Debug.WriteLine($"!!! isbn {isbn} has no length of 10!");
                 return false;
             }
+
             int sum = 0;
             for (int i = 0; i < 10; i++)
             {
@@ -248,7 +263,7 @@ namespace BookLibrary
                 {
                     number = ch - '0';
                 }
-                else  // keine Ziffer  => x oder X an letzter Stelle
+                else // keine Ziffer  => x oder X an letzter Stelle
                 {
                     if (i != 9)
                     {
@@ -266,9 +281,11 @@ namespace BookLibrary
                         }
                     }
                 }
+
                 // zahl enthält gültigen Wert
                 sum += number * (i + 1);
             }
+
             return (sum % 11) == 0;
         }
     }
