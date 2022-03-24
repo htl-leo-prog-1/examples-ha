@@ -31,10 +31,13 @@ string[] Split(string str, char separator)
     string[] result = new string[WordCount(str, separator)];
 
     int wordIdx = 0;
+    int idx = Skip(str, separator, 0);
 
-    for (int idx = Skip(str, separator, 0); idx < str.Length;)
+    while (idx < str.Length)
     {
+        // idx = begin of word
         string word = string.Empty;
+        
         while (idx < str.Length && str[idx] != separator)
         {
             word += str[idx];
@@ -53,8 +56,9 @@ string[] Split(string str, char separator)
 int WordCount(string str, char separator)
 {
     int wordCount = 0;
+    int idx = Skip(str, separator, 0);
 
-    for (int idx = Skip(str, separator, 0); idx < str.Length;)
+    while (idx < str.Length)
     {
         wordCount++;
 
