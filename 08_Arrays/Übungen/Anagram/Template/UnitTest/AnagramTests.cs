@@ -45,6 +45,7 @@ public class AnagramTests
     [InlineData("Xampe", "Ampel")]
     [InlineData("Xmpel", "Palme")]
     [InlineData("Xager", "Regal")]
+    [InlineData("OTTT", "ooot")]
     public void T02_IsNoAnagram(string text, string compareWith)
     {
         Anagram.IsAnagram(text, compareWith).Should().BeFalse();
