@@ -18,7 +18,7 @@ public static class Sudoku
     ///     This allows the user to see which cells have already been filled with a number and which remain empty.
     /// </summary>
     /// <param name="sudoku">The sudoku field to print</param>
-    public static void PrintSudokuField(int[,] sudoku)
+    public static void PrintSudoku(int[,] sudoku)
     {
         const ConsoleColor NUMBER_COLOR = ConsoleColor.DarkGreen;
 
@@ -126,8 +126,8 @@ public static class Sudoku
         {
             if (no > 0)
             {
-                isValid = !Contains(GetCols(sudoku, row), no) &&
-                          !Contains(GetRows(sudoku, col), no) &&
+                isValid = !Contains(GetCols(sudoku, col), no) &&
+                          !Contains(GetRows(sudoku, row), no) &&
                           !Contains(GetSegment(sudoku, row, col), no);
             }
 
@@ -138,6 +138,55 @@ public static class Sudoku
         }
 
         return isValid;
+    }
+
+    public static int[,][] GetPossibleNumbers(int[,] sudoku)
+    {
+        var result = new int[9, 9][];
+        var validNos = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int col = 0; col < 9; col++)
+            {
+                if (sudoku[row, col] == 0)
+                {
+                    var allValidNos = new int[][]
+                    {
+                        Except(validNos, GetCols(sudoku, col)),
+                        Except(validNos, GetRows(sudoku, row)),
+                        Except(validNos, GetSegment(sudoku, row, col)),
+                    };
+
+                    var validFieldNos = validNos;
+                    foreach (var valid in allValidNos)
+                    {
+                        validFieldNos = Intersect(valid, validFieldNos);
+                    }
+
+                    result[row, col] = validFieldNos;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static int[] Intersect(int[] numbersA, int[] numbersB)
+    {
+        var result = new int[numbersA.Length];
+        int count = 0;
+
+        for (int i = 0; i < numbersA.Length; i++)
+        {
+            if (!Contains(numbersA, numbersA[i], i) && Contains(numbersB, numbersA[i]))
+            {
+                result[count] = numbersA[i];
+                count++;
+            }
+        }
+
+        return CopyArray(result, count);
     }
 
     private static bool Contains(int[] ar, int value)
@@ -153,20 +202,63 @@ public static class Sudoku
         return false;
     }
 
-    private static int[] GetCols(int[,] sudoku, int row)
+    private static bool Contains(int[] ar, int value, int length)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            if (value == ar[i])
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static int[] Except(int[] from, int[] except)
+    {
+        var result = new int[from.Length];
+        int count = 0;
+
+        foreach (var val in from)
+        {
+            if (!Contains(except, val))
+            {
+                result[count] = val;
+                count++;
+            }
+        }
+
+        return CopyArray(result, count);
+    }
+
+    private static int[] CopyArray(int[] ar, int length)
+    {
+        var result = new int[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = ar[i];
+        }
+
+        return result;
+    }
+
+    private static int[] GetCols(int[,] sudoku, int col)
     {
         var cols = new int[9];
-        for (int col = 0; col < 9; col++)
+        for (int row = 0; row < 9; row++)
         {
-            cols[col] = sudoku[row, col];
+            cols[row] = sudoku[row, col];
         }
 
         return cols;
     }
-    private static int[] GetRows(int[,] sudoku, int col)
+
+    private static int[] GetRows(int[,] sudoku, int row)
     {
         var rows = new int[9];
-        for (int row = 0; row < 9; row++)
+        for (int col = 0; col < 9; col++)
         {
             rows[col] = sudoku[row, col];
         }

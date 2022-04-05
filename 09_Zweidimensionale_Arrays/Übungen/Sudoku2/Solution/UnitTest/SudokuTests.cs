@@ -28,7 +28,18 @@ namespace UnitTest
         [MemberData(nameof(SudokuSetFieldData))]
         public void SetField(int[,] sudoku, int row, int col, int no, bool expected)
         {
+            sudoku = sudoku.Clone() as int[,];
             Sudoku.SetField(sudoku, row, col, no).Should().Be(expected);
+        }
+
+        [Theory]
+        [MemberData(nameof(SudokuGetPossibleFieldData))]
+        public void GetPossibleFieldNo(int[,] sudoku)
+        {
+            var possibles = Sudoku.GetPossibleNumbers(sudoku);
+            possibles[0, 0].Should().BeNull();
+            possibles[0, 1].Should().Equal(new[] {4, 5, 6, 7});
+            possibles[0, 2].Should().Equal(new[] {5, 6, 7, 8, 9});
         }
 
         private static readonly int[,] validIncompleteSudoku =
@@ -57,6 +68,32 @@ namespace UnitTest
             {3, 4, 5, 2, 8, 6, 1, 7, 9}
         };
 
+        private static readonly int[,] validColRowSegmentSudoku =
+        {
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
+
+        private static readonly int[,] validPossibleSudoku =
+        {
+            {1, 0, 0, 2, 0, 0, 3, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 8, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 3, 0, 0, 0, 0, 0, 0},
+            {0, 9, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 4, 0, 0, 0, 0, 0, 0}
+        };
+
         public static IEnumerable<object[]> SudokuCompleteData =>
             new[]
             {
@@ -68,7 +105,19 @@ namespace UnitTest
             new[]
             {
                 new object[] {validCompleteSudoku, 0, 0, 0, true},
-                new object[] {validCompleteSudoku, 0, 0, 2, true},
+                new object[] {validIncompleteSudoku, 0, 1, 3, true},
+                new object[] {validColRowSegmentSudoku, 0, 8, 1, false},
+                new object[] {validColRowSegmentSudoku, 8, 0, 1, false},
+                new object[] {validColRowSegmentSudoku, 2, 2, 1, false},
+                new object[] {validColRowSegmentSudoku, 1, 8, 1, true},
+                new object[] {validColRowSegmentSudoku, 8, 1, 1, true},
+                new object[] {validColRowSegmentSudoku, 3, 3, 1, true},
+            };
+
+        public static IEnumerable<object[]> SudokuGetPossibleFieldData =>
+            new[]
+            {
+                new object[] {validPossibleSudoku},
             };
     }
 }
