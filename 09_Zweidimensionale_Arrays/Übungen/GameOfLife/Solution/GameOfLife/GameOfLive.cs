@@ -57,15 +57,15 @@ namespace GameOfLife
             int neighbourCount = 0;
             int size = world.GetLength(0);
 
-            int left = Math.Max(0, col - 1);
-            int right = Math.Min(size - 1, col + 1);
-            int top = Math.Max(0, row - 1);
-            int bottom = Math.Min(size - 1, row + 1);
+            int left = col - 1 + size;
+            int right = left + 2;
+            int top = row - 1 + size;
+            int bottom = top + 2;
             for (int z = top; z <= bottom; z++)
             {
                 for (int s = left; s <= right; s++)
                 {
-                    if (world[z, s])
+                    if (world[z % size, s % size])
                     {
                         neighbourCount++;
                     }
@@ -133,7 +133,7 @@ namespace GameOfLife
 
             return world;
         }
-        
+
         /// <summary>
         /// Einlesen (von der Konsole) einer welt.
         /// </summary>
