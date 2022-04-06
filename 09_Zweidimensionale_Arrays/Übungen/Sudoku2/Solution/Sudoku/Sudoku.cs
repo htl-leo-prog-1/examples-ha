@@ -13,24 +13,28 @@ using System;
 
 public static class Sudoku
 {
+    #region print
+
+    const ConsoleColor NUMBER_COLOR   = ConsoleColor.DarkGreen;
+    const ConsoleColor POSSIBLE_COLOR = ConsoleColor.Yellow;
+
     /// <summary>
     ///     Prints the sudoku playing field to the console.
     ///     This allows the user to see which cells have already been filled with a number and which remain empty.
     /// </summary>
     /// <param name="sudoku">The sudoku field to print</param>
-    public static void PrintSudoku(int[,] sudoku)
+    public static void PrintSudoku(int[,] sudoku, bool showHelp)
     {
-        const ConsoleColor NUMBER_COLOR = ConsoleColor.DarkGreen;
-
-        int side = sudoku.GetLength(0);
+        var possibleNos = GetPossibleNumbers(sudoku);
 
         Console.WriteLine(GetLine(" ", '╔', '═', '╦', '═', '╗'));
 
-        for (int row = 0; row < side; row++)
+        for (int row = 0; row < 9; row++)
         {
-            bool is3x3Row = row % 3 == 0;
             if (row > 0)
             {
+                bool is3x3Row = row % 3 == 0;
+
                 if (is3x3Row)
                 {
                     Console.WriteLine(GetLine(" ", '╠', '═', '╬', '═', '╣'));
@@ -41,32 +45,16 @@ public static class Sudoku
                 }
             }
 
-            Console.Write($"{row + 1}║");
-            for (int col = 0; col < side; col++)
-            {
-                int number = sudoku[row, col];
-                if (number > 0)
-                {
-                    Console.ForegroundColor = NUMBER_COLOR;
-                    Console.Write($" {number} ");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.Write("   ");
-                }
-
-                Console.Write(col % 3 == 2 ? '║' : '│');
-            }
-
-            Console.WriteLine();
+            PrintLine(sudoku, possibleNos, row, false, showHelp, 1, 2, 3);
+            PrintLine(sudoku, possibleNos, row, true,  showHelp, 4, 5, 6);
+            PrintLine(sudoku, possibleNos, row, false, showHelp, 7, 8, 9);
         }
 
         Console.WriteLine(GetLine(" ", '╚', '═', '╩', '═', '╝'));
 
-        for (int col = 0; col < side; col++)
+        for (int col = 0; col < 9; col++)
         {
-            Console.Write($"   {(char) ('A' + col)}");
+            Console.Write($"     {(char)('A' + col)}");
         }
 
         Console.WriteLine();
@@ -74,8 +62,8 @@ public static class Sudoku
 
     private static string GetLine(string pre, char firstCh, char midCh, char mid3x3Ch, char mid, char lastCh)
     {
-        string midStr = new string(mid, 3);
-        string line = pre + firstCh + midStr;
+        string midStr = new string(mid, 5);
+        string line   = pre + firstCh + midStr;
 
         for (int row = 0; row < 8; row++)
         {
@@ -87,6 +75,53 @@ public static class Sudoku
 
         return line;
     }
+
+    private static void PrintLine(int[,] sudoku, int[,][] possibleNos, int row, bool printNo, bool showHelp, int p1, int p2, int p3)
+    {
+        int side = sudoku.GetLength(0);
+        Console.Write($"{(printNo ? (row+1).ToString() : " ")}║");
+
+        for (int col = 0; col < side; col++)
+        {
+            int number = sudoku[row, col];
+            if (number > 0)
+            {
+                if (printNo)
+                {
+                    Console.ForegroundColor = NUMBER_COLOR;
+                    Console.Write($"  {number}  ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.Write("     ");
+                }
+            }
+            else if (showHelp)
+            {
+                Console.ForegroundColor = POSSIBLE_COLOR;
+                Console.Write(
+                    $"{GetPossible(possibleNos[row, col], p1)} {GetPossible(possibleNos[row, col], p2)} {GetPossible(possibleNos[row, col], p3)}");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.Write("     ");
+            }
+
+            Console.Write(col % 3 == 2 ? '║' : '│');
+        }
+
+        Console.WriteLine();
+    }
+
+
+    private static string GetPossible(int[] possible, int printNo)
+    {
+        return CommonTools.Contains(possible, printNo) ? printNo.ToString() : " ";
+    }
+
+    #endregion
 
     /// <summary>
     /// Test if the sudoku is finished, if all fields are different to 0
@@ -126,9 +161,9 @@ public static class Sudoku
         {
             if (no > 0)
             {
-                isValid = !Contains(GetCols(sudoku, col), no) &&
-                          !Contains(GetRows(sudoku, row), no) &&
-                          !Contains(GetSegment(sudoku, row, col), no);
+                isValid = !CommonTools.Contains(GetCols(sudoku, col),         no) &&
+                          !CommonTools.Contains(GetRows(sudoku, row),         no) &&
+                          !CommonTools.Contains(GetSegment(sudoku, row, col), no);
             }
 
             if (isValid)
@@ -140,10 +175,16 @@ public static class Sudoku
         return isValid;
     }
 
+    /// <summary>
+    /// Calculate the possible numbers for each field.
+    /// Possible numbers are the numbers which are not in the column, row or segement.
+    /// </summary>
+    /// <param name="sudoku"></param>
+    /// <returns></returns>
     public static int[,][] GetPossibleNumbers(int[,] sudoku)
     {
-        var result = new int[9, 9][];
-        var validNos = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        var result          = new int[9, 9][];
+        var allValidNumbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
         for (int row = 0; row < 9; row++)
         {
@@ -151,94 +192,22 @@ public static class Sudoku
             {
                 if (sudoku[row, col] == 0)
                 {
-                    var allValidNos = new int[][]
+                    var validNoRowColSegment = new int[][]
                     {
-                        Except(validNos, GetCols(sudoku, col)),
-                        Except(validNos, GetRows(sudoku, row)),
-                        Except(validNos, GetSegment(sudoku, row, col)),
+                        CommonTools.Except(allValidNumbers, GetCols(sudoku, col)),
+                        CommonTools.Except(allValidNumbers, GetRows(sudoku, row)),
+                        CommonTools.Except(allValidNumbers, GetSegment(sudoku, row, col)),
                     };
 
-                    var validFieldNos = validNos;
-                    foreach (var valid in allValidNos)
+                    var validFieldNos = allValidNumbers;
+                    foreach (var valid in validNoRowColSegment)
                     {
-                        validFieldNos = Intersect(valid, validFieldNos);
+                        validFieldNos = CommonTools.Intersect(valid, validFieldNos);
                     }
 
                     result[row, col] = validFieldNos;
                 }
             }
-        }
-
-        return result;
-    }
-
-    public static int[] Intersect(int[] numbersA, int[] numbersB)
-    {
-        var result = new int[numbersA.Length];
-        int count = 0;
-
-        for (int i = 0; i < numbersA.Length; i++)
-        {
-            if (!Contains(numbersA, numbersA[i], i) && Contains(numbersB, numbersA[i]))
-            {
-                result[count] = numbersA[i];
-                count++;
-            }
-        }
-
-        return CopyArray(result, count);
-    }
-
-    private static bool Contains(int[] ar, int value)
-    {
-        foreach (var val in ar)
-        {
-            if (value == val)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static bool Contains(int[] ar, int value, int length)
-    {
-        for (int i = 0; i < length; i++)
-        {
-            if (value == ar[i])
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static int[] Except(int[] from, int[] except)
-    {
-        var result = new int[from.Length];
-        int count = 0;
-
-        foreach (var val in from)
-        {
-            if (!Contains(except, val))
-            {
-                result[count] = val;
-                count++;
-            }
-        }
-
-        return CopyArray(result, count);
-    }
-
-    private static int[] CopyArray(int[] ar, int length)
-    {
-        var result = new int[length];
-
-        for (int i = 0; i < length; i++)
-        {
-            result[i] = ar[i];
         }
 
         return result;
@@ -283,7 +252,7 @@ public static class Sudoku
         return segment;
     }
 
-    public static void ConvertToSegment(int row, int col, out int rowSegment, out int colSegment)
+    private static void ConvertToSegment(int row, int col, out int rowSegment, out int colSegment)
     {
         var rowX3 = (row / 3) * 3;
         var colX3 = (row % 3) * 3;
@@ -295,7 +264,7 @@ public static class Sudoku
         colSegment = colX3 + dCol;
     }
 
-    public static void ConvertFromSegment(int rowSegment, int colSegment, out int row, out int col)
+    private static void ConvertFromSegment(int rowSegment, int colSegment, out int row, out int col)
     {
         row = (rowSegment / 3) * 3 + colSegment / 3;
         col = (rowSegment % 3) * 3 + (colSegment % 3);
