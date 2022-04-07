@@ -12,25 +12,16 @@ namespace GameOfLife
 {
     using System;
 
-    public class Program
+    public class GameOfLife
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Game of Life");
-            Console.WriteLine("============");
+        //TODO: Implement CalculateNextGeneration
 
+        //TODO: Implement CountNeighbours
 
-            // TODO: Implement "main" here 
+        //TODO: Implement additional methods, e.g. CreateWorld
 
-            int size = 10;
+        //TODO: Implement additional methods, e.g. WriteWorldConsole
 
-            Board.Init(size, size, "Game of Life");
-
-            Board.SetText(0, 0, "X");
-
-            Console.ReadLine();
-
-        }
-        // TODO: if you need additional methods, implement them here
+        //TODO: Implement additional methods, e.g. ...
     }
 }

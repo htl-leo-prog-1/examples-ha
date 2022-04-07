@@ -31,7 +31,8 @@ namespace GameOfLife
                 world = GameOfLife.CalculateNextGeneration(world);
                 round++;
 
-                input = PrintWorld(world, $"Welt nach Runde: {round}", "Eingabetaste für nächste Runde oder x für Ende: ");
+                input = PrintWorld(world, $"Welt nach Runde: {round}",
+                    "Eingabetaste für nächste Runde oder x für Ende: ");
             } while (input != "x" && input != "X");
         }
 
@@ -56,6 +57,7 @@ namespace GameOfLife
 
             return world;
         }
+
         private static void WriteWorldBoard(bool[,] world)
         {
             Board.Clear();
