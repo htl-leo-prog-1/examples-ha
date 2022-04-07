@@ -16,50 +16,58 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            bool[,] world;
             string input;
-            int round = 0;
-            int size;
+            int    round = 0;
+
             Console.WriteLine("Game of Life");
             Console.WriteLine("============");
 
+            bool[,] world = CreateOrReadWorld();
+
+            PrintWorld(world, "Ausgangswelt:", "Start mit Eingabetaste...");
+
+            do
+            {
+                world = GameOfLife.CalculateNextGeneration(world);
+                round++;
+
+                input = PrintWorld(world, $"Welt nach Runde: {round}", "Eingabetaste für nächste Runde oder x für Ende: ");
+            } while (input != "x" && input != "X");
+        }
+
+        private static bool[,] CreateOrReadWorld()
+        {
+            bool[,] world;
+
             Console.WriteLine("Bei einer negativen Größe wird eine zufällige Welt mit der positiven Größe erstellt.");
-            size = ReadNumber("Größe des Spielfelds: ", -100, 100);
+            int size = ReadNumber("Größe des Spielfelds: ", -100, 100);
 
             if (size < 0)
             {
-                size *= -1;
-                world = GameOfLife.CreateWorld(size);
+                size  *= -1;
+                world =  GameOfLife.CreateWorld(size);
             }
             else
             {
                 world = GameOfLife.ReadMatrix(size);
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Ausgangswelt:");
+            return world;
+        }
 
+        private static string PrintWorld(bool[,] world, string title, string message)
+        {
+            Console.Clear();
+            Console.WriteLine(title);
             GameOfLife.WriteWorldConsole(world);
             Console.WriteLine();
-            Console.Write("Start mit Eingabetaste ... ");
-            Console.ReadLine();
-            do
-            {
-                round++;
-                Console.Clear();
-                Console.WriteLine("Welt nach Runde: {0}", round);
-                world = GameOfLife.CalculateNextGeneration(world);
-                Console.WriteLine();
-                GameOfLife.WriteWorldConsole(world);
-                Console.WriteLine();
-                Console.Write("Eingabetaste für nächste Runde oder x für Ende: ");
-                input = Console.ReadLine();
-            } while (input != "x" && input != "X");
+            Console.Write(message);
+            return Console.ReadLine();
         }
 
         private static int ReadNumber(string message, int min, int max)
         {
-            int number;
+            int  number;
             bool isOk;
             do
             {
