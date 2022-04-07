@@ -18,6 +18,7 @@ namespace DameProblem
             {
                 return false;
             }
+
             int count = 0;
 
             for (int x = 0; x < 8; x++)
@@ -26,31 +27,60 @@ namespace DameProblem
                 {
                     if (field[x, y])
                     {
-                        count++;
-                        for (int dx = -1; dx <= 1; dx++)
+                        if (!IsValidAllDirections(field, x, y))
                         {
-                            for (int dy = -1; dy <= 1; dy++)
-                            {
-                                if (!(dx == 0 && dy == 0))
-                                {
-                                    int x1 = x + dx;
-                                    int y1 = y + dy;
-                                    while (x1 >= 0 && x1 < 8 && y1 >= 0 && y1 < 8)
-                                    {
-                                        if (field[x1, y1])
-                                        {
-                                            return false;
-                                        }
-                                        x1 = x1 + dx;
-                                        y1 = y1 + dy;
-                                    }
-                                }
-                            }
+                            return false;
+                        }
+
+                        count++;
+                    }
+                }
+            }
+
+            return count == 8;
+        }
+
+        private static bool IsValidAllDirections(bool[,] field, int x, int y)
+        {
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    if (dx != 0 || dy != 0) // both directions must not be 0
+                    {
+                        if (!IsValidDirection(field, x, y, dx, dy))
+                        {
+                            return false;
                         }
                     }
                 }
             }
-            return count==8;
+
+            return true;
+        }
+
+        private static bool IsValidPos(int pos)
+        {
+            return pos > 0 && pos < 8;
+        }
+
+        private static bool IsValidDirection(bool[,] field, int x, int y, int dx, int dy)
+        {
+            x += dx;
+            y += dy;
+
+            while (IsValidPos(x) && IsValidPos(y))
+            {
+                if (field[x, y])
+                {
+                    return false;
+                }
+
+                x += dx;
+                y += dy;
+            }
+
+            return true;
         }
     }
 }
