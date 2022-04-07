@@ -24,7 +24,7 @@ namespace GameOfLife
             Console.WriteLine("============");
 
             Console.WriteLine("Bei einer negativen Größe wird eine zufällige Welt mit der positiven Größe erstellt.");
-            size = ReadNumber("Größe des Spielfelds: ", -100,100);
+            size = ReadNumber("Größe des Spielfelds: ", -100, 100);
 
             if (size < 0)
             {
