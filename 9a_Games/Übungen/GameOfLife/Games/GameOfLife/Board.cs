@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Windows.Forms;
 
+namespace GameOfLife;
+
 /// <summary>
 /// Zugriffsklasse auf das Windows-Board
 /// </summary>
@@ -319,8 +321,8 @@ public class FormBoard : Form
     private void CreateCells(int rows, int cols)
     {
         for (int row = 0; row < rows; row++)
-            for (int col = 0; col < cols; col++)
-                CreateCell(row, col);
+        for (int col = 0; col < cols; col++)
+            CreateCell(row, col);
     }
 
     /// <summary>
@@ -373,4 +375,3 @@ public class FormBoard : Form
         }
     }
 }
-
