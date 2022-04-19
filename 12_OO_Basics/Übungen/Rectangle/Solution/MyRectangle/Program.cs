@@ -1,7 +1,16 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+*				HTBLA-Leonding / Class: 1xHIF
+*--------------------------------------------------------------
+*              Musterlösung-HA
+*--------------------------------------------------------------
+* Description: Rectangle
+*--------------------------------------------------------------
+*/
 
 namespace MyRectangle
 {
+    using System;
+
     class Program
     {
         static void Main(string[] args)
@@ -25,12 +34,14 @@ namespace MyRectangle
                         {
                             rectangles[i].Rotate();
                         }
+
                         break;
                     case ("s"):
                         for (int i = 0; i < rectangles.Length; i++)
                         {
                             rectangles[i].Scale(2);
                         }
+
                         break;
 
                     case ("sort"):
@@ -38,10 +49,11 @@ namespace MyRectangle
                         break;
                     default: break;
                 }
+
                 Draw(rectangles);
                 input = GetInput();
             }
-         }
+        }
 
         private static string GetInput()
         {
@@ -68,7 +80,7 @@ namespace MyRectangle
                 {
                     if (rect[left].CompareTo(rect[right]) == -1)
                     {
-                        Rectangle temp = rect[left];
+                        var temp = rect[left];
                         rect[left] = rect[right];
                         rect[right] = temp;
                     }
