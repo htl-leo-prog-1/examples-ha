@@ -17,7 +17,7 @@ namespace GameOfLife
         static void Main(string[] args)
         {
             string input;
-            int round = 0;
+            int    round = 0;
 
             Console.WriteLine("Game of Life");
             Console.WriteLine("============");
@@ -45,8 +45,8 @@ namespace GameOfLife
 
             if (size < 0)
             {
-                size *= -1;
-                world = GameOfLife.CreateWorld(size);
+                size  *= -1;
+                world =  GameOfLife.CreateWorld(size);
             }
             else
             {
@@ -81,12 +81,12 @@ namespace GameOfLife
             GameOfLife.WriteWorldConsole(world);
             Console.WriteLine();
             Console.Write(message);
-            return Console.ReadLine();
+            return Console.ReadLine() ?? "";
         }
 
         private static int ReadNumber(string message, int min, int max)
         {
-            int number;
+            int  number;
             bool isOk;
             do
             {
