@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-
-namespace Games
+﻿namespace TicTacToe
 {
+    using System;
+
     /// <summary>
     /// Implementiert das Spiel TicTacToe mit Methoden der
     /// schrittweisen Verfeinerung
@@ -16,23 +10,23 @@ namespace Games
     {
         static void Main(string[] args)
         {
-            int counter = 0;
-            Random random = new Random();
-            int playerIndex;
-            int winnerIndex = -1;//0, 1 wer hat gewonnen, -1 kein Sieger
-            int position;
-            int row;
-            int col;
+            int    counter = 0;
+            Random random  = new Random();
+            int    playerIndex;
+            int    winnerIndex = -1; //0, 1 wer hat gewonnen, -1 kein Sieger
+            int    position;
+            int    row;
+            int    col;
             Console.WriteLine("TicTacToe");
             Console.WriteLine("=========");
             playerIndex = random.Next(0, 2);
             Board.Init(3, 3, "TicTacToe");
-            InitPositions();  // Spielfeld initialisieren
+            InitPositions(); // Spielfeld initialisieren
             do
             {
                 position = GetStonePosition(playerIndex);
-                row = GetRowFromPosition(position);
-                col = GetColFromPosition(position, row);
+                row      = GetRowFromPosition(position);
+                col      = GetColFromPosition(position, row);
                 if (playerIndex == 0)
                 {
                     Board.SetText(row, col, "O", "Red");
@@ -41,21 +35,25 @@ namespace Games
                 {
                     Board.SetText(row, col, "X", "Green");
                 }
+
                 counter++;
-                if (counter >= 5)  // erst dann kann es einen Sieger geben
+                if (counter >= 5) // erst dann kann es einen Sieger geben
                 {
                     winnerIndex = CheckWinner();
                 }
+
                 playerIndex = 1 - playerIndex;
             } while (counter < 9 && winnerIndex == -1);
+
             if (winnerIndex != -1)
             {
-                Console.WriteLine("Gewonnen hat der Spieler mit der Nummer {0}",winnerIndex);
+                Console.WriteLine("Gewonnen hat der Spieler mit der Nummer {0}", winnerIndex);
             }
             else
             {
-                Console.WriteLine("Das Spiel endete unentschieden");     
+                Console.WriteLine("Das Spiel endete unentschieden");
             }
+
             Console.Write("Beenden mit der Eingabetaste ...");
             Console.ReadLine();
         }
@@ -69,26 +67,29 @@ namespace Games
         private static int CheckWinner()
         {
             // Diagonale \
-            if (Board.GetText(0,0) == Board.GetText(1,1) &&
-                Board.GetText(1,1) == Board.GetText(2,2))
+            if (Board.GetText(0, 0) == Board.GetText(1, 1) &&
+                Board.GetText(1, 1) == Board.GetText(2, 2))
             {
                 return GetPlayerIndexFromCell(0, 0);
             }
+
             // Diagonale /
             if (Board.GetText(0, 2) == Board.GetText(1, 1) &&
                 Board.GetText(1, 1) == Board.GetText(2, 0))
             {
-                return GetPlayerIndexFromCell(1,1);
+                return GetPlayerIndexFromCell(1, 1);
             }
+
             // Zeilen
             for (int row = 0; row < 3; row++)
             {
-                if (Board.GetText(row, 0) == Board.GetText(row, 1) && 
+                if (Board.GetText(row, 0) == Board.GetText(row, 1) &&
                     Board.GetText(row, 1) == Board.GetText(row, 2))
                 {
                     return GetPlayerIndexFromCell(row, 0);
                 }
             }
+
             // Spalten
             for (int col = 0; col < 3; col++)
             {
@@ -98,6 +99,7 @@ namespace Games
                     return GetPlayerIndexFromCell(0, col);
                 }
             }
+
             return -1;
         }
 
@@ -107,7 +109,7 @@ namespace Games
         /// <param name="row"></param>
         /// <param name="col"></param>
         /// <returns></returns>
-        private static int GetPlayerIndexFromCell(int row,int col)
+        private static int GetPlayerIndexFromCell(int row, int col)
         {
             if (Board.GetText(row, col) == "X")
             {
@@ -117,6 +119,7 @@ namespace Games
             {
                 return 0;
             }
+
             return -1;
         }
 
@@ -129,7 +132,7 @@ namespace Games
         /// <returns></returns>
         private static int GetColFromPosition(int position, int row)
         {
-            return position + 3*row-7;
+            return position + 3 * row - 7;
         }
 
         /// <summary>
@@ -139,7 +142,7 @@ namespace Games
         /// <returns></returns>
         private static int GetRowFromPosition(int position)
         {
-            return 2-((position-1)/3);
+            return 2 - ((position - 1) / 3);
         }
 
 
@@ -153,13 +156,14 @@ namespace Games
         private static int GetStonePosition(int playerIndex)
         {
             string input;
-            int position;
+            int    position;
             do
             {
                 Console.Write("Spieler {0}, Position [1-9]: ", playerIndex);
-                input = Console.ReadLine();
+                input    = Console.ReadLine();
                 position = Convert.ToInt32(input);
             } while (!CheckPosition(position));
+
             return position;
         }
 
@@ -178,13 +182,15 @@ namespace Games
             {
                 return false;
             }
+
             row = GetRowFromPosition(position);
-            col = GetColFromPosition(position,row);
-            if (Board.GetText(row, col) != "X"&& 
+            col = GetColFromPosition(position, row);
+            if (Board.GetText(row, col) != "X" &&
                 Board.GetText(row, col) != "O")
             {
                 return true;
             }
+
             return false;
         }
 
@@ -197,15 +203,15 @@ namespace Games
             // in hellgrau
             int[,] numbers =
             {
-                {7, 8, 9},
-                {4, 5, 6},
-                {1, 2, 3}
+                { 7, 8, 9 },
+                { 4, 5, 6 },
+                { 1, 2, 3 }
             };
             for (int row = 0; row < 3; row++)
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    Board.SetText(row, col, numbers[row,col].ToString(),"LightGrey");
+                    Board.SetText(row, col, numbers[row, col].ToString(), "LightGrey");
                 }
             }
         }
