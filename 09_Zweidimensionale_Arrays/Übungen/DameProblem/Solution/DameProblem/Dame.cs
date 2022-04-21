@@ -61,7 +61,7 @@ namespace DameProblem
 
         private static bool IsValidPos(int pos)
         {
-            return pos > 0 && pos < 8;
+            return pos >= 0 && pos < 8;
         }
 
         private static bool IsValidDirection(bool[,] field, int x, int y, int dx, int dy)
