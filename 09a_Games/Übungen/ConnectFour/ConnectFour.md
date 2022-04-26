@@ -9,16 +9,16 @@ c# Programmieren (c) HTL-Leonding
 
 ## Aufgabenstellung
 
-**Vier-Gewinnt** ist ein bekanntes und beliebtest Spiel. Gespielt wird auf einem senkrecht stehenden Spielbrett. Bei jedem Zug kann ein **Stein** in eine Spalte eingeworfen werden. Dieser belegt dann das unterste freie Feld. Die zwei Spieler dürfen abwechselnd Steine auf dem Spielfeld plazieren. Gewinner ist derjenige, der als ersters vier Steine in einer Reihe, Spalte oder Diagonale hat.  
+**Vier-Gewinnt** ist ein bekanntes und beliebtest Spiel. Gespielt wird auf einem senkrecht stehenden Spielbrett. Bei jedem Zug kann ein **Stein** in eine Spalte eingeworfen werden. Dieser belegt dann das unterste freie Feld. Die zwei Spieler dürfen abwechselnd Steine auf dem Spielfeld platzieren. Gewinner ist derjenige, der als ersters vier Steine in einer Reihe, Spalte oder Diagonale hat.  
 
 ### Programmablauf
-Schreiben Sie ein Programm mit dem **Vier-Gewinnt** gespiel werden kann.  
+Schreiben Sie ein Programm mit dem **Vier-Gewinnt** gespielt werden kann.  
 * Beim Programmstart wird die Dimension des Spielfelds eingegeben.  
   Unterstützen sie Größen von 2 bis 10 Reihen und Spalten.
-* Anschließend wird das **Board** mit den eingegeneben Dimensionen erstellt.
+* Anschließend wird das **Board** mit den eingegebenen Dimensionen erstellt.
 * Zwei Benutzer können abwechselnd eine Spalte eingeben, in dem der nächste Stein eingeworfen werden soll.  
-* Das Spiel ist beeendet, wenn ein Spieler gewonnen hat **oder** kein Stein mehr eingeworfen werden kann (das Spielfeld ist voll => unentschieden).
-* Bei einer fehlerhaften Eingabe muss diese wiederholt werden: z.B. falsche Spalten/ZeilenAnzahlen, Spalte ist bereits voll, ... 
+* Das Spiel ist beendet, wenn ein Spieler gewonnen hat **oder** kein Stein mehr eingeworfen werden kann (das Spielfeld ist voll => unentschieden).
+* Bei einer fehlerhaften Eingabe muss diese wiederholt werden: z.B. falsche Spalten/Zeilen Anzahlen, Spalte ist bereits voll, ... 
 
 ### Programmdesign
 
@@ -27,12 +27,14 @@ In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementier
 Damit die Unittests ausgeführt werden können müssen sie folgende (Hilfs-)Methoden umsetzen:
 
 * `int GetFreeRow(int[,] allocation, int col)`  
-Die Mehtodes sucht für die gegebene Spalte (col) die tiefste noch freie Zeile. -1 wird zurückgegeben, wenn keine Zeile mehr frei ist.   
+Die Mehtode sucht für die gegebene Spalte (col) die tiefste noch freie Zeile. -1 wird zurückgegeben, wenn keine Zeile mehr frei ist.   
 * `int IsWinner(int[,] allocation, int row, int col)`  
 Überprüft, ob sich durch die Belegung eines Feldes ein Sieger ergeben hat. Dabei werden nicht alle Felder überprüfen, sondern nur die an die neu gesetzte Position angrenzenden.  
 Rückgabe: 0 falls kein Gewinner, sonst 1/2
 
 Testen Sie das Programm ausführlich. 
+
+Verwenden Sie folgende Codierung: 0 = frei, 1 = Spieler 1 (rotes <span style="color:red">X</span>), 2 = Spieler 2 (grünes <span style="color:green">O</span>)
 
 ### Bildschirmausgabe
 
