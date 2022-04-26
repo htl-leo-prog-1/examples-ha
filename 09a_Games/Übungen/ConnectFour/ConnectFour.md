@@ -34,7 +34,7 @@ Rückgabe: 0 falls kein Gewinner, sonst 1/2
 
 Testen Sie das Programm ausführlich. 
 
-Verwenden Sie folgende Codierung: 0 = frei, 1 = Spieler 1 (rotes <span style="color:red">X</span>), 2 = Spieler 2 (grünes <span style="color:green">O</span>)
+Verwenden Sie im Programm (für das Feld **allocation**) folgende Codierung: 0 = frei, 1 = Spieler 1 (rotes <span style="color:red">X</span>), 2 = Spieler 2 (grünes <span style="color:green">O</span>)
 
 ### Bildschirmausgabe
 
@@ -49,7 +49,7 @@ Spieler 1, Spalte  [0..6]: 0
 Spieler 2, Spalte  [0..6]: 2
 Spieler 1, Spalte  [0..6]: 0
 Spieler 2, Spalte  [0..6]: 4
-Spieler 1, Spalte  [0..6]: 6
+Spieler 1, Spalte  [0..6]: 6s
 Spieler 2, Spalte  [0..6]: 5
 Gewinner ist Spieler 2!
 ```
