@@ -63,4 +63,26 @@ public class EMQualificationTests
         goals.Should().Be(18);
         gotGoals.Should().Be(6);
     }
+
+    [Fact]
+    public void T04_CheckForTeams()
+    {
+        var game = new Game()
+        {
+            Date       = "2022-01-01",
+            HomeTeam   = "Union Leonding",
+            GuestTeam  = "ASKOE Traun",
+            GoalsGuest = 1,
+            GoalsHome  = 1
+        };
+
+        game.IsGameOfGuestTeam("TRaun").Should().BeTrue();
+        game.IsGameOfHomeTeam("TRaun").Should().BeFalse();
+
+        game.IsGameOfGuestTeam("LEONDING").Should().BeFalse();
+        game.IsGameOfHomeTeam("leonding").Should().BeTrue();
+
+        game.IsGameOfTeam("LEONDING").Should().BeTrue();
+        game.IsGameOfTeam("LASK").Should().BeFalse();
+    }
 }
