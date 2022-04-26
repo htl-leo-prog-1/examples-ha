@@ -22,49 +22,37 @@ namespace CoffeeSlotMachine
 
         public int ProductsAvailable { get; private set; }
 
+        const int PriceOfProducts = 50;
+
         string[] _products;
 
         int[] _acceptedCoinValues = { 5, 10, 20, 50, 100, 200 };
         int[] _coinsAmount;
 
         int[] _boughtProducts;
-        int   _priceOfProducts = 50;
 
         int[] _insertedCoins;
 
-        public CoffeeSlotMachine()
+        public CoffeeSlotMachine() : this(new[] { 3, 3, 3, 3, 3, 3 }, new[] { "Cappuccino", "Mocca", "Kakao" })
         {
-            _coinsAmount = new int[_acceptedCoinValues.Length];
-
-            for (int i = 0; i < _coinsAmount.Length; i++)
-            {
-                _coinsAmount[i] = 3;
-            }
-
-            SetProduct(new[] { "Cappuccino", "Mocca", "Kakao" });
-            CancelOrder();
         }
 
         public CoffeeSlotMachine(int[] initialCoinsAmount, string[] products)
         {
             _coinsAmount = initialCoinsAmount.Clone() as int[];
 
-            SetProduct(products);
-            CancelOrder();
-        }
-
-        private void SetProduct(string[] products)
-        {
-            _products         = products;
+            _products         = products.Clone() as string[];
             ProductsAvailable = _products.Length;
             _boughtProducts   = new int[_products.Length];
+
+            CancelOrder();
         }
 
         public bool InsertCoin(int coin)
         {
             var index = CommonTools.IndexOf(_acceptedCoinValues, coin);
 
-            if (index < 0 || Credit >= _priceOfProducts)
+            if (index < 0 || Credit >= PriceOfProducts)
             {
                 return false;
             }
@@ -80,7 +68,7 @@ namespace CoffeeSlotMachine
 
             int productIdx = CommonTools.IndexOf(_products, product);
 
-            if (productIdx < 0 || Credit < _priceOfProducts)
+            if (productIdx < 0 || Credit < PriceOfProducts)
             {
                 donation = 0;
                 return false;
@@ -93,7 +81,7 @@ namespace CoffeeSlotMachine
                 _coinsAmount[i] += _insertedCoins[i];
             }
 
-            donation = Credit - _priceOfProducts;
+            donation = Credit - PriceOfProducts;
 
             for (int coinIndex = _acceptedCoinValues.Length - 1; coinIndex >= 0; coinIndex--)
             {
