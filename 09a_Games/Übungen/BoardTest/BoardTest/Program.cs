@@ -14,7 +14,7 @@ Console.WriteLine("Board testen, läuft automatisch!");
 Console.WriteLine("================================");
 
 Console.WriteLine("Board mit Titel initialisieren");
-Board.Init(10, 5, "Testboard"); // 10 Zeilen 5 Spalten
+Board.Init(10, 5, "Testboard");
 Thread.Sleep(5000);
 
 Console.WriteLine("Text auf Board schreiben");
@@ -22,7 +22,7 @@ Board.SetText(3, 3, "X");
 Thread.Sleep(5000);
 
 string text = Board.GetText(3, 3);
-Console.WriteLine("Text von Board lesen, gelesener Text: {0}", text);
+Console.WriteLine($"Text von Board lesen, gelesener Text: {text}");
 Thread.Sleep(5000);
 
 Console.WriteLine("Board löschen");

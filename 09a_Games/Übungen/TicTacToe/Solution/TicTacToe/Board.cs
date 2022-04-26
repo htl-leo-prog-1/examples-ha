@@ -13,12 +13,12 @@ using System.Windows.Forms;
 /// </summary>
 public class Board
 {
-    private static   bool      _boardInitialized; // Ist das Board bereits initialisiert
-    private static   Board     _staticBoard = default!;
-    private readonly int       _cols;
-    private          FormBoard _form; // WindowsForm zur Darstellung in zweitem Thread
-    private readonly int       _rows;
-    private          string    _title;
+    private static bool _boardInitialized; // Ist das Board bereits initialisiert
+    private static Board _staticBoard = default!;
+    private readonly int _cols;
+    private FormBoard _form; // WindowsForm zur Darstellung in zweitem Thread
+    private readonly int _rows;
+    private string _title;
 
     /// <summary>
     ///     Spielfeld mit _rows/_cols anlegen
@@ -27,10 +27,10 @@ public class Board
     /// <param name="cols"></param>
     private Board(int rows, int cols)
     {
-        _rows  = rows;
-        _cols  = cols;
-        _title = default!;
-        _form  = default!;
+        this._rows = rows;
+        this._cols = cols;
+        this._title = default!;
+        this._form = default!;
     }
 
 
@@ -82,7 +82,7 @@ public class Board
     private static void Run()
     {
         _staticBoard._form = new(_staticBoard._rows, _staticBoard._cols, _staticBoard._title);
-        _boardInitialized  = true;
+        _boardInitialized = true;
         Application.Run(_staticBoard._form);
     }
 
@@ -91,6 +91,12 @@ public class Board
     /// </summary>
     public static void SetText(int row, int col, string text, string color)
     {
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        if (_staticBoard == null)
+        {
+            return;
+        }
+
         if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
             return;
@@ -113,8 +119,14 @@ public class Board
     /// <param name="row"></param>
     /// <param name="col"></param>
     /// <returns>String der jeweiligen Zelle</returns>
-    public static string? GetText(int row, int col)
+    public static string GetText(int row, int col)
     {
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        if (_staticBoard == null)
+        {
+            return null;
+        }
+
         if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
             return null;
@@ -128,6 +140,12 @@ public class Board
     /// </summary>
     public static void Clear()
     {
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        if (_staticBoard == null)
+        {
+            return;
+        }
+
         for (var i = 0; i < _staticBoard._rows; i++)
         {
             for (var j = 0; j < _staticBoard._cols; j++)
@@ -148,8 +166,8 @@ public class Board
         return dimension switch
         {
             < 0 or >= 2 => -1,
-            0           => _staticBoard._rows,
-            _           => _staticBoard._cols
+            0 => _staticBoard._rows,
+            _ => _staticBoard._cols
         };
     }
 }
@@ -161,17 +179,17 @@ public class Board
 /// </summary>
 public class FormBoard : Form
 {
-    private const    int        CELL_HEIGHT = 22;
-    private const    int        CELL_WIDTH  = 22;
-    private readonly int        _cols;
-    private readonly int        _rows;
-    private          TextBox[,] _board             = default!;
-    private          TextBox[]  _columnHeader      = default!;
-    private          Panel      _panelAll          = default!;
-    private          Panel      _panelBoard        = default!;
-    private          Panel      _panelColumnHeader = default!; // null ==> existiert noch nicht
-    private          Panel      _panelRowHeader    = default!;
-    private          TextBox[]  _rowHeader         = default!;
+    private const int CELL_HEIGHT = 22;
+    private const int CELL_WIDTH = 22;
+    private readonly int _cols;
+    private readonly int _rows;
+    private TextBox[,] _board = default!;
+    private TextBox[] _columnHeader = default!;
+    private Panel _panelAll = default!;
+    private Panel _panelBoard = default!;
+    private Panel _panelColumnHeader = default!; // null ==> existiert noch nicht
+    private Panel _panelRowHeader = default!;
+    private TextBox[] _rowHeader = default!;
 
 
     /// <summary>
@@ -181,8 +199,8 @@ public class FormBoard : Form
 
     public FormBoard(int rows, int cols, string title)
     {
-        _rows = rows;
-        _cols = cols;
+        this._rows = rows;
+        this._cols = cols;
         InitializeComponent();
         Text = title;
     }
@@ -201,7 +219,7 @@ public class FormBoard : Form
     {
         if (disposing)
         {
-            components.Dispose();
+            this.components.Dispose();
         }
 
         base.Dispose(disposing);
@@ -212,70 +230,70 @@ public class FormBoard : Form
     /// </summary>
     private void InitializeComponent()
     {
-        components        = new Container();
-        AutoScaleMode     = AutoScaleMode.Font;
-        Text              = "FormBoard";
+        this.components = new Container();
+        AutoScaleMode = AutoScaleMode.Font;
+        Text = "FormBoard";
         AutoScaleBaseSize = new(5, 13);
-        ClientSize        = new(292, 266);
-        ControlBox        = false;
-        FormBorderStyle   = FormBorderStyle.FixedSingle;
-        Location          = new(600, 200);
-        Name              = "FormBoard";
-        Text              = "FormBoard";
-        _board            = new TextBox[_rows, _cols];
-        _panelAll         = new();
-        Controls.Add(_panelAll);
-        _panelBoard = new()
+        ClientSize = new(292, 266);
+        ControlBox = false;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        Location = new(600, 200);
+        Name = "FormBoard";
+        Text = "FormBoard";
+        this._board = new TextBox[this._rows, this._cols];
+        this._panelAll = new();
+        Controls.Add(this._panelAll);
+        this._panelBoard = new()
         {
-            Width  = _cols * CELL_WIDTH + 10,
-            Height = _rows * CELL_HEIGHT + 10
+            Width = this._cols * CELL_WIDTH + 10,
+            Height = this._rows * CELL_HEIGHT + 10
         };
-        _panelAll.Controls.Add(_panelBoard);
+        this._panelAll.Controls.Add(this._panelBoard);
         TextBox textBox;
         // ColumnHeader
-        _panelColumnHeader        = new();
-        _columnHeader             = new TextBox[_cols];
-        _panelColumnHeader.Height = CELL_HEIGHT;
-        _panelColumnHeader.Width  = _cols * CELL_WIDTH;
-        for (var col = 0; col < _cols; col++)
+        this._panelColumnHeader = new();
+        this._columnHeader = new TextBox[this._cols];
+        this._panelColumnHeader.Height = CELL_HEIGHT;
+        this._panelColumnHeader.Width = this._cols * CELL_WIDTH;
+        for (var col = 0; col < this._cols; col++)
         {
-            textBox            = CreateTextBox(Color.SkyBlue, col.ToString());
-            _columnHeader[col] = textBox;
-            textBox.Location   = new(col * CELL_WIDTH, 0);
-            _panelColumnHeader.Controls.Add(textBox);
+            textBox = CreateTextBox(Color.SkyBlue, col.ToString());
+            this._columnHeader[col] = textBox;
+            textBox.Location = new(col * CELL_WIDTH, 0);
+            this._panelColumnHeader.Controls.Add(textBox);
         }
 
-        _panelAll.Controls.Add(_panelColumnHeader);
-        _panelColumnHeader.Location = new(CELL_WIDTH, 0);
+        this._panelAll.Controls.Add(this._panelColumnHeader);
+        this._panelColumnHeader.Location = new(CELL_WIDTH, 0);
         // Row-Header
-        _panelRowHeader        = new();
-        _panelRowHeader.Height = _rows * CELL_HEIGHT;
-        _rowHeader             = new TextBox[_rows];
-        _panelRowHeader.Width  = CELL_WIDTH;
-        for (var row = 0; row < _rows; row++)
+        this._panelRowHeader = new();
+        this._panelRowHeader.Height = this._rows * CELL_HEIGHT;
+        this._rowHeader = new TextBox[this._rows];
+        this._panelRowHeader.Width = CELL_WIDTH;
+        for (var row = 0; row < this._rows; row++)
         {
-            textBox          = CreateTextBox(Color.SkyBlue, row.ToString());
-            _rowHeader[row]  = textBox;
+            textBox = CreateTextBox(Color.SkyBlue, row.ToString());
+            this._rowHeader[row] = textBox;
             textBox.Location = new(0, row * CELL_HEIGHT);
-            _panelRowHeader.Controls.Add(textBox);
+            this._panelRowHeader.Controls.Add(textBox);
         }
 
-        _panelAll.Controls.Add(_panelRowHeader);
-        _panelRowHeader.Location = new(0, CELL_HEIGHT);
-        Text                     = "";
-        CreateCells(_rows, _cols);
-        _panelBoard.Location = new(CELL_WIDTH, CELL_HEIGHT);
-        _panelAll.Width      = _panelBoard.Width + CELL_WIDTH;
-        _panelAll.Height     = _panelBoard.Height + CELL_HEIGHT;
-        ClientSize           = new(_panelAll.Width, _panelAll.Height);
-        StartPosition        = FormStartPosition.Manual;
+        this._panelAll.Controls.Add(this._panelRowHeader);
+        this._panelRowHeader.Location = new(0, CELL_HEIGHT);
+        Text = "";
+        CreateCells(this._rows, this._cols);
+        this._panelBoard.Location = new(CELL_WIDTH, CELL_HEIGHT);
+        this._panelAll.Width = this._panelBoard.Width + CELL_WIDTH;
+        this._panelAll.Height = this._panelBoard.Height + CELL_HEIGHT;
+        ClientSize = new(this._panelAll.Width, this._panelAll.Height);
+        StartPosition = FormStartPosition.Manual;
         SetDesktopLocation(800, 50);
     }
 
     private void SetTextToCellDelegate(int row, int col, string text, string color)
     {
-        _board[row, col].Text      = text;
-        _board[row, col].ForeColor = GetFormsColor(color);
+        this._board[row, col].Text = text;
+        this._board[row, col].ForeColor = GetFormsColor(color);
     }
 
     /// <summary>
@@ -286,7 +304,7 @@ public class FormBoard : Form
     /// <param name="text"></param>
     public void SetText(int row, int col, string text)
     {
-        _board[row, col].Invoke(new SetTextDelegate(SetTextToCellDelegate), row, col, text, "Black");
+        this._board[row, col].Invoke(new SetTextDelegate(SetTextToCellDelegate), row, col, text, "Black");
     }
 
     /// <summary>
@@ -298,7 +316,7 @@ public class FormBoard : Form
     /// <param name="color"></param>
     public void SetText(int row, int col, string text, string color)
     {
-        _board[row, col].Invoke(new SetTextDelegate(SetTextToCellDelegate), row, col, text, color);
+        this._board[row, col].Invoke(new SetTextDelegate(SetTextToCellDelegate), row, col, text, color);
     }
 
     /// <summary>
@@ -309,7 +327,7 @@ public class FormBoard : Form
     /// <returns></returns>
     public string GetText(int row, int col)
     {
-        return _board[row, col].Text;
+        return this._board[row, col].Text;
     }
 
     /// <summary>
@@ -334,9 +352,9 @@ public class FormBoard : Form
     private void CreateCell(int row, int col)
     {
         var textBox = CreateTextBox(Color.White, "");
-        _board[row, col] = textBox;
+        this._board[row, col] = textBox;
         textBox.Location = new(col * CELL_WIDTH, row * CELL_HEIGHT);
-        _panelBoard.Controls.Add(textBox);
+        this._panelBoard.Controls.Add(textBox);
     }
 
     /// <summary>
@@ -348,13 +366,13 @@ public class FormBoard : Form
     private static TextBox CreateTextBox(Color backGround, string text)
     {
         var textBox = new TextBox();
-        textBox.Font        = new("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        textBox.Size        = new(CELL_WIDTH, CELL_HEIGHT);
-        textBox.TabStop     = false;
-        textBox.TextAlign   = HorizontalAlignment.Center;
-        textBox.BackColor   = backGround;
-        textBox.ReadOnly    = true;
-        textBox.Text        = text;
+        textBox.Font = new("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        textBox.Size = new(CELL_WIDTH, CELL_HEIGHT);
+        textBox.TabStop = false;
+        textBox.TextAlign = HorizontalAlignment.Center;
+        textBox.BackColor = backGround;
+        textBox.ReadOnly = true;
+        textBox.Text = text;
         textBox.BorderStyle = BorderStyle.Fixed3D;
         return textBox;
     }
@@ -368,11 +386,11 @@ public class FormBoard : Form
     {
         return textColor switch
         {
-            "Black"     => Color.Black,
-            "Red"       => Color.Red,
-            "Green"     => Color.Green,
+            "Black" => Color.Black,
+            "Red" => Color.Red,
+            "Green" => Color.Green,
             "LightGrey" => Color.LightGray,
-            _           => Color.Black
+            _ => Color.Black
         };
     }
 
