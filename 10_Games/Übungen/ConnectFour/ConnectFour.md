@@ -49,7 +49,7 @@ Spieler 1, Spalte  [0..6]: 0
 Spieler 2, Spalte  [0..6]: 2
 Spieler 1, Spalte  [0..6]: 0
 Spieler 2, Spalte  [0..6]: 4
-Spieler 1, Spalte  [0..6]: 6s
+Spieler 1, Spalte  [0..6]: 6
 Spieler 2, Spalte  [0..6]: 5
 Gewinner ist Spieler 2!
 ```
