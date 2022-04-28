@@ -12,6 +12,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\GameOfLife\GameOfLife.csproj" />
+	  <ProjectReference Include="..\MineSweeper\MineSweeper.csproj" />
 	</ItemGroup>
 </Project>
