@@ -60,6 +60,10 @@ public class MineSweeper
         }
     }
 
+    /// <summary>
+    /// Play game: Repeat ask user and set mine (or mark as mine) on board.
+    /// </summary>
+    /// <param name="mineField"></param>
     private static void PlayGame(bool[,] mineField)
     {
         int rows = mineField.GetLength(0);
@@ -95,9 +99,7 @@ public class MineSweeper
     /// <param name="cols">Max count of columns.</param>
     /// <param name="row"></param>
     /// <param name="col"></param>
-    /// <param name="markAsMine"></param>
-    /// <param name="openAll"></param>
-    /// <returns>0 use row, col, 1 set mine, 2 end game</returns>
+    /// <returns>0 clear row/col, 1 set mine on row/col, 2 end game</returns>
     static int ReadRowCol(int rows, int cols, out int row, out int col)
     {
         int  result = 0; // assume clear field
@@ -133,8 +135,8 @@ public class MineSweeper
                 var rowCol = input.Split(',');
 
                 isOk = rowCol.Length == 2 &&
-                       int.TryParse(rowCol[0], out row) && row >= 0 && row < rows &&
-                       int.TryParse(rowCol[1], out col) && col >= 0 && col < cols;
+                       Tools.TryParse(rowCol[0], out row, rows - 1, 0) &&
+                       Tools.TryParse(rowCol[1], out col, cols - 1, 0);
             }
         } while (!isOk);
 
@@ -185,7 +187,7 @@ public class MineSweeper
         int rows = mineField.GetLength(0);
         int cols = mineField.GetLength(1);
 
-        if (IsInRange(row, rows) && IsInRange(col, cols))
+        if (Tools.InRange(row, rows - 1, 0) && Tools.InRange(col, cols - 1, 0))
         {
             if (Board.GetText(row, col).Length > 0)
             {
@@ -345,16 +347,5 @@ public class MineSweeper
         }
 
         return mineField;
-    }
-
-    /// <summary>
-    /// Helper to look, if a row/col is in range
-    /// </summary>
-    /// <param name="rowOrCol"></param>
-    /// <param name="size"></param>
-    /// <returns>true if ok, false otherwise</returns>
-    static bool IsInRange(int rowOrCol, int size)
-    {
-        return rowOrCol >= 0 && rowOrCol < size;
     }
 }

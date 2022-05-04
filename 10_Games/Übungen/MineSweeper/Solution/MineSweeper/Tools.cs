@@ -25,4 +25,15 @@ public static class Tools
 
         return number;
     }
+
+    public static bool TryParse(string input, out int value, int max, int min)
+    {
+        input = input.Trim(' ');
+        return int.TryParse(input, out value) && value >= min && value <= max;
+    }
+
+    public static bool InRange(int value, int max, int min)
+    {
+        return value >= min && value <= max;
+    }
 }

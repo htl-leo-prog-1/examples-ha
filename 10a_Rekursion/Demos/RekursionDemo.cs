@@ -9,6 +9,8 @@
 
 using System;
 
+Console.WriteLine($"5!={Fibonacci(10)}");
+
 int x = ReadNumber("Please enter x: ", 1000, 1);
 int y = ReadNumber("Please enter y: ", 1000, 1);
 
