@@ -4,6 +4,7 @@
 *              Musterlösung-HA
 *--------------------------------------------------------------
 * Description: MineSweeper
+* https://de.wikipedia.org/wiki/Minesweeper
 *--------------------------------------------------------------
 */
 

@@ -123,29 +123,21 @@ namespace ConnectFour
         /// <returns>0 falls kein Gewinner, sonst 1/2</returns>
         public static int IsWinner(int[,] allocation, int row, int col)
         {
-            int winner;
-            // deltaRow == 0 ==> Zeile bleibt gleich, deltaCol == 1 ==> nach links und rechts in der Zeile
-            if ((winner = CheckOneDirection(allocation, row, col, 0, 1)) > 0)
+            var directions = new int[,]
             {
-                return winner;
-            }
+                { 0, 1 },  // nach links und rechts in der Zeile
+                { 1, 0 },  // rauf und runter in der Spalte
+                { 1, 1 },  // nach rechts oben und links unten
+                { -1, 1 }, // nach links oben und rechts unten
+            };
 
-            // Spalte bleibt gleich ==> rauf und runter in der Spalte
-            if ((winner = CheckOneDirection(allocation, row, col, 1, 0)) > 0)
+            for (int i=0;i<directions.GetLength(0);i++)
             {
-                return winner;
-            }
-
-            // nach rechts oben und links unten
-            if ((winner = CheckOneDirection(allocation, row, col, 1, 1)) > 0)
-            {
-                return winner;
-            }
-
-            // nach links oben und rechts unten
-            if ((winner = CheckOneDirection(allocation, row, col, -1, 1)) > 0)
-            {
-                return winner;
+                int winner = CheckOneDirection(allocation, row, col, directions[i,0], directions[i, 1]);
+                if (winner > 0)
+                {
+                    return winner;
+                }
             }
 
             return 0;

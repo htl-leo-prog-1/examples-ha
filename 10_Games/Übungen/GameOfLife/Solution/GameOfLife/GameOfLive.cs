@@ -61,11 +61,12 @@ public class GameOfLife
         int right  = left + 2;
         int top    = row - 1 + size;
         int bottom = top + 2;
-        for (int z = top; z <= bottom; z++)
+
+        for (int myRow = top; myRow <= bottom; myRow++)
         {
-            for (int s = left; s <= right; s++)
+            for (int myCol = left; myCol <= right; myCol++)
             {
-                if (world[z % size, s % size])
+                if (world[myRow % size, myCol % size])
                 {
                     neighbourCount++;
                 }
@@ -89,19 +90,12 @@ public class GameOfLife
     public static void WriteWorldConsole(bool[,] world)
     {
         Console.WriteLine();
-        for (int i = 0; i < world.GetLength(0); i++)
+        for (int row = 0; row < world.GetLength(0); row++)
         {
             Console.Write("    ");
-            for (int j = 0; j < world.GetLength(1); j++)
+            for (int col = 0; col < world.GetLength(1); col++)
             {
-                if (world[i, j])
-                {
-                    Console.Write("X");
-                }
-                else
-                {
-                    Console.Write(" ");
-                }
+                Console.Write(world[row, col] ? "X" : " ");
             }
 
             Console.WriteLine();
@@ -118,8 +112,9 @@ public class GameOfLife
     /// <returns></returns>
     public static bool[,] CreateWorld(int size)
     {
-        bool[,] world  = new bool[size, size];
-        Random  random = new Random(0);
+        var world  = new bool[size, size];
+        var random = new Random(0);
+
         for (int i = 0; i < world.GetLength(0); i++)
         {
             for (int j = 0; j < world.GetLength(1); j++)
@@ -145,8 +140,14 @@ public class GameOfLife
 
         for (int row = 0; row < size; row++)
         {
-            Console.Write($"{row + 1,2}. Row: ");
-            var text = Console.ReadLine() ?? "";
+            string text;
+            bool   isOk;
+            do
+            {
+                Console.Write($"{row + 1,2}. Row: ");
+                text = Console.ReadLine() ?? "";
+                isOk = text.Replace("0", "").Replace("1", "").Length == 0 && text.Length <= size;
+            } while (!isOk);
 
             for (int col = 0; col < size && col < text.Length; col++)
             {

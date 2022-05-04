@@ -61,13 +61,13 @@ namespace GameOfLife
         private static void WriteWorldBoard(bool[,] world)
         {
             Board.Clear();
-            for (int i = 0; i < world.GetLength(0); i++)
+            for (int row = 0; row < world.GetLength(0); row++)
             {
-                for (int j = 0; j < world.GetLength(1); j++)
+                for (int col = 0; col < world.GetLength(1); col++)
                 {
-                    if (world[i, j])
+                    if (world[row, col])
                     {
-                        Board.SetText(i, j, "X");
+                        Board.SetText(row, col, "X");
                     }
                 }
             }

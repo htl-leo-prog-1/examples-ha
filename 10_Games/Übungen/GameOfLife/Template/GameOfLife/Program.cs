@@ -19,18 +19,9 @@ namespace GameOfLife
             Console.WriteLine("Game of Life");
             Console.WriteLine("============");
 
-
             // TODO: Implement "main" here 
-
-            int size = 10;
-
-            Board.Init(size, size, "Game of Life");
-
-            Board.SetText(0, 0, "X");
-
-            Console.ReadLine();
-
         }
+
         // TODO: if you need additional methods, implement them here
     }
 }
