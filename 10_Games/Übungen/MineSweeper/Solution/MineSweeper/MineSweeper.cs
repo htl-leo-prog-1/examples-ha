@@ -14,6 +14,10 @@ using System;
 
 public class MineSweeper
 {
+    private static readonly string _emptyField   = "\u2593";
+    private static readonly string _markedAsMine = "\u25B6";
+    private static readonly string _hitMine      = "\u2B59";
+
     public static void Run()
     {
         Console.WriteLine("MineSweeper");
@@ -24,11 +28,16 @@ public class MineSweeper
 
         InitBoard(size, size);
 
+        Console.WriteLine("Clear field with e.g.: 4,4");
+        Console.WriteLine("Set as mine with e.g.: *3,4");
+        Console.WriteLine("End game with !");
+
         var mineField = CreateMineField(mines, size, size);
 
         PlayGame(mineField);
         ShowMines(mineField);
 
+        Console.WriteLine("Press enter to continue");
         Console.ReadLine();
         Board.Exit();
     }
@@ -47,33 +56,39 @@ public class MineSweeper
         {
             for (int col = 0; col < cols; col++)
             {
-                Board.SetText(row, col, "\u2593", "LightGray");
+                Board.SetText(row, col, _emptyField, "LightGray");
             }
         }
     }
 
+    /// <summary>
+    /// Play game: Repeat ask user and set mine (or mark as mine) on board.
+    /// </summary>
+    /// <param name="mineField"></param>
     private static void PlayGame(bool[,] mineField)
     {
-        int  rows      = mineField.GetLength(0);
-        int  cols      = mineField.GetLength(1);
+        int rows = mineField.GetLength(0);
+        int cols = mineField.GetLength(1);
 
         bool mineOrEnd = false;
 
         do
         {
-            int  row;
-            int  col;
-            bool markAsMine;
+            int row;
+            int col;
 
-            ReadRowCol(rows, cols, out row, out col, out markAsMine);
-
-            if (markAsMine)
+            switch (ReadRowCol(rows, cols, out row, out col))
             {
-                MarkAsMine(mineField, row, col);
-            }
-            else
-            {
-                mineOrEnd = !ClearField(mineField, row, col);
+                case 0: // ClearField
+                    mineOrEnd = !ClearField(mineField, row, col);
+                    break;
+                case 1: // mark as mine
+                    MarkAsMine(mineField, row, col);
+                    break;
+                case 2:
+                    mineOrEnd = true;
+                    ClearAllFields(mineField);
+                    break;
             }
         } while (!mineOrEnd);
     }
@@ -85,34 +100,48 @@ public class MineSweeper
     /// <param name="cols">Max count of columns.</param>
     /// <param name="row"></param>
     /// <param name="col"></param>
-    /// <param name="markAsMine"></param>
-    /// <returns>true if ok, false to end the program</returns>
-    static bool ReadRowCol(int rows, int cols, out int row, out int col, out bool markAsMine)
+    /// <returns>0 clear row/col, 1 set mine on row/col, 2 end game</returns>
+    static int ReadRowCol(int rows, int cols, out int row, out int col)
     {
+        int  result = 0; // assume clear field
         bool isOk;
         do
         {
-            row        = 0;
-            col        = 0;
-            markAsMine = false;
+            row = 0;
+            col = 0;
 
-            Console.Write("Clear field (e.g.: 4,4) or set as mine (e.g.: *3,4): ");
+            Console.Write("=>");
             string input = Console.ReadLine() ?? "".Trim();
 
-            if (input.Length > 0 && input[0] == '*')
+            bool needRowCol = true;
+            isOk = true;
+
+            if (input.Length > 0)
+
             {
-                markAsMine = true;
-                input      = input.Substring(1);
+                if (input[0] == '*')
+                {
+                    result = 1;
+                    input  = input.Substring(1);
+                }
+                else if (input == "!")
+                {
+                    result     = 2;
+                    needRowCol = false;
+                }
             }
 
-            var rowCol = input.Split(',');
+            if (needRowCol)
+            {
+                var rowCol = input.Split(',');
 
-            isOk = rowCol.Length == 2 &&
-                   int.TryParse(rowCol[0], out row) && row >= 0 && row < rows &&
-                   int.TryParse(rowCol[1], out col) && col >= 0 && col < cols;
+                isOk = rowCol.Length == 2 &&
+                       Tools.TryParse(rowCol[0], out row, rows - 1, 0) &&
+                       Tools.TryParse(rowCol[1], out col, cols - 1, 0);
+            }
         } while (!isOk);
 
-        return true;
+        return result;
     }
 
     /// <summary>
@@ -123,7 +152,7 @@ public class MineSweeper
     /// <param name="col"></param>
     static void MarkAsMine(bool[,] mineField, int row, int col)
     {
-        Board.SetText(row, col, "\u25B6", "Red");
+        Board.SetText(row, col, _markedAsMine, "Red");
     }
 
     /// <summary>
@@ -139,10 +168,11 @@ public class MineSweeper
         if (mineField[row, col])
         {
             // hit a mine!
+            Board.SetText(row, col, _hitMine, "Red");
             return false;
         }
 
-        ClearAllFields(mineField, row, col);
+        ClearSurroundingFields(mineField, row, col);
 
         return true;
     }
@@ -153,13 +183,12 @@ public class MineSweeper
     /// <param name="mineField">Our mine-field</param>
     /// <param name="row"></param>
     /// <param name="col"></param>
-
-    static void ClearAllFields(bool[,] mineField, int row, int col)
+    static void ClearSurroundingFields(bool[,] mineField, int row, int col)
     {
         int rows = mineField.GetLength(0);
         int cols = mineField.GetLength(1);
 
-        if (IsInRange(row, rows) && IsInRange(col, cols))
+        if (Tools.InRange(row, rows - 1, 0) && Tools.InRange(col, cols - 1, 0))
         {
             if (Board.GetText(row, col).Length > 0)
             {
@@ -167,15 +196,36 @@ public class MineSweeper
                 if (mines == 0)
                 {
                     Board.SetText(row, col, "");
-                    ClearAllFields(mineField, row + 1, col);
-                    ClearAllFields(mineField, row - 1, col);
-                    ClearAllFields(mineField, row,     col + 1);
-                    ClearAllFields(mineField, row,     col - 1);
+                    ClearSurroundingFields(mineField, row + 1, col);
+                    ClearSurroundingFields(mineField, row - 1, col);
+                    ClearSurroundingFields(mineField, row,     col + 1);
+                    ClearSurroundingFields(mineField, row,     col - 1);
                 }
                 else
                 {
                     var colors = new[] { "", "Blue", "Green", "Red", "DarkBlue", "DarkRed", "BlueViolet", "Black", "Black" };
                     Board.SetText(row, col, mines.ToString(), colors[mines]);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// User end the game. Clear al fields
+    /// </summary>
+    /// <param name="mineField"></param>
+    static void ClearAllFields(bool[,] mineField)
+    {
+        int rows = mineField.GetLength(0);
+        int cols = mineField.GetLength(1);
+
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                if (Board.GetText(row, col) == _emptyField)
+                {
+                    ClearField(mineField, row, col);
                 }
             }
         }
@@ -197,7 +247,10 @@ public class MineSweeper
             {
                 if (mineField[row, col])
                 {
-                    Board.SetText(row, col, "\u2B24", "Red");
+                    if (Board.GetText(row, col) != _hitMine)
+                    {
+                        Board.SetText(row, col, "\u2B24", "Red");
+                    }
                 }
             }
         }
@@ -295,16 +348,5 @@ public class MineSweeper
         }
 
         return mineField;
-    }
-
-    /// <summary>
-    /// Helper to look, if a row/col is in range
-    /// </summary>
-    /// <param name="rowOrCol"></param>
-    /// <param name="size"></param>
-    /// <returns>true if ok, false otherwise</returns>
-    static bool IsInRange(int rowOrCol, int size)
-    {
-        return rowOrCol >= 0 && rowOrCol < size;
     }
 }

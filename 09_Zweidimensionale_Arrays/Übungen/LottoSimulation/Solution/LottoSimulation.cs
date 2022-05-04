@@ -153,7 +153,7 @@ namespace LottoSimulation
 
                 do
                 {
-                    number = (byte) random.Next(1, 46);
+                    number = random.Next(1, 46);
                 } while (Contains(numbers, number, i - 1));
 
                 numbers[i] = number;
