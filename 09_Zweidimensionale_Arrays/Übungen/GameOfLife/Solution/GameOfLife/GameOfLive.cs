@@ -8,156 +8,156 @@
 *--------------------------------------------------------------
 */
 
-namespace GameOfLife
+namespace GameOfLife;
+
+using System;
+
+public class GameOfLife
 {
-    using System;
-
-    public class GameOfLife
+    /// <summary>
+    /// Berechnet die Welt in der nächsten Generation
+    /// </summary>
+    /// <param name="world">aktueller Zustand der Zellen</param>
+    /// <returns>Welt nach dem nächsten Schritt</returns>
+    public static bool[,] CalculateNextGeneration(bool[,] world)
     {
-        /// <summary>
-        /// Berechnet die Welt in der nächsten Generation
-        /// </summary>
-        /// <param name="world">aktueller Zustand der Zellen</param>
-        /// <returns>Welt nach dem nächsten Schritt</returns>
-        public static bool[,] CalculateNextGeneration(bool[,] world)
-        {
-            int size = world.GetLength(0);
-            bool[,] worldAfter = new bool[size, size];
+        int     size       = world.GetLength(0);
+        bool[,] worldAfter = new bool[size, size];
 
-            for (int row = 0; row < size; row++)
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
             {
-                for (int col = 0; col < size; col++)
+                int countNeighbours = CountNeighbours(world, row, col);
+                if (world[row, col])
                 {
-                    int countNeighbours = CountNeighbours(world, row, col);
-                    if (world[row, col])
-                    {
-                        worldAfter[row, col] = (countNeighbours == 2) || (countNeighbours == 3);
-                    }
-                    else
-                    {
-                        worldAfter[row, col] = (countNeighbours == 3);
-                    }
+                    worldAfter[row, col] = (countNeighbours == 2) || (countNeighbours == 3);
+                }
+                else
+                {
+                    worldAfter[row, col] = (countNeighbours == 3);
                 }
             }
-
-            return worldAfter;
         }
 
+        return worldAfter;
+    }
 
-        /// <summary>
-        /// Für die aktuelle Position wird ermittelt, wie viele
-        /// lebende Nachbarzellen existieren.
-        /// </summary>
-        /// <param name="world">Welt</param>
-        /// <param name="row">aktuelle Zeile</param>
-        /// <param name="col">aktuelle Spalte</param>
-        /// <returns>Anzahl der lebenden Nachbarzellen</returns>
-        public static int CountNeighbours(bool[,] world, int row, int col)
+
+    /// <summary>
+    /// Für die aktuelle Position wird ermittelt, wie viele
+    /// lebende Nachbarzellen existieren.
+    /// </summary>
+    /// <param name="world">Welt</param>
+    /// <param name="row">aktuelle Zeile</param>
+    /// <param name="col">aktuelle Spalte</param>
+    /// <returns>Anzahl der lebenden Nachbarzellen</returns>
+    public static int CountNeighbours(bool[,] world, int row, int col)
+    {
+        int neighbourCount = 0;
+        int size           = world.GetLength(0);
+
+        int left   = col - 1 + size;
+        int right  = left + 2;
+        int top    = row - 1 + size;
+        int bottom = top + 2;
+
+        for (int myRow = top; myRow <= bottom; myRow++)
         {
-            int neighbourCount = 0;
-            int size = world.GetLength(0);
-
-            int left = col - 1 + size;
-            int right = left + 2;
-            int top = row - 1 + size;
-            int bottom = top + 2;
-            for (int z = top; z <= bottom; z++)
+            for (int myCol = left; myCol <= right; myCol++)
             {
-                for (int s = left; s <= right; s++)
+                if (world[myRow % size, myCol % size])
                 {
-                    if (world[z % size, s % size])
-                    {
-                        neighbourCount++;
-                    }
+                    neighbourCount++;
                 }
             }
-
-            // eigenes Leben abziehen, falls true, sonst bin ich mein eigener Nachbar
-            if (world[row, col])
-            {
-                neighbourCount--;
-            }
-
-            return neighbourCount;
         }
 
-        /// <summary>
-        /// Die aktuelle Welt wird auf den Bildschirm ab der aktuellen Position
-        /// ausgegeben.
-        /// </summary>
-        /// <param name="world">Auszugebende Welt</param>
-        public static void WriteWorldConsole(bool[,] world)
+        // eigenes Leben abziehen, falls true, sonst bin ich mein eigener Nachbar
+        if (world[row, col])
         {
-            Console.WriteLine();
-            for (int i = 0; i < world.GetLength(0); i++)
-            {
-                Console.Write("    ");
-                for (int j = 0; j < world.GetLength(1); j++)
-                {
-                    if (world[i, j])
-                    {
-                        Console.Write("X");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
+            neighbourCount--;
+        }
 
-                Console.WriteLine();
+        return neighbourCount;
+    }
+
+    /// <summary>
+    /// Die aktuelle Welt wird auf den Bildschirm ab der aktuellen Position
+    /// ausgegeben.
+    /// </summary>
+    /// <param name="world">Auszugebende Welt</param>
+    public static void WriteWorldConsole(bool[,] world)
+    {
+        Console.WriteLine();
+        for (int row = 0; row < world.GetLength(0); row++)
+        {
+            Console.Write("    ");
+            for (int col = 0; col < world.GetLength(1); col++)
+            {
+                Console.Write(world[row, col] ? "X" : " ");
             }
 
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Die Ausgangswelt in der gewünschten Größe wird erzeugt.
-        /// Die Zellen werden mit 50% Wahrscheinlichkeit zum Leben erweckt
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public static bool[,] CreateWorld(int size)
+        Console.WriteLine();
+    }
+
+    /// <summary>
+    /// Die Ausgangswelt in der gewünschten Größe wird erzeugt.
+    /// Die Zellen werden mit 50% Wahrscheinlichkeit zum Leben erweckt
+    /// </summary>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    public static bool[,] CreateWorld(int size)
+    {
+        var world  = new bool[size, size];
+        var random = new Random(0);
+
+        for (int i = 0; i < world.GetLength(0); i++)
         {
-            bool[,] world = new bool[size, size];
-            Random random = new Random(0);
-            for (int i = 0; i < world.GetLength(0); i++)
+            for (int j = 0; j < world.GetLength(1); j++)
             {
-                for (int j = 0; j < world.GetLength(1); j++)
+                if (random.Next(0, 2) > 0)
                 {
-                    if (random.Next(0, 2) > 0)
-                    {
-                        world[i, j] = true;
-                    }
+                    world[i, j] = true;
                 }
             }
-
-            return world;
         }
 
-        /// <summary>
-        /// Einlesen (von der Konsole) einer welt.
-        /// </summary>
-        /// <param name="size">Größe der Welt</param>
-        /// <returns></returns>
-        public static bool[,] ReadMatrix(int size)
-        {
-            var world = new bool[size, size];
+        return world;
+    }
 
-            for (int row = 0; row < size; row++)
+    /// <summary>
+    /// Einlesen (von der Konsole) einer welt.
+    /// </summary>
+    /// <param name="size">Größe der Welt</param>
+    /// <returns></returns>
+    public static bool[,] ReadMatrix(int size)
+    {
+        var world = new bool[size, size];
+
+        for (int row = 0; row < size; row++)
+        {
+            string text;
+            bool   isOk;
+            do
             {
                 Console.Write($"{row + 1,2}. Row: ");
-                var text = Console.ReadLine();
+                text = Console.ReadLine() ?? "";
+                isOk = text.Replace("0", "").Replace("1", "").Length == 0 && text.Length <= size;
+            } while (!isOk);
 
-                for (int col = 0; col < size && col < text.Length; col++)
+            for (int col = 0; col < size && col < text.Length; col++)
+            {
+                if (text[col] == '1')
                 {
-                    if (text[col] == '1')
-                    {
-                        world[row, col] = true;
-                    }
+                    world[row, col] = true;
                 }
             }
-
-            return world;
         }
+
+        return world;
     }
 }
