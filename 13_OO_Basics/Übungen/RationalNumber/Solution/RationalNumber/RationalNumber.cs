@@ -71,22 +71,22 @@ namespace RationalNumber
         public RationalNumber Add(RationalNumber val)
         {
             return new RationalNumber(
-                Numerator * val.Numerator,
-                Numerator * val.Denominator + Denominator * val.Numerator);
+                Numerator * val.Denominator + Denominator * val.Numerator,
+                Denominator * val.Denominator);
         }
 
         public RationalNumber Sub(RationalNumber val)
         {
             return new RationalNumber(
-                Numerator * val.Numerator,
-                Denominator * val.Numerator - Numerator * val.Denominator);
+                Numerator * val.Denominator - Denominator * val.Numerator,
+                Denominator * val.Denominator);
         }
 
         public RationalNumber Inverse()
         {
             return new RationalNumber(
-                Numerator,
-                -Denominator);
+                -Numerator,
+                Denominator);
         }
 
         public RationalNumber Reciprocal()
