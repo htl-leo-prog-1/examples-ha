@@ -301,10 +301,14 @@ public class MineSweeper
     /// <returns>Count of all mines in the mine-field.</returns>
     public static int CountMinesOnBoard(bool[,] mineField)
     {
+        int rows  = mineField.GetLength(0);
+        int cols  = mineField.GetLength(1);
+        
         int count = 0;
-        for (int row = 0; row < mineField.GetLength(0); row++)
+
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < mineField.GetLength(1); col++)
+            for (int col = 0; col < cols; col++)
             {
                 if (mineField[row, col])
                 {
