@@ -3,7 +3,7 @@
 *--------------------------------------------------------------
 *              Musterlösung-HA
 *--------------------------------------------------------------
-* Description: CountFour
+* Description: ConnectFour
 *--------------------------------------------------------------
 */
 
@@ -11,7 +11,7 @@ namespace ConnectFour
 {
     using System;
 
-    public class CountFour
+    public class ConnectFour
     {
         public static void Run()
         {

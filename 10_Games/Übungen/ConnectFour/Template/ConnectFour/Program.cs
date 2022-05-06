@@ -3,8 +3,8 @@
 *--------------------------------------------------------------
 *              Musterlösung-HA
 *--------------------------------------------------------------
-* Description: CountFour
+* Description: ConnectFour
 *--------------------------------------------------------------
 */
 
-ConnectFour.CountFour.Run();
+ConnectFour.ConnectFour.Run();

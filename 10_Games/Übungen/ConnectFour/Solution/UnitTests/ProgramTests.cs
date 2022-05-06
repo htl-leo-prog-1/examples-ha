@@ -3,11 +3,11 @@
 *--------------------------------------------------------------
 *              Musterlösung-HA
 *--------------------------------------------------------------
-* Description: CountFour - UnitTests
+* Description: ConnectFour - UnitTests
 *--------------------------------------------------------------
 */
 
-namespace UintTests
+namespace UnitTest
 {
     using ConnectFour;
     using FluentAssertions;
@@ -15,9 +15,6 @@ namespace UintTests
 
     public class ProgramTests
     {
-        /// <summary>
-        ///Alles Frei
-        ///</summary>
         [Fact]
         public void T01_GetFreeRow_AllCellsFree()
         {
@@ -29,12 +26,9 @@ namespace UintTests
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0}
             };
-            CountFour.GetFreeRow(allocation, 0).Should().Be(4);
+            ConnectFour.GetFreeRow(allocation, 0).Should().Be(4);
         }
 
-        /// <summary>
-        /// Mitten drin
-        ///</summary>
         [Fact]
         public void T02_GetFReeRow_Middle()
         {
@@ -47,12 +41,9 @@ namespace UintTests
                 {0, 0, 1, 0, 0}
             };
 
-            CountFour.GetFreeRow(allocation, 2).Should().Be(1);
+            ConnectFour.GetFreeRow(allocation, 2).Should().Be(1);
         }
 
-        /// <summary>
-        /// Mitten drin
-        ///</summary>
         [Fact]
         public void T03_GetFReeRow_Full()
         {
@@ -65,7 +56,7 @@ namespace UintTests
                 {0, 0, 1, 0, 0}
             };
 
-            CountFour.GetFreeRow(allocation, 2).Should().Be(-1);
+            ConnectFour.GetFreeRow(allocation, 2).Should().Be(-1);
         }
 
         [Fact]
@@ -79,7 +70,7 @@ namespace UintTests
                 {0, 0, 0, 0, 0},
                 {0, 0, 1, 0, 0}
             };
-            CountFour.IsWinner(allocation, 4, 2).Should().Be(0);
+            ConnectFour.IsWinner(allocation, 4, 2).Should().Be(0);
         }
 
         [Fact]
@@ -93,7 +84,7 @@ namespace UintTests
                 {0, 0, 1, 0, 0},
                 {0, 0, 1, 0, 0}
             };
-            CountFour.IsWinner(allocation, 1, 2).Should().Be(1);
+            ConnectFour.IsWinner(allocation, 1, 2).Should().Be(1);
         }
 
         [Fact]
@@ -107,7 +98,7 @@ namespace UintTests
                 {0, 1, 1, 1, 1},
                 {0, 2, 1, 2, 2}
             };
-            CountFour.IsWinner(allocation, 3, 4).Should().Be(1);
+            ConnectFour.IsWinner(allocation, 3, 4).Should().Be(1);
         }
 
         [Fact]
@@ -121,7 +112,7 @@ namespace UintTests
                 {0, 1, 1, 1, 0},
                 {1, 2, 1, 2, 2}
             };
-            CountFour.IsWinner(allocation, 1, 3).Should().Be(1);
+            ConnectFour.IsWinner(allocation, 1, 3).Should().Be(1);
         }
 
         [Fact]
@@ -135,7 +126,7 @@ namespace UintTests
                 {0, 1, 1, 1, 2},
                 {1, 2, 1, 2, 2}
             };
-            CountFour.IsWinner(allocation, 0, 1).Should().Be(2);
+            ConnectFour.IsWinner(allocation, 0, 1).Should().Be(2);
         }
     }
 }
