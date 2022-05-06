@@ -131,9 +131,9 @@ namespace ConnectFour
                 { -1, 1 }, // nach links oben und rechts unten
             };
 
-            for (int i=0;i<directions.GetLength(0);i++)
+            for (int i = 0; i < directions.GetLength(0); i++)
             {
-                int winner = CheckOneDirection(allocation, row, col, directions[i,0], directions[i, 1]);
+                int winner = CheckDirection(allocation, row, col, directions[i, 0], directions[i, 1]);
                 if (winner > 0)
                 {
                     return winner;
@@ -144,23 +144,20 @@ namespace ConnectFour
         }
 
         /// <summary>
-        /// Für eine der vier Richtungen (horizontal, vertikal, rechts hinauf, links hinauf 
-        /// wird überprüft, ob bereits vier gleiche Steine gesetzt sind.
+        /// Berechnet, wie viele Steine in eine Richtung (z.B. rechts) gespeichert sind.
         /// </summary>
-        /// <param name="allocation">Spielfeld mit Steinen 0/1/2</param>
+        /// <param name="allocation"></param>
+        /// <param name="player"></param>
         /// <param name="row"></param>
         /// <param name="col"></param>
         /// <param name="deltaRow"></param>
         /// <param name="deltaCol"></param>
-        /// <returns>1/2 für den Sieger oder 0 falls kein Sieger existiert</returns>
-        private static int CheckOneDirection(int[,] allocation, int row, int col, int deltaRow, int deltaCol)
+        /// <returns></returns>
+        private static int CountDirection(int[,] allocation, int player, int row, int col, int deltaRow, int deltaCol)
         {
-            int player       = allocation[row, col];
-            int counterEqual = 1; // Der gerade gesetzte Stein zählt sicher
-
-            // Nach rechts richtige Steine zählen
-            int actRow = row + deltaRow;
-            int actCol = col + deltaCol;
+            int counterEqual = 0;
+            int actRow       = row + deltaRow;
+            int actCol       = col + deltaCol;
             while (IsPossible(allocation, actRow, actCol) && allocation[actRow, actCol] == player)
             {
                 counterEqual++;
@@ -168,30 +165,36 @@ namespace ConnectFour
                 actCol += deltaCol;
             }
 
-            // Dann nach links richtige Steine zählen
-            actRow = row - deltaRow;
-            actCol = col - deltaCol;
-            while (IsPossible(allocation, actRow, actCol) && allocation[actRow, actCol] == player)
-            {
-                counterEqual++;
-                actRow -= deltaRow;
-                actCol -= deltaCol;
-            }
+            return counterEqual;
+        }
 
-            if (counterEqual >= 4)
-            {
-                return player;
-            }
+        /// <summary>
+        /// Für eine der vier Richtungen (horizontal, vertikal, rechts hinauf, links hinauf 
+        /// wird überprüft, ob bereits vier gleiche Steine gesetzt sind.
+        /// Es wird immer in zwei Richtungen geprüft, z.B. rechts + links.
+        /// </summary>
+        /// <param name="allocation">Spielfeld mit Steinen 0/1/2</param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="deltaRow"></param>
+        /// <param name="deltaCol"></param>
+        /// <returns>1/2 für den Sieger oder 0 falls kein Sieger existiert</returns>
+        private static int CheckDirection(int[,] allocation, int row, int col, int deltaRow, int deltaCol)
+        {
+            int player = allocation[row, col];
+            int counterEqual = 1 + // this field
+                               CountDirection(allocation, player, row, col, deltaRow,  deltaCol) + // direction 1
+                               CountDirection(allocation, player, row, col, -deltaRow, -deltaCol); // direction -1
 
-            return 0;
+            return counterEqual >= 4 ? player : 0;
         }
 
         /// <summary>
         /// Prüft, ob die Koordinaten überhaupt zulässig sind.
         /// </summary>
         /// <param name="allocation"></param>
-        /// <param name="actRow"></param>
-        /// <param name="actCol"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
         /// <returns>Koordinaten sind im gültigen Bereich</returns>
         private static bool IsPossible(int[,] allocation, int row, int col)
         {
