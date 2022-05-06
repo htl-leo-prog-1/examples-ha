@@ -159,5 +159,20 @@ namespace UnitTest
             var r1 = new RationalNumber(n1, d1);
             r1.Value.Should().Be((double)n1 / (double)d1);
         }
+
+        [Theory]
+        [InlineData(0,   12,  "0")]
+        [InlineData(0,   -12, "0")]
+        [InlineData(-14, 1,   "-14")]
+        [InlineData(10,  2,   "5")]
+        [InlineData(1,   2,   "1/2")]
+        [InlineData(-2,  3,   "-2/3")]
+        [InlineData(2,  -5,  "2/-5")]
+        [InlineData(1, 0,  "invalid")]
+        public void T10_ToString(int n1, int d1, string expected)
+        {
+            var r1 = new RationalNumber(n1, d1);
+            r1.ToString().Should().Be(expected);
+        }
     }
 }

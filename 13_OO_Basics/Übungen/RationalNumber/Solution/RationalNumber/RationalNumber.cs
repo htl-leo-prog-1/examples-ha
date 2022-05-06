@@ -42,7 +42,30 @@ namespace RationalNumber
             {
                 Numerator   = -Numerator;
                 Denominator = -Denominator;
-            } 
+            }
+        }
+
+        public string ToString()
+        {
+            string result;
+            if (Numerator == 0)
+            {
+                result = "0";
+            }
+            else if (Denominator == 0)
+            {
+                result = "invalid";
+            }
+            else if (Numerator % Denominator == 0)
+            {
+                result = (Numerator / Denominator).ToString();
+            }
+            else
+            {
+                result = $"{Numerator}/{Denominator}";
+            }
+
+            return result;
         }
 
         public RationalNumber Normalize()
