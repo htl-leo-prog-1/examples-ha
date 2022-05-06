@@ -8,8 +8,6 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace MineSweeper;
-
 using System;
 
 /// <summary>

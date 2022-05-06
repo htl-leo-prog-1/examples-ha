@@ -17,6 +17,7 @@ public class MineSweeper
     private static readonly string _emptyField   = "\u2593";
     private static readonly string _markedAsMine = "\u25B6";
     private static readonly string _hitMine      = "\u2B59";
+    private static readonly string _notFoundMine = "\u2B24";
 
     public static void Run()
     {
@@ -190,7 +191,7 @@ public class MineSweeper
 
         if (Tools.InRange(row, rows - 1, 0) && Tools.InRange(col, cols - 1, 0))
         {
-            if (Board.GetText(row, col).Length > 0)
+            if (Board.GetText(row, col) == _emptyField)
             {
                 int mines = CountMinesAround(mineField, row, col);
                 if (mines == 0)
@@ -249,7 +250,7 @@ public class MineSweeper
                 {
                     if (Board.GetText(row, col) != _hitMine)
                     {
-                        Board.SetText(row, col, "\u2B24", "Red");
+                        Board.SetText(row, col, _notFoundMine, "Red");
                     }
                 }
             }
@@ -333,18 +334,16 @@ public class MineSweeper
 
         var mineField = new bool[rows, cols];
 
-        for (int i = 0; i < countMines; i++)
+        while (countMines > 0)
         {
-            int row;
-            int col;
-
-            do
+            var row = random.Next(rows);
+            var col = random.Next(cols);
+            
+            if (!mineField[row, col])
             {
-                row = random.Next(rows);
-                col = random.Next(cols);
-            } while (mineField[row, col]);
-
-            mineField[row, col] = true;
+                mineField[row, col] = true;
+                countMines--;
+            }
         }
 
         return mineField;

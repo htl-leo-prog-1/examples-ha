@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
+using System;
+
 /// <summary>
 ///     Zugriffsklasse auf das Windows-Board
 /// </summary>
@@ -366,14 +368,16 @@ public class FormBoard : Form
     /// <returns></returns>
     private static Color GetFormsColor(string textColor)
     {
-        return textColor switch
+        if (string.IsNullOrEmpty(textColor))
         {
-            "Black"     => Color.Black,
-            "Red"       => Color.Red,
-            "Green"     => Color.Green,
-            "LightGrey" => Color.LightGray,
-            _           => Color.Black
-        };
+            return Color.Black;
+        }
+        if (Enum.TryParse(textColor, out KnownColor color))
+        {
+            return Color.FromName(textColor);
+        }
+
+        throw new ArgumentException($"you have specified a wrong color: {textColor}");
     }
 
     /// <summary>

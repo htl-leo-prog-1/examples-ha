@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
+using System;
+
 /// <summary>
 ///     Zugriffsklasse auf das Windows-Board
 /// </summary>
@@ -113,7 +115,7 @@ public class Board
     /// <param name="row"></param>
     /// <param name="col"></param>
     /// <returns>String der jeweiligen Zelle</returns>
-    public static string? GetText(int row, int col)
+    public static string GetText(int row, int col)
     {
         if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
@@ -366,14 +368,16 @@ public class FormBoard : Form
     /// <returns></returns>
     private static Color GetFormsColor(string textColor)
     {
-        return textColor switch
+        if (string.IsNullOrEmpty(textColor))
         {
-            "Black"     => Color.Black,
-            "Red"       => Color.Red,
-            "Green"     => Color.Green,
-            "LightGrey" => Color.LightGray,
-            _           => Color.Black
-        };
+            return Color.Black;
+        }
+        if (Enum.TryParse(textColor, out KnownColor color))
+        {
+            return Color.FromName(textColor);
+        }
+
+        throw new ArgumentException($"you have specified a wrong color: {textColor}");
     }
 
     /// <summary>
