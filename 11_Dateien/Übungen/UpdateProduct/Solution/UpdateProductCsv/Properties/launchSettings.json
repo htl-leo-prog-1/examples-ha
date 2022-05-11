@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Preisliste": {
+      "commandName": "Project",
+      "commandLineArgs": "preisliste.csv 5"
+    }
+  }
+}
