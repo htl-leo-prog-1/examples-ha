@@ -10,7 +10,6 @@
 namespace DirRecursive
 {
     using System;
-    using System.Globalization;
     using System.IO;
 
     public class DirRecursive
