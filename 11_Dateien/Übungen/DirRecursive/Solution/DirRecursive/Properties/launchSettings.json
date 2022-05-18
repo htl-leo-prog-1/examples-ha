@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DirRecursive": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\tmp *.cs"
+    }
+  }
+}
