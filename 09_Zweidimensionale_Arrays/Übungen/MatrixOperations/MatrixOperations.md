@@ -1,6 +1,6 @@
 c# Programmieren (c) HTL-Leonding
 
-# Matrix Operaations
+# Matrix-Operationen
 
 ## Lehrziele
 
