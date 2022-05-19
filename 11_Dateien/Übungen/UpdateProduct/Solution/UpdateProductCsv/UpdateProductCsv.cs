@@ -17,13 +17,13 @@ namespace UpdateProductCsv
     {
         public static int Main(string[] args)
         {
-            if (!CheckArguments(args))
+            string fileName;
+            double percentage;
+
+            if (!CheckArguments(args, out fileName, out percentage))
             {
                 return 1;
             }
-
-            var fileName   = args[0];
-            var percentage = 1 + (double.Parse(args[1], CultureInfo.InvariantCulture) / 100.0);
 
             var fullPathName = Path.GetFullPath(fileName);
             var pathName     = $"{Path.GetDirectoryName(fullPathName)}\\";
@@ -47,15 +47,27 @@ namespace UpdateProductCsv
             return 0;
         }
 
-        static bool CheckArguments(string[] args)
+        static bool CheckArguments(string[] args, out string fileName, out double percentage)
         {
+            fileName   = string.Empty;
+            percentage = 0;
+
             if (args.Length != 2)
             {
                 Console.WriteLine("usage: UpdateProductCsv CSV-Filename percentage");
                 return false;
             }
+            
+            fileName   = args[0];
+            double percent;
 
-            var fileName = args[0];
+            if (!double.TryParse(args[1], NumberStyles.None, CultureInfo.InvariantCulture, out percent))
+            {
+                Console.WriteLine($"Illegal percentage: {args[1]}");
+                return false;
+            }
+
+            percentage = 1 + percent / 100.0;
 
             if (!File.Exists(fileName))
             {

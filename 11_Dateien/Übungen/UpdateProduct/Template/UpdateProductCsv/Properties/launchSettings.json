@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Preisliste": {
+    "UpdateProductCsv": {
       "commandName": "Project",
-      "commandLineArgs": "preisliste.csv 5"
+      "commandLineArgs": "products.csv 10"
     }
   }
 }

@@ -16,13 +16,13 @@ namespace DirRecursive
     {
         public static int Main(string[] args)
         {
-            if (!CheckArguments(args))
+            string dirName;
+            string searchPattern;
+
+            if (!CheckArguments(args, out dirName, out searchPattern))
             {
                 return 1;
             }
-
-            var dirName = Path.GetFullPath(args[0]);
-            var searchPattern = args.Length > 1 ? args[1] : "*.*";
 
             int count = ListAndCount(dirName, searchPattern);
 
@@ -30,15 +30,19 @@ namespace DirRecursive
             return 0;
         }
 
-        static bool CheckArguments(string[] args)
+        static bool CheckArguments(string[] args, out string dirName, out string searchPattern)
         {
             if (args.Length < 1 || args.Length > 2)
             {
+                dirName       = string.Empty;
+                searchPattern = string.Empty;
+
                 Console.WriteLine("usage: DirRecursive dirname [searchPattern]");
                 return false;
             }
 
-            var dirName = args[0];
+            dirName       = Path.GetFullPath(args[0]);
+            searchPattern = args.Length > 1 ? args[1] : "*.*";
 
             if (!Directory.Exists(dirName))
             {
