@@ -7,8 +7,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
 using System;
+using System.Runtime.InteropServices;
+
+public delegate void CellClickHandler(int row, int col);
 
 /// <summary>
 ///     Zugriffsklasse auf das Windows-Board
@@ -21,6 +23,8 @@ public class Board
     private          FormBoard _form; // WindowsForm zur Darstellung in zweitem Thread
     private readonly int       _rows;
     private          string    _title;
+
+    public static event CellClickHandler CellClicked;
 
     /// <summary>
     ///     Spielfeld mit _rows/_cols anlegen
@@ -93,7 +97,7 @@ public class Board
     /// </summary>
     public static void SetText(int row, int col, string text, string color)
     {
-        if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
+        if (_staticBoard == null || row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
             return;
         }
@@ -153,6 +157,35 @@ public class Board
             0           => _staticBoard._rows,
             _           => _staticBoard._cols
         };
+    }
+
+    public static void OnCellClicked(int row, int col)
+    {
+        CellClicked?.Invoke(row, col);
+    }
+    
+    [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+    public static extern short GetKeyState(int keyCode);
+    public const int KEY_PRESSED = 0x8000;
+    public static bool IsKeyDown(Keys key)
+
+    {
+        return Convert.ToBoolean(GetKeyState((int)key) & KEY_PRESSED);
+    }
+
+    public static bool IsShiftKeyDown()
+    {
+        return IsKeyDown((Keys)0x10); // see https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+    }
+
+    public static bool IsCtrlKeyDown()
+    {
+        return IsKeyDown((Keys)0x11); // see https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+    }
+
+    public static bool IsAltKeyDown()
+    {
+        return IsKeyDown((Keys)0x12); // see https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
     }
 }
 
@@ -337,6 +370,17 @@ public class FormBoard : Form
     {
         var textBox = CreateTextBox(Color.White, "");
         _board[row, col] = textBox;
+        _board[row, col].Click += (sender, args) =>
+        {
+            if (sender is TextBox)
+            {
+                var t = sender as TextBox;
+                int x = t.Location.X / CELL_HEIGHT;
+                int y = t.Location.Y / CELL_WIDTH;
+                Board.OnCellClicked(y, x);
+            }
+        };
+
         textBox.Location = new(col * CELL_WIDTH, row * CELL_HEIGHT);
         _panelBoard.Controls.Add(textBox);
     }
@@ -372,6 +416,7 @@ public class FormBoard : Form
         {
             return Color.Black;
         }
+
         if (Enum.TryParse(textColor, out KnownColor color))
         {
             return Color.FromName(textColor);
@@ -388,6 +433,7 @@ public class FormBoard : Form
     /// <param name="text"></param>
     /// <param name="color"></param>
     private delegate void SetTextDelegate(int row, int col, string text, string color);
+
 }
 
 # endregion
