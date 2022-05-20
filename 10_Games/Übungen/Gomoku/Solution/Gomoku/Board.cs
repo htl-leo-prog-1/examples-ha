@@ -93,7 +93,7 @@ public class Board
     /// </summary>
     public static void SetText(int row, int col, string text, string color)
     {
-        if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
+        if (_staticBoard == null || row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
             return;
         }

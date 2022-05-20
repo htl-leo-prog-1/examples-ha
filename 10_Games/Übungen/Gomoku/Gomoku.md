@@ -5,6 +5,7 @@ c# Programmieren (c) HTL-Leonding
 ## Lehrziele
 
 * mehrdimensionale Arrays
+* Datei Lesen/Schreiben
 * Board
 
 ## Aufgabenstellung
@@ -22,38 +23,52 @@ Schreiben Sie ein Programm mit dem **Gomoku** gespielt werden kann.
 * Das Spiel ist beendet, wenn ein Spieler gewonnen hat **oder** kein Stein mehr eingeworfen werden kann (das Spielfeld ist voll => unentschieden).
 * Ein Spieler kann **aufgeben**.  
   Mit der Eingabe eine Rufzeichens hat der andere Spieler gewonnen und das Programm wird beendet.
+* Mit der Eingabe von `s` (für `save`) wird der Status des Spiels in eine CSV Datei gespeichert.  
+* Gibt ein Spieler `l` (für `load`) ein, wird das aktuelle Spiel beendet und das Spiel aus der CSV Datei geladen.   
 * Bei einer fehlerhaften Eingabe muss diese wiederholt werden: z.B. einer falsche Spielfeldgröße, bei einer ungültigen Zeile/Spalte, bei einem bereits besetztem Feld, ... 
 
 ### Programmdesign
 
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementieren Sie die Methoden so, dass **alle** Unittests erfolgreich ausgeführt werden können. Änderungen an den *Unittests* sind nicht erlaubt.  
-Damit die Unittests ausgeführt werden können müssen sie folgende (Hilfs-)Methoden umsetzen:
+Damit die Unittests ausgeführt werden können, müssen sie folgende (Hilfs-)Methoden umsetzen:
 
-* `int IsWinner(int[,] field, int row, int col)`  
+* `bool IsWinner(int[,] field, int row, int col)`  
 Überprüft, ob sich durch die Belegung eines Feldes ein Sieger ergeben hat. Dabei werden nicht alle Felder überprüfen, sondern nur die an die neu gesetzte Position angrenzenden.  
-Rückgabe: 0 falls kein Gewinner, sonst 1/2
+* `int GetStoneCount(int[,] field)`  
+  Zählt alle am Spielfeld plazierte Steine. 
+* `bool SetStone(int[,] field, int row, int col, int player)`  
+  Die Methode setzt einen Stein am Spielfeld. Der Rückgabewert legt fest, ob mit dem Setzen des Steines der Spieler gewonnen hat (bool).
+* `void SaveGame(int[,] field, string fileName)`  
+  Das Spielfeld (gespeichert im `field`) wird in eine Datei geschrieben. Die CSV Datei hat folgende Spalten: `"No;Row;Col;Player"`  - "No" ist eine fortlaufende Nummer. Hinweis: es werden nur **Steine** in die Datei geschrieben, die Position der leeren Felder jedoch nicht.   
+* `int[,] LoadGame(int boardSize, string fileName)`  
+  Ein zuvor gespeichertes Spiel wird wieder geladen. Das Format der Datei entspricht der CSV Datei der Methode `SaveGame`. 
+
 
 Testen Sie das Programm ausführlich. 
 
-Verwenden Sie im Programm (für das Feld **field**) folgende Codierung: -1 = frei, 0 = Spieler 1 (rotes <span style="color:red">X</span>), 1 = Spieler 2 (grünes <span style="color:green">O</span>)
+Verwenden Sie im Programm (für das Feld **field**) folgende Codierung:   
+`-1` = frei, `0` = Spieler 1 (rotes <span style="color:red">X</span>), `1` = Spieler 2 (grünes <span style="color:green">O</span>) 
 
 ### Bildschirmausgabe
 
 ```
-Connect Four
-============
-Zeilen   [2..10]: 6
-Spalten  [2..10]: 7
-Spieler 1, Spalte  [0..6]: 0
-Spieler 2, Spalte  [0..6]: 3
-Spieler 1, Spalte  [0..6]: 0
-Spieler 2, Spalte  [0..6]: 2
-Spieler 1, Spalte  [0..6]: 0
-Spieler 2, Spalte  [0..6]: 4
-Spieler 1, Spalte  [0..6]: 6
-Spieler 2, Spalte  [0..6]: 5
-Gewinner ist Spieler 2!
+Gomoku
+=========
+Board size [15,17 or 19]: 15
+"row,col" to set stone, e.g. 5,7
+! to give up game (quit program)
+s to save the game (and continue)
+l give up the current game and load the store game - continue with the stored game.
+Player 1: 5,5
+Player 2: 4,4
+Player 1: 5,5
+Illegal input, please try again
+Player 1: s
+Game saved.
+Player 1: 6,6
+Player 2: l
+Game loaded.
+Player 1: 6,6
+Player 2: !
 ```
-
-![](images/screen1.png)

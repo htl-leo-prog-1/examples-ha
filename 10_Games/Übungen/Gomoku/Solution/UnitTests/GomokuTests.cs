@@ -9,328 +9,173 @@
 
 namespace UnitTests;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FluentAssertions;
+
 using Gomoku;
+
 using Xunit;
 
 public sealed class GomokuTests
 {
-    [Theory]
-    [MemberData(nameof(CheckWinnerData))]
-    public void CheckWinner(int[][] fieldsToSet, int expectedIndex)
-    {
-        InitBoard(fieldsToSet);
-
-        int winnerIdx = Gomoku.CheckWinner();
-
-        winnerIdx.Should().Be(expectedIndex);
-    }
-
     [Fact]
-    public void GetFieldValues()
+    public void CheckWinner()
     {
-        string e = string.Empty;
-        string[,] expected =
+        // field with 5 in row,col and both diag
+        var field = new int[,]
         {
-            { e, "O", e },
-            { "O", e, e },
-            { e, e, "X" }
+            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 1, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 1, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 9, 1, 9, 9 },
+            { 0, 9, 9, 0, 9, 9, 9, 9, 1, 9 },
+            { 9, 0, 9, 9, 9, 9, 9, 9, 9, 1 },
+            { 9, 9, 0, 9, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 9, 0, 9, 9, 9, 9, 9 },
+            { 9, 1, 1, 1, 1, 1, 9, 9, 9, 9 },
         };
-        InitBoard();
 
-        string[,] fieldValues = Gomoku.GetFieldValues();
-
-        fieldValues.Should()
-            .BeEquivalentTo(expected);
-    }
-
-    [Theory]
-    [InlineData(0, 1, 0)]
-    [InlineData(0, 0, -1)]
-    [InlineData(2, 1, -1)]
-    [InlineData(2, 2, 1)]
-    [InlineData(1, 0, 0)]
-    public void GetPlayerIndexFromCell(int row, int col, int expectedIndex)
-    {
-        InitBoard();
-
-        int playerIndex = Gomoku.GetPlayerIndexFromCell(row, col);
-
-        playerIndex.Should().Be(expectedIndex);
-    }
-
-    [Theory]
-    [InlineData(9, 0, 2)]
-    [InlineData(5, 1, 1)]
-    [InlineData(1, 2, 0)]
-    [InlineData(-1, 2, -1)]
-    [InlineData(1, 3, -1)]
-    [InlineData(1, -1, -1)]
-    public void GetColFromPosition(int position, int row, int expectedCol)
-    {
-        int column = Gomoku.GetColFromPosition(position, row);
-
-        column.Should().Be(expectedCol);
-    }
-
-    [Theory]
-    [InlineData(7, 0)]
-    [InlineData(5, 1)]
-    [InlineData(3, 2)]
-    [InlineData(10, -1)]
-    public void GetRowFromPosition(int position, int expectedRow)
-    {
-        int row = Gomoku.GetRowFromPosition(position);
-
-        row.Should().Be(expectedRow);
-    }
-
-    [Theory]
-    [InlineData(-1, false)]
-    [InlineData(0, false)]
-    [InlineData(1, true)]
-    [InlineData(3, true)]
-    [InlineData(5, true)]
-    [InlineData(7, true)]
-    [InlineData(9, true)]
-    [InlineData(10, false)]
-    public void CheckPositionValid(int position, bool expected)
-    {
-        bool isValid = Gomoku.CheckPositionValid(position);
-
-        isValid.Should().Be(expected);
-    }
-
-    [Fact]
-    public void InitPositions()
-    {
-        Board.Init(3, 3, string.Empty);
-        Gomoku.InitPositions();
-
-        int[,] numbers =
+        for (int row = 0; row < field.GetLength(0); row++)
         {
-            { 7, 8, 9 },
-            { 4, 5, 6 },
-            { 1, 2, 3 }
-        };
-        for (int row = 0; row < numbers.GetLength(0); row++)
-        {
-            for (int col = 0; col < numbers.GetLength(1); col++)
+            for (int col = 0; col < field.GetLength(1); col++)
             {
-                Board.GetText(row, col).Should().BeEquivalentTo(numbers[row, col].ToString());
+                if (field[row, col] != 9)
+                {
+                    Gomoku.IsWinner(field, row, col).Should().BeTrue();
+                }
             }
         }
     }
 
-    [Theory]
-    [InlineData(3, true)]
-    [InlineData(1, true)]
-    [InlineData(7, true)]
-    [InlineData(5, true)]
-    [InlineData(0, false)]
-    [InlineData(10, false)]
-    [InlineData(11, false)]
-    [InlineData(-3, false)]
-    public void GetPosition_Range(int position, bool expected)
+    [Fact]
+    public void CheckNoWinner()
     {
-        bool posValid = Gomoku.CheckPosition(position);
-
-        posValid.Should().Be(expected);
-    }
-
-    [Theory]
-    [InlineData(3, true)]
-    [InlineData(1, true)]
-    public void GetPosition_Free(int position, bool expected)
-    {
-        Board.Init(3,3,string.Empty);
-
-        bool isFree = Gomoku.CheckPosition(position);
-
-        isFree.Should().Be(expected);
-    }
-
-    [Theory]
-    [InlineData(3, false)]
-    [InlineData(5, true)]
-    [InlineData(7, true)]
-    [InlineData(8, false)]
-    [InlineData(4, false)]
-    [InlineData(6, true)]
-    public void GetPosition_Mixed(int position, bool expected)
-    {
-        Board.Init(3, 3, string.Empty);
-        int[,] fieldsToSet =
+        // field with only 4 in row,col and both diag
+        var field = new int[,]
         {
-            { 0, 1 },
-            { 2, 2 },
-            { 1, 0 }
+            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 1, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 1, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 9, 1, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 9, 9, 1, 9 },
+            { 9, 0, 9, 9, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 0, 9, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
+            { 9, 9, 9, 9, 0, 9, 9, 9, 9, 9 },
+            { 9, 9, 1, 1, 1, 1, 9, 9, 9, 9 },
         };
-        for (int i = 0; i < fieldsToSet.GetLength(0); i++)
+
+        for (int row = 0; row < field.GetLength(0); row++)
         {
-            Board.SetText(fieldsToSet[i,0], fieldsToSet[i,1], "X", "Red");
+            for (int col = 0; col < field.GetLength(1); col++)
+            {
+                if (field[row, col] != 9)
+                {
+                    Gomoku.IsWinner(field, row, col).Should().BeFalse();
+                }
+            }
         }
-
-        bool isFree = Gomoku.CheckPosition(position);
-
-        isFree.Should().Be(expected);
     }
 
-    public static IEnumerable<object[]> CheckWinnerData => new[]
+    [Fact]
+    public void SaveAndLoadGameEmpty()
     {
-        new object[]
+        var fileName = "TestGomoku.csv";
+        var field    = InitEmptyField(15, 15);
+        Gomoku.SaveGame(field, fileName);
+        field.Should().BeEquivalentTo(InitEmptyField(15, 15), "save must not change field");
+        Gomoku.LoadGame(15, fileName).Should().BeEquivalentTo(field);
+    }
+
+    [Fact]
+    public void SaveAndLoadGame()
+    {
+        var fileName   = "TestGomoku.csv";
+        var field      = InitAGame();
+        var fieldSaved = (int[,])field.Clone();
+
+        Gomoku.SaveGame(field, fileName);
+        field.Should().BeEquivalentTo(fieldSaved, "save must not change field");
+        Gomoku.LoadGame(15, fileName).Should().BeEquivalentTo(field);
+    }
+
+    [Fact]
+    public void GetStoneCountEmpty()
+    {
+        var field = InitEmptyField(19, 19);
+        Gomoku.GetStoneCount(field).Should().Be(0);
+    }
+
+    [Fact]
+    public void GetStoneCount()
+    {
+        var field = InitAGame();
+        Gomoku.GetStoneCount(field).Should().Be(Stones.Count());
+    }
+
+    [Fact]
+    public void SetStoneCountEmpty()
+    {
+        var field = InitEmptyField(19, 19);
+        Gomoku.GetStoneCount(field).Should().Be(0);
+    }
+
+
+    [Fact]
+    public void SetStone()
+    {
+        var stones = Stones.ToList();
+        var field  = InitAGame(stones);
+
+        foreach (var stone in stones)
         {
-        new []
-            {
-                new[] { 0, 0, 1 },
-                new[] { 1, 1, 1 },
-                new[] { 2, 2, 1 }
-            },
-            1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 2, 1 },
-                new[] { 1, 1, 1 },
-                new[] { 2, 0, 1 }
-            },
-            1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 2, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 2, 0, 0 }
-            },
-            0
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 0, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 2, 2, 0 }
-            },
-            0
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 0, 1 },
-                new[] { 1, 0, 1 },
-                new[] { 2, 0, 1 }
-            },
-            1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 2, 0 },
-                new[] { 1, 2, 0 },
-                new[] { 2, 2, 0 }
-            },
-            0
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 0, 1 },
-                new[] { 0, 1, 1 },
-                new[] { 0, 2, 1 }
-            },
-            1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 2, 0, 0 },
-                new[] { 2, 1, 0 },
-                new[] { 2, 2, 0 }
-            },
-            0
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 0, 1 },
-                new[] { 1, 1, 1 },
-                new[] { 2, 0, 1 }
-            },
-            -1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 2, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 2, 2, 0 }
-            },
-            -1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 2, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 2, 2, 0 }
-            },
-            -1
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 1, 0 },
-                new[] { 1, 0, 1 },
-                new[] { 1, 1, 0 },
-                new[] { 2, 2, 1 },
-                new[] { 2, 1, 0 },
-                new[] { 0, 2, 1 }
-            },
-            0
-        },
-        new object[]
-        {
-            new[]
-            {
-                new[] { 0, 1, 0 },
-                new[] { 1, 0, 1 },
-                new[] { 1, 2, 0 },
-                new[] { 2, 2, 1 },
-                new[] { 2, 1, 0 },
-                new[] { 0, 2, 1 }
-            },
-            -1
+            field[stone.Row, stone.Col].Should().Be(stone.Player);
         }
+
+        Gomoku.GetStoneCount(field).Should().Be(stones.Count);
+    }
+
+    private static IEnumerable<(int Row, int Col, int Player)> Stones => new List<(int Row, int Col, int Player)>
+    {
+        (0, 0, 0),
+        (1, 1, 1),
+        (2, 2, 0),
+        (3, 3, 1),
+        (4, 4, 0),
+        (5, 5, 1),
     };
 
-    private static void InitBoard(int[][] fieldsToSet = null)
+    private void SetStones(int[,] field, IEnumerable<(int Row, int Col, int Player)> stones)
     {
-        Board.Init(3, 3, string.Empty);
-        fieldsToSet ??= new[]
+        foreach (var stone in stones)
         {
-            new[] { 0, 1, 0 },
-            new[] { 2, 2, 1 },
-            new[] { 1, 0, 0 }
-        };
-        foreach (int[] cellDef in fieldsToSet)
-        {
-            Board.SetText(cellDef[0], cellDef[1],
-                cellDef[2] == 0 ? "O" : "X", "Red");
+            Gomoku.SetStone(field, stone.Row, stone.Col, stone.Player);
         }
+    }
+
+    private int[,] InitAGame(IEnumerable<(int Row, int Col, int Player)> stones=null)
+    {
+        var field = InitEmptyField(15, 15);
+        SetStones(field, stones ?? Stones);
+        return field;
+    }
+
+    private static int[,] InitEmptyField(int rows, int cols)
+    {
+        var field = new int[rows, cols];
+
+        for (int row = 0; row < field.GetLength(0); row++)
+        {
+            for (int col = 0; col < field.GetLength(1); col++)
+            {
+                field[row, col] = -1;
+            }
+        }
+
+        return field;
     }
 }
