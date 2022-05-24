@@ -177,7 +177,7 @@ public static class Gomoku
             isOk = true;
 
             Console.Write($"Player {player + 1}: ");
-            var input = Console.ReadLine() ?? "".Trim();
+            var input = (Console.ReadLine() ?? "").Trim();
 
             switch (input)
             {
@@ -344,7 +344,8 @@ public static class Gomoku
             {
                 if (field[row, col] >= 0)
                 {
-                    lines[count++] = $"{count};{row};{col};{field[row, col]}";
+                    lines[count] = $"{count};{row};{col};{field[row, col]}";
+                    count++;
                 }
             }
         }
