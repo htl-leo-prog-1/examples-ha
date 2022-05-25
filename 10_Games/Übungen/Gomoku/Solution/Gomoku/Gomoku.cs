@@ -369,14 +369,27 @@ public static class Gomoku
 
         if (lines.Length > 0)
         {
+            bool first = true;
+
+            foreach (var line in lines)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    var part   = line.Split(';');
+                    int row    = int.Parse(part[1]);
+                    int col    = int.Parse(part[2]);
+                    int player = int.Parse(part[3]);
+
+                    SetStone(field, row, col, player);
+                }
+            }
+
             for (int i = 1; i < lines.Length; i++)
             {
-                var part   = lines[i].Split(';');
-                int row    = int.Parse(part[1]);
-                int col    = int.Parse(part[2]);
-                int player = int.Parse(part[3]);
-
-                SetStone(field, row, col, player);
             }
         }
 
