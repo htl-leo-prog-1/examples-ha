@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 
 namespace PupilsArray
@@ -7,21 +8,14 @@ namespace PupilsArray
     {
         const string FileName = "Pupils.csv";
 
-        /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
         static void Main()
         {
-            Pupil[] schoolClass;
-            // Schülerdaten einlesen
-            schoolClass = ReadClassFromCsv();
-            // Schülerdaten in Originalsortierung auf Console ausgeben
+            var schoolClass = ReadClassFromCsv();
             Console.WriteLine("Unsortierte Ausgabe");
             WriteSchoolClassToConsole(schoolClass);
-            // Nach ZipCode sortieren
             schoolClass = SortByCatalogNumber(schoolClass);
-            // und wieder ausgeben
-            Console.WriteLine("\nNach CatalogNumber sortierte Ausgabe");
+            Console.WriteLine();
+            Console.WriteLine("Nach CatalogNumber sortierte Ausgabe");
             WriteSchoolClassToConsole(schoolClass);
             Console.ReadLine();
         }
@@ -32,13 +26,13 @@ namespace PupilsArray
         /// <returns>Array mit Schülern</returns>
         private static Pupil[] ReadClassFromCsv()
         {
-            string[] lines = File.ReadAllLines(FileName, System.Text.Encoding.Default);
-            Pupil[] schoolClass = new Pupil[lines.Length - 1];  // wegen Headerzeile
-            // solange noch Zeilen aus der csv-Datei eingelesen werden können
-            for (int i = 1; i < lines.Length; i++)  // 1 wegen Headerzeile
+            var lines = File.ReadAllLines(FileName, System.Text.Encoding.Default);
+            var schoolClass = new Pupil[lines.Length - 1]; // wegen Headerzeile
+            for (int i = 1; i < lines.Length; i++)
             {
                 schoolClass[i - 1] = GetPupilFromCsvLine(lines[i]);
             }
+
             return schoolClass;
         }
 
@@ -49,13 +43,14 @@ namespace PupilsArray
         /// <returns>Struktur Schüler</returns>
         static Pupil GetPupilFromCsvLine(string line)
         {
-            Pupil pupil;
-            string[] fields = line.Split(';');
-            pupil = new Pupil();
-            pupil.SetCatalogNumber(Convert.ToInt32(fields[0]));
+            var fields = line.Split(';');
+            var pupil = new Pupil();
+            
+            pupil.CatalogNumber = int.Parse(fields[0]);
+            
             pupil.SetLastName(fields[1]);
-            pupil.SetFirstName(fields[2]);
-            pupil.SetBirthDate(fields[3]);
+            pupil.FirstName = fields[2];
+            pupil.SetBirthDate(DateTime.ParseExact(fields[3], "dd.MM.yyyy", CultureInfo.InvariantCulture));
             return pupil;
         }
 
@@ -68,24 +63,24 @@ namespace PupilsArray
         static Pupil[] SortByCatalogNumber(Pupil[] schoolClass)
         {
             bool changed;
-            Pupil pupil;
             int rounds = 0;
             do
             {
                 changed = false;
                 for (int i = 0; i + 1 < (schoolClass.Length - rounds); i++)
                 {
-                    if (schoolClass[i].GetCatalogNumber() > schoolClass[i + 1].GetCatalogNumber())
+                    if (schoolClass[i].CatalogNumber > schoolClass[i + 1].CatalogNumber)
                     {
                         changed = true;
-                        pupil = schoolClass[i + 1];
+                        var tmp = schoolClass[i + 1];
                         schoolClass[i + 1] = schoolClass[i];
-                        schoolClass[i] = pupil;
+                        schoolClass[i] = tmp;
                     }
                 }
+
                 rounds++;
-            }
-            while (changed);
+            } while (changed);
+
             return schoolClass;
         }
 
@@ -97,15 +92,11 @@ namespace PupilsArray
         static void WriteSchoolClassToConsole(Pupil[] schoolClass)
         {
             Console.WriteLine();
-            // Header ausgeben
-            Console.WriteLine("Nr Vorname          Nachname       Plz  Ort");
-            for (int i = 0; i < schoolClass.Length; i++)
+            Console.WriteLine("Nr Vorname          Nachname      Datum");
+            foreach (var pupil in schoolClass)
             {
-                Console.WindowWidth = 100;
-                Console.WriteLine("{0,2} {1,-16} {2,-13} {3,10}",
-                    schoolClass[i].GetCatalogNumber(), schoolClass[i].GetFirstName(), schoolClass[i].GetLastName(),
-                    schoolClass[i].GetBirthDate());
-
+                Console.WriteLine(
+                    $"{pupil.CatalogNumber,2} {pupil.FirstName,-16} {pupil.GetLastName(),-13} {pupil.GetBirthDate().ToShortDateString(),10}");
             }
         }
     }
