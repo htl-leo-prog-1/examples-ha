@@ -76,7 +76,7 @@ public class MineSweeper
         Console.WriteLine($"Clicked on row={row}, col={col}");
         if (Board.GetText(row, col) == _emptyField)
         {
-            if (Board.IsCtrlKeyDown() || Board.IsAltKeyDown() || Board.IsCtrlKeyDown())
+            if (Board.IsCtrlKeyDown() || Board.IsAltKeyDown() || Board.IsShiftKeyDown())
             {
                 MarkAsMine(_mineField, row, col);
             }
