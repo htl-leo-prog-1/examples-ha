@@ -8,6 +8,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="SavedGame.csv" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="SavedGame.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="6.6.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
 		<PackageReference Include="xunit" Version="2.4.1" />

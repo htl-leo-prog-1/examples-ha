@@ -9,13 +9,14 @@
 
 namespace UnitTests;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using FluentAssertions;
 
 using Gomoku;
+
+using UnitTest;
 
 using Xunit;
 
@@ -27,23 +28,23 @@ public sealed class GomokuTests
         // field with 5 in row,col and both diag
         var field = new int[,]
         {
-            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 1, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 1, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 9, 1, 9, 9 },
-            { 0, 9, 9, 0, 9, 9, 9, 9, 1, 9 },
-            { 9, 0, 9, 9, 9, 9, 9, 9, 9, 1 },
-            { 9, 9, 0, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 0, 9, 9, 9, 9, 9 },
-            { 9, 1, 1, 1, 1, 1, 9, 9, 9, 9 },
+            {-1,-1,-1, 0,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1, 1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1, 1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1,-1, 1,-1,-1 },
+            { 0,-1,-1, 0,-1,-1,-1,-1, 1,-1 },
+            {-1, 0,-1,-1,-1,-1,-1,-1,-1, 1 },
+            {-1,-1, 0,-1,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1,-1, 0,-1,-1,-1,-1,-1 },
+            {-1, 1, 1, 1, 1, 1,-1,-1,-1,-1 },
         };
 
         for (int row = 0; row < field.GetLength(0); row++)
         {
             for (int col = 0; col < field.GetLength(1); col++)
             {
-                if (field[row, col] != 9)
+                if (field[row, col] != -1)
                 {
                     Gomoku.IsWinner(field, row, col).Should().BeTrue();
                 }
@@ -57,23 +58,23 @@ public sealed class GomokuTests
         // field with only 4 in row,col and both diag
         var field = new int[,]
         {
-            { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 1, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 1, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 9, 1, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 9, 9, 1, 9 },
-            { 9, 0, 9, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 0, 9, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 0, 9, 9, 9, 9, 9, 9 },
-            { 9, 9, 9, 9, 0, 9, 9, 9, 9, 9 },
-            { 9, 9, 1, 1, 1, 1, 9, 9, 9, 9 },
+            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1, 1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1, 1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1,-1, 1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1,-1,-1, 1,-1 },
+            {-1, 0,-1,-1,-1,-1,-1,-1,-1,-1 },
+            {-1,-1, 0,-1,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1, 0,-1,-1,-1,-1,-1,-1 },
+            {-1,-1,-1,-1, 0,-1,-1,-1,-1,-1 },
+            {-1,-1, 1, 1, 1, 1,-1,-1,-1,-1 },
         };
 
         for (int row = 0; row < field.GetLength(0); row++)
         {
             for (int col = 0; col < field.GetLength(1); col++)
             {
-                if (field[row, col] != 9)
+                if (field[row, col] != -1)
                 {
                     Gomoku.IsWinner(field, row, col).Should().BeFalse();
                 }
@@ -99,10 +100,32 @@ public sealed class GomokuTests
         var fieldSaved = (int[,])field.Clone();
 
         Gomoku.SaveGame(field, fileName);
+
+        var csvImport   = new CsvImport<SavedGame>();
+        var csvExported = csvImport.Read(fileName);
+
+        csvExported.Should().HaveCount(Gomoku.GetStoneCount(field));
+
         field.Should().BeEquivalentTo(fieldSaved, "save must not change field");
         Gomoku.LoadGame(15, fileName).Should().BeEquivalentTo(field);
     }
 
+    [Fact]
+    public void CheckCsvFormat()
+    {
+        var fileName   = "SavedGame.csv";
+
+        var csvImport = new CsvImport<SavedGame>();
+        var importField = csvImport.Read(fileName);
+        var loadField = Gomoku.LoadGame(15, fileName);
+
+        importField.Should().HaveCount(Gomoku.GetStoneCount(loadField));
+
+        foreach (var savedGame in importField)
+        {
+            loadField[savedGame.Row, savedGame.Col].Should().Be(savedGame.Player);
+        }
+    }
     [Fact]
     public void GetStoneCountEmpty()
     {
@@ -123,7 +146,6 @@ public sealed class GomokuTests
         var field = InitEmptyField(19, 19);
         Gomoku.GetStoneCount(field).Should().Be(0);
     }
-
 
     [Fact]
     public void SetStone()
