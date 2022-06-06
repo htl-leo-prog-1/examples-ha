@@ -294,8 +294,8 @@ public static class Gomoku
     /// <returns>true, if row/col is OK, otherwise false.</returns>
     public static bool IsInRange(int[,] field, int row, int col)
     {
-        return row >= 0 && row < field.GetLength(0) &&
-               col >= 0 && col < field.GetLength(1);
+        return Tools.InRange(row, 0, field.GetLength(0)) &&
+               Tools.InRange(col, 0, field.GetLength(1));
     }
 
     /// <summary>
