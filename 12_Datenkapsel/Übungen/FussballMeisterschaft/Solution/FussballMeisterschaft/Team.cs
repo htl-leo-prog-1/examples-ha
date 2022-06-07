@@ -13,15 +13,15 @@ using System;
 
 public class Team
 {
-    public string TeamName { get; set; }
-    public int    Win      { get; set; }
-    public int    Loss     { get; set; }
-    public int    Tie      { get; set; }
-    public int    Goals    { get; set; }
-    public int    Got      { get; set; }
+    public string TeamName      { get; set; }
+    public int    WinCount      { get; set; }
+    public int    LossCount     { get; set; }
+    public int    TieCount      { get; set; }
+    public int    GoalsCount    { get; set; }
+    public int    GotGoalsCount { get; set; }
 
-    public int    Games     => Win + Loss + Tie;
-    public int    Points    => Win * 3 + Tie;
-    public int    GoalDiff  => Goals - Got;
-    public string GoalVsGot => $"{Goals}:{Got}";
+    public int    GameCount => WinCount + LossCount + TieCount;
+    public int    Points    => WinCount * 3 + TieCount;
+    public int    GoalDiff  => GoalsCount - GotGoalsCount;
+    public string GoalVsGot => $"{GoalsCount}:{GotGoalsCount}";
 }

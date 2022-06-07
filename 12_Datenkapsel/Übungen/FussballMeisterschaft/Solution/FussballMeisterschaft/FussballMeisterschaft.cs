@@ -102,7 +102,7 @@ public class FussballMeisterschaft
         foreach (var team in teams)
         {
             Console.WriteLine(
-                $"{rank++,4} {team.TeamName,-40} {team.Games,3} {team.Win,3} {team.Loss,3} {team.Tie,3} {team.GoalVsGot,6} {team.GoalDiff,6} {team.Points,4}");
+                $"{rank++,4} {team.TeamName,-40} {team.GameCount,3} {team.WinCount,3} {team.LossCount,3} {team.TieCount,3} {team.GoalVsGot,6} {team.GoalDiff,6} {team.Points,4}");
         }
     }
 
@@ -133,6 +133,13 @@ public class FussballMeisterschaft
         }
     }
 
+    /// <summary>
+    /// Calculates the points (1 tie, 3 win) for the team.
+    /// Use only games where the team is ether home or guest.
+    /// </summary>
+    /// <param name="games"></param>
+    /// <param name="teamName"></param>
+    /// <returns>Total "Points"</returns>
     public static int CalculatePoints(Game[] games, string teamName)
     {
         int points = 0;
@@ -151,6 +158,12 @@ public class FussballMeisterschaft
         return points;
     }
 
+    /// <summary>
+    /// Calculates the away goals for the specified team.
+    /// </summary>
+    /// <param name="games"></param>
+    /// <param name="teamName"></param>
+    /// <returns>Amount of away goals based on the game list.</returns>
     public static int CountAwayGoals(Game[] games, string teamName)
     {
         int awayGoals = 0;
@@ -211,21 +224,21 @@ public class FussballMeisterschaft
                 teamCount++;
             }
 
-            teams[teamIdx].Goals += game.GoalsHome;
-            teams[teamIdx].Got   += game.GoalsGuest;
-            teams[teamIdx].Win   += game.GoalsHome > game.GoalsGuest ? 1 : 0;
-            teams[teamIdx].Loss  += game.GoalsHome < game.GoalsGuest ? 1 : 0;
-            teams[teamIdx].Tie   += game.GoalsHome == game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].GoalsCount += game.GoalsHome;
+            teams[teamIdx].GotGoalsCount   += game.GoalsGuest;
+            teams[teamIdx].WinCount   += game.GoalsHome > game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].LossCount  += game.GoalsHome < game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].TieCount   += game.GoalsHome == game.GoalsGuest ? 1 : 0;
         }
 
         foreach (var game in games)
         {
             int teamIdx = Tools.IndexOf(teams, teamCount, game.GuestTeam);
-            teams[teamIdx].Got   += game.GoalsHome;
-            teams[teamIdx].Goals += game.GoalsGuest;
-            teams[teamIdx].Win   += game.GoalsHome < game.GoalsGuest ? 1 : 0;
-            teams[teamIdx].Loss  += game.GoalsHome > game.GoalsGuest ? 1 : 0;
-            teams[teamIdx].Tie   += game.GoalsHome == game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].GotGoalsCount   += game.GoalsHome;
+            teams[teamIdx].GoalsCount += game.GoalsGuest;
+            teams[teamIdx].WinCount   += game.GoalsHome < game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].LossCount  += game.GoalsHome > game.GoalsGuest ? 1 : 0;
+            teams[teamIdx].TieCount   += game.GoalsHome == game.GoalsGuest ? 1 : 0;
         }
 
         return Tools.Copy(teams, teamCount);
@@ -261,7 +274,7 @@ public class FussballMeisterschaft
             swapped = false;
             for (int i = 1; i < teams.Length; i++)
             {
-                if (IsBetterRank(games, teams, i, i - 1))
+                if (IsBetterRanking(games, teams, i, i - 1))
                 {
                     var tmp = teams[i];
                     teams[i]     = teams[i - 1];
@@ -277,13 +290,18 @@ public class FussballMeisterschaft
 
     /// <summary>
     /// Compare two teams for ranking.
+    ///   Haben zwei oder mehr Mannschaften die gleiche Punkteanzahl, entscheidet die Anzahl der Punkte aus den direkten Spielen der betreffenden Teams gegeneinander über die Reihung.Ausnahme: Bei Strafverifizierungen erfolgt weiterhin eine automatische Rückreihung bei Punktegleichheit.
+    ///   Bei gleicher Punkteanzahl aus den direkten Begegnungen entscheidet die bessere Tordifferenz aus den direkten Partien der betreffenden Teams.
+    ///   Ist auch die Tordifferenz gleich, entscheidet die höhere Zahl an erzielten Toren.
+    ///   Wenn auch die gleich ist, wird die Höhe der erzielten Auswärtstore herangezogen.
+    ///   Erst wenn auch die gleich ist, entscheidet wie bisher die Tordifferenz aus allen Meisterschaftspartien.
     /// </summary>
     /// <param name="games"></param>
     /// <param name="teams"></param>
-    /// <param name="teamIdx1"></param>
-    /// <param name="teamIdx2"></param>
-    /// <returns>Return true if teamIdx1 has a better rank as teamIdx2, otherwise false.</returns>
-    public static bool IsBetterRank(Game[] games, Team[] teams, int teamIdx1, int teamIdx2)
+    /// <param name="teamIdx1">Index of team1</param>
+    /// <param name="teamIdx2">Index of team2</param>
+    /// <returns>Return true if teamIdx1 has a better ranking as teamIdx2, otherwise false.</returns>
+    public static bool IsBetterRanking(Game[] games, Team[] teams, int teamIdx1, int teamIdx2)
     {
         bool isBetterRank = false;
         if (teams[teamIdx1].Points == teams[teamIdx2].Points)
@@ -295,11 +313,6 @@ public class FussballMeisterschaft
             int awayGoal1=0;
             int awayGoal2=0;
 
-//   Haben zwei oder mehr Mannschaften die gleiche Punkteanzahl, entscheidet die Anzahl der Punkte aus den direkten Spielen der betreffenden Teams gegeneinander über die Reihung.Ausnahme: Bei Strafverifizierungen erfolgt weiterhin eine automatische Rückreihung bei Punktegleichheit.
-//   Bei gleicher Punkteanzahl aus den direkten Begegnungen entscheidet die bessere Tordifferenz aus den direkten Partien der betreffenden Teams.
-//   Ist auch die Tordifferenz gleich, entscheidet die höhere Zahl an erzielten Toren.
-//   Wenn auch die gleich ist, wird die Höhe der erzielten Auswärtstore herangezogen.
-//   Erst wenn auch die gleich ist, entscheidet wie bisher die Tordifferenz aus allen Meisterschaftspartien.
 
             CountGoals(directCompare, teams[teamIdx1].TeamName, out goals, out gotGoals);
 
