@@ -166,30 +166,6 @@ public class FussballMeisterschaft
         return awayGoals;
     }
 
-
-    /// <summary>
-    /// Filter the games by a team name.
-    /// </summary>
-    /// <param name="games"></param>
-    /// <param name="teamName"></param>
-    /// <returns>A new array with all games of the team (guest or home)</returns>
-    public static Game[] FilterGamesByTeam(Game[] games, string teamName)
-    {
-        var filteredGames = new Game[games.Length];
-        var count         = 0;
-
-        foreach (var game in games)
-        {
-            if (IsGameOfTeam(game, teamName))
-            {
-                filteredGames[count] = game;
-                count++;
-            }
-        }
-
-        return Tools.Copy(filteredGames, count);
-    }
-
     /// <summary>
     /// Filter the games by two teams.
     /// </summary>

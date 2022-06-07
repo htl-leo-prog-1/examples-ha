@@ -51,16 +51,6 @@ public class FussballMeisterschaftTests
     }
 
     [Fact]
-    public void T02_FilterTeam()
-    {
-        var games         = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
-        var filteredGames = FussballMeisterschaft.FilterGamesByTeam(games, unionKleinmuenchen);
-
-        filteredGames.Should().HaveCount(23);
-        filteredGames.Should().OnlyContain(g => g.GuestTeam == unionKleinmuenchen || g.HomeTeam == unionKleinmuenchen);
-    }
-
-    [Fact]
     public void T02_FilterTwoTeam()
     {
         var games         = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
