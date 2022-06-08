@@ -24,20 +24,20 @@ public class FussballMeisterschaft
 
         string fileName = "Games.csv";
 
-        if (args.Length == 1)
+        if (args.Length >= 1)
         {
             fileName = args[0];
         }
 
         var allGames = ReadGamesFromFile(fileName);
         var teams    = CreateListOfTeams(allGames);
-        teams = SortBy(teams, allGames);
+        teams = SortByOefb(teams, allGames);
 
         PrintTeams(teams);
     }
 
     /// <summary>
-    /// Read the Csv File and return the result as an array
+    /// Read the Csv File and return the result as an array.
     /// </summary>
     /// <param name="fileName"></param>
     /// <returns>All games stored in the Csv file.</returns>
@@ -72,9 +72,8 @@ public class FussballMeisterschaft
         var goals         = elements[(int)CsvColumnsIdx.ScoreColIdx].Split(":");
         var halfTimeGoals = elements[(int)CsvColumnsIdx.HalfTimeScoreColIdx].TrimStart('(').TrimEnd(')').Split(":");
 
-        game.Round = int.Parse(elements[(int)CsvColumnsIdx.RoundColIdx]);
-        game.Date = DateTime.ParseExact(elements[(int)CsvColumnsIdx.DateColIdx], "d.M.yyyy H:m",
-            CultureInfo.InvariantCulture);
+        game.Round              = int.Parse(elements[(int)CsvColumnsIdx.RoundColIdx]);
+        game.Date               = DateTime.ParseExact(elements[(int)CsvColumnsIdx.DateColIdx], "d.M.yyyy H:m", CultureInfo.InvariantCulture);
         game.HomeTeam           = elements[(int)CsvColumnsIdx.HomeTeamsColIdx];
         game.GuestTeam          = elements[(int)CsvColumnsIdx.GuestTeamsColIdx];
         game.GoalsHome          = int.Parse(goals[0]);
@@ -88,7 +87,7 @@ public class FussballMeisterschaft
     /// <summary>
     /// Print all teams to the console (as a list).
     /// </summary>
-    /// <param name="teams"></param>
+    /// <param name="teams">All teams to be printed.</param>
     public static void PrintTeams(Team[] teams)
     {
         var header = $"{"Rank"} {"Team",-40} {"SP",3} {"S",3} {"N",3} {"U",3} {"Tore",6} {"+/-",6} {"Pt",4}";
@@ -105,8 +104,8 @@ public class FussballMeisterschaft
     }
 
     /// <summary>
-    /// Filter the games by teams.
-    /// Home- and guest team must be in the list.
+    /// Filter games by teams.
+    /// Home- and guest team must be in the list of teamNames.
     /// </summary>
     /// <param name="games"></param>
     /// <param name="teamNames"></param>
@@ -149,12 +148,13 @@ public class FussballMeisterschaft
 
     /// <summary>
     /// Create a array of teams based on the games.
+    /// Fill all properties in object Team, e.g. WinCount, LossCount, ...
     /// </summary>
     /// <param name="games"></param>
     /// <returns>Unsorted list of teams.</returns>
     public static Team[] CreateListOfTeams(Game[] games)
     {
-        var teams     = new Team[games.Length];
+        var teams     = new Team[games.Length * 2];
         int teamCount = 0;
 
         foreach (var game in games)
@@ -178,6 +178,14 @@ public class FussballMeisterschaft
         foreach (var game in games)
         {
             int teamIdx = Tools.IndexOf(teams, teamCount, game.GuestTeam);
+            if (teamIdx < 0)
+            {
+                teams[teamCount]          = new Team();
+                teams[teamCount].TeamName = game.GuestTeam;
+                teamIdx                   = teamCount;
+                teamCount++;
+            }
+
             teams[teamIdx].GotGoalsCount  += game.GoalsHome;
             teams[teamIdx].GoalsCount     += game.GoalsGuest;
             teams[teamIdx].AwayGoalsCount += game.GoalsGuest;
@@ -201,13 +209,19 @@ public class FussballMeisterschaft
     }
 
     /// <summary>
-    /// Sort the by OFB rules.
+    /// Sort the teams by OFB rules.
     /// </summary>
     /// <param name="games"></param>
     /// <param name="teams"></param>
     /// <returns>Sorted team array.</returns>
-    public static Team[] SortBy(Team[] teams, Game[] games)
+    public static Team[] SortByOefb(Team[] teams, Game[] games)
     {
+        // 1. sort by (do not use PosIfSamePoints = 0)
+        // 2. for all "groups" of teams with same points
+        //   => extract group
+        //   => Create Results (with SortBy)
+        //   => set the Position in teams
+
         teams = SortByPoints(teams);
 
         int samePointCount = 0;
@@ -242,14 +256,22 @@ public class FussballMeisterschaft
         }
 
         var gamesOfGroup = FilterGamesByTeam(games, teamNames);
-        var teamsOfGroup = CreateListOfTeams(gamesOfGroup);
-        teamsOfGroup = SortByPoints(teamsOfGroup);
-
-        PrintTeams(teamsOfGroup);
-
-        for (int i = 0; i < count; i++)
+        if (gamesOfGroup.Length > 0)
         {
-            teams[Tools.IndexOf(teams, teams.Length, teamsOfGroup[i].TeamName)].PosIfSamePoints = i + 1;
+            var teamsOfGroup = CreateListOfTeams(gamesOfGroup);
+            teamsOfGroup = SortByPoints(teamsOfGroup);
+
+            PrintTeams(teamsOfGroup);
+
+            int posIfSamePoints = 1;
+            for (int i = 0; i < count; i++)
+            {
+                teams[Tools.IndexOf(teams, teams.Length, teamsOfGroup[i].TeamName)].PosIfSamePoints = posIfSamePoints;
+                if (i < count - 1 && CompareTo(teamsOfGroup[i], teamsOfGroup[i + 1], false) != 0)
+                {
+                    posIfSamePoints++;
+                }
+            }
         }
     }
 
@@ -259,28 +281,27 @@ public class FussballMeisterschaft
     ///  2. if points equal by goalDiff
     ///  3. ...
     /// </summary>
-    /// <param name="games"></param>
     /// <param name="teams"></param>
     /// <returns>Sorted (new) team array</returns>
     public static Team[] SortByPoints(Team[] teams)
     {
         teams = Tools.Copy(teams, teams.Length);
 
-        bool swapped;
-        do
+        for (int i = 0; i < teams.Length; i++)
         {
-            swapped = false;
-            for (int i = 1; i < teams.Length; i++)
+            int min = i;
+            for (int j = i + 1; j < teams.Length; j++)
             {
-                if (IsBetterRanking(teams[i], teams[i - 1]))
+                if (CompareTo(teams[j], teams[min], true) > 0)
                 {
-                    var tmp = teams[i];
-                    teams[i]     = teams[i - 1];
-                    teams[i - 1] = tmp;
-                    swapped      = true;
+                    min = j;
                 }
             }
-        } while (swapped);
+
+            var tmp = teams[i];
+            teams[i]   = teams[min];
+            teams[min] = tmp;
+        }
 
         return teams;
     }
@@ -295,49 +316,39 @@ public class FussballMeisterschaft
     /// </summary>
     /// <param name="team1"></param>
     /// <param name="team2"></param>
-    /// <returns>Return true if teamIdx1 has a better ranking as teamIdx2, otherwise false.</returns>
-    public static bool IsBetterRanking(Team team1, Team team2)
+    /// <returns>0 if equal, 1 if higher rank, -1 if lower rank</returns>
+    public static int CompareTo(Team team1, Team team2, bool compareName)
     {
-        if (team1.Points > team2.Points)
+        if (team1.Points != team2.Points)
         {
-            return true;
-        }
-        else if (team1.Points == team2.Points)
-        {
-            if (team1.PosIfSamePoints < team2.PosIfSamePoints)
-            {
-                return true;
-            }
-            else if (team1.PosIfSamePoints == team2.PosIfSamePoints)
-            {
-                if (team1.GoalDiff > team2.GoalDiff)
-                {
-                    return true;
-                }
-                else if (team1.GoalDiff == team2.GoalDiff)
-                {
-                    if (team1.GoalsCount > team2.GoalsCount)
-                    {
-                        return true;
-                    }
-                    else if (team1.GoalsCount == team2.GoalsCount)
-                    {
-                        if (team1.AwayGoalsCount > team2.AwayGoalsCount)
-                        {
-                            return true;
-                        }
-                        else if (team1.AwayGoalsCount == team2.AwayGoalsCount)
-                        {
-                            if (team1.TeamName.CompareTo(team2.TeamName) > 0)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
+            return CompareTo(team1.Points, team2.Points);
         }
 
-        return false;
+        if (team1.PosIfSamePoints != team2.PosIfSamePoints)
+        {
+            return CompareTo(team1.PosIfSamePoints, team2.PosIfSamePoints);
+        }
+
+        if (team1.GoalDiff != team2.GoalDiff)
+        {
+            return CompareTo(team1.GoalDiff, team2.GoalDiff);
+        }
+
+        if (team1.GoalsCount != team2.GoalsCount)
+        {
+            return CompareTo(team1.GoalsCount, team2.GoalsCount);
+        }
+
+        if (team1.AwayGoalsCount != team2.AwayGoalsCount)
+        {
+            return CompareTo(team1.AwayGoalsCount, team2.AwayGoalsCount);
+        }
+
+        return compareName ? team2.TeamName.CompareTo(team1.TeamName) : 0;
+    }
+
+    static int CompareTo(int value1, int value2)
+    {
+        return value1 > value2 ? 1 : -1;
     }
 }

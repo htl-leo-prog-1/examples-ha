@@ -4,8 +4,20 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Games.csv" />
+	  <None Remove="GamesAllEqual.csv" />
+	  <None Remove="GamesByTotalGoalDiff.csv" />
+	  <None Remove="GamesEmpty.csv" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="GamesByTotalGoalDiff.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GamesEmpty.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GamesAllEqual.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Games.csv">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
