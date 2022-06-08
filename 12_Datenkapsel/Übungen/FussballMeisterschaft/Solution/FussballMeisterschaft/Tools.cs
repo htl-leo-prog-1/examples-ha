@@ -7,8 +7,6 @@
 *--------------------------------------------------------------
 */
 
-using System;
-
 namespace FussballMeisterschaft;
 
 public static class Tools
@@ -47,5 +45,4 @@ public static class Tools
 
         return dest;
     }
-
 }

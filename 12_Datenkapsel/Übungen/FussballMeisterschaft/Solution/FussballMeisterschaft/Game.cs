@@ -21,7 +21,4 @@ public class Game
     public int      GoalsGuest         { get; set; }
     public int      HalfTimeGoalsHome  { get; set; }
     public int      HalfTimeGoalsGuest { get; set; }
-
-    public int HomePoints => GoalsGuest == GoalsHome ? 1 : GoalsHome > GoalsGuest ? 3 : 0;
-    public int GuestPoints => GoalsGuest == GoalsHome ? 1 : GoalsHome < GoalsGuest ? 3 : 0;
 }

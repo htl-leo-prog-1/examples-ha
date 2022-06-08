@@ -22,79 +22,49 @@ public class FussballMeisterschaft
         Console.WriteLine("=====================");
 
         //TODO Implement main Program here
+
+        // ReadGamesFromFile(fileName);
+        // CreateListOfTeams(allGames);
+        // SortByOefb(teams, allGames);
+        // PrintTeams(teams);
     }
 
     //TODO implement other method here, e.g. PrintTeam, IsGameOfTeam, ...
 
     /// <summary>
-    /// Read the csv File and return the result as an array
+    /// Read the Csv File and return the result as an array.
     /// </summary>
     /// <param name="fileName"></param>
-    /// <returns>All games stored in the csv file.</returns>
+    /// <returns>All games stored in the Csv file.</returns>
     public static Game[] ReadGamesFromFile(string fileName)
     {
         //TODO implement method
     }
 
-    private enum CsvColumnsIdx
-    {
-        RoundColIdx = 0,
-        DateColIdx,
-        HomeTeamsColIdx,
-        GuestTeamsColIdx,
-        ScoreColIdx,
-        HalfTimeScoreColIdx,
-    }
-
     /// <summary>
-    /// Calculate the goal diff.
+    /// Print all teams to the console (as a list).
     /// </summary>
-    /// <param name="games"></param>
-    /// <param name="teamName"></param>
-    /// <param name="goals"></param>
-    /// <param name="gotGoals"></param>
-    public static void CountGoals(Game[] games, string teamName, out int goals, out int gotGoals)
+    /// <param name="teams">All teams to be printed.</param>
+    public static void PrintTeams(Team[] teams)
     {
         //TODO implement method
     }
 
     /// <summary>
-    /// Calculates the points (1 tie, 3 win) for the team.
-    /// Use only games where the team is ether home or guest.
+    /// Filter games by teams.
+    /// Home- and guest team must be in the list of teamNames.
     /// </summary>
     /// <param name="games"></param>
-    /// <param name="teamName"></param>
-    /// <returns>Total "Points"</returns>
-    public static int CalculatePoints(Game[] games, string teamName)
-    {
-        //TODO implement method
-    }
-
-    /// <summary>
-    /// Calculates the away goals for the specified team.
-    /// </summary>
-    /// <param name="games"></param>
-    /// <param name="teamName"></param>
-    /// <returns>Amount of away goals based on the game list.</returns>
-    public static int CountAwayGoals(Game[] games, string teamName)
-    {
-        //TODO implement method
-    }
-
-    /// <summary>
-    /// Filter the games by two teams.
-    /// </summary>
-    /// <param name="games"></param>
-    /// <param name="teamName1"></param>
-    /// <param name="teamName2"></param>
-    /// <returns>A new array with all games of both teams (usual two games).</returns>
-    public static Game[] FilterGamesByTeam(Game[] games, string teamName1, string teamName2)
+    /// <param name="teamNames"></param>
+    /// <returns>A new array with all games of teams.</returns>
+    public static Game[] FilterGamesByTeam(Game[] games, string[] teamNames)
     {
         //TODO implement method
     }
 
     /// <summary>
     /// Create a array of teams based on the games.
+    /// Fill all properties in object Team, e.g. WinCount, LossCount, ...
     /// </summary>
     /// <param name="games"></param>
     /// <returns>Unsorted list of teams.</returns>
@@ -104,19 +74,35 @@ public class FussballMeisterschaft
     }
 
     /// <summary>
-    /// Sort the team array.
-    ///  1. by point
-    ///  2. by direct compare,
-    ///  3. ...
+    /// Sort the teams by OFB rules.
     /// </summary>
     /// <param name="games"></param>
     /// <param name="teams"></param>
-    /// <returns>Sorted team array</returns>
-    public static Team[] SortByScore(Game[] games, Team[] teams)
+    /// <returns>Sorted team array.</returns>
+    public static Team[] SortByOefb(Team[] teams, Game[] games)
     {
+        // 1. sort by (do not use PosIfSamePoints = 0)
+        // 2. for all "groups" of teams with same points
+        //   => extract group
+        //   => Create Results (with SortBy)
+        //   => set the Position in teams
+
         //TODO implement method
     }
 
+    /// <summary>
+    /// Sort the team array.
+    ///  1. by point
+    ///  2. if points equal by goalDiff
+    ///  3. ...
+    /// </summary>
+    /// <param name="teams"></param>
+    /// <returns>Sorted (new) team array</returns>
+    public static Team[] SortByPoints(Team[] teams)
+    {
+        //TODO implement method
+        // Use "CompareTo" to compare team rank
+    }
 
     /// <summary>
     /// Compare two teams for ranking.
@@ -126,13 +112,18 @@ public class FussballMeisterschaft
     ///   Wenn auch die gleich ist, wird die Höhe der erzielten Auswärtstore herangezogen.
     ///   Erst wenn auch die gleich ist, entscheidet wie bisher die Tordifferenz aus allen Meisterschaftspartien.
     /// </summary>
-    /// <param name="games"></param>
-    /// <param name="teams"></param>
-    /// <param name="teamIdx1">Index of team1</param>
-    /// <param name="teamIdx2">Index of team2</param>
-    /// <returns>Return true if teamIdx1 has a better ranking as teamIdx2, otherwise false.</returns>
-    public static bool IsBetterRanking(Game[] games, Team[] teams, int teamIdx1, int teamIdx2)
+    /// <param name="team1"></param>
+    /// <param name="team2"></param>
+    /// <returns>0 if equal, 1 if higher rank, -1 if lower rank</returns>
+    public static int CompareTo(Team team1, Team team2, bool compareName)
     {
         //TODO implement method
+
+        // Points
+        // PosIfSamePoints
+        // GoalDiff
+        // GoalsCount
+        // AwayGoalsCount
+        // TeamName if parameter "compareName" is set;
     }
 }

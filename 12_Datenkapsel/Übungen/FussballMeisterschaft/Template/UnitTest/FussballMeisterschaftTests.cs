@@ -7,8 +7,6 @@
 *--------------------------------------------------------------
 */
 
-using System;
-
 namespace UnitTest;
 
 using FussballMeisterschaft;
@@ -30,7 +28,7 @@ public class FussballMeisterschaftTests
     [Fact]
     public void T01_ReadCsv()
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
+        var games = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
         games.Should().HaveCount(150);
         games.Where(g => g.GuestTeam == unionKleinmuenchen).Should().HaveCount(11);
         games.Where(g => g.HomeTeam == unionKleinmuenchen).Should().HaveCount(12);
@@ -53,8 +51,8 @@ public class FussballMeisterschaftTests
     [Fact]
     public void T02_FilterTwoTeam()
     {
-        var games         = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
-        var filteredGames = FussballMeisterschaft.FilterGamesByTeam(games, unionKleinmuenchen, mohrenDornbirn);
+        var games         = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
+        var filteredGames = FussballMeisterschaft.FilterGamesByTeam(games, new string[] { unionKleinmuenchen, mohrenDornbirn });
 
         filteredGames.Should().HaveCount(2);
         filteredGames.Should().OnlyContain(g => g.GuestTeam == unionKleinmuenchen || g.HomeTeam == unionKleinmuenchen);
@@ -62,36 +60,9 @@ public class FussballMeisterschaftTests
     }
 
     [Fact]
-    public void T03_CountGoals()
-    {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
-        int goals;
-        int gotGoals;
-
-        FussballMeisterschaft.CountGoals(games, unionKleinmuenchen, out goals, out gotGoals);
-
-        goals.Should().Be(89);
-        gotGoals.Should().Be(30);
-    }
-
-    [Fact]
-    public void T04_CalculatePoints()
-    {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
-        FussballMeisterschaft.CalculatePoints(games, unionKleinmuenchen).Should().Be(54);
-    }
-
-    [Fact]
-    public void T05_CalculateAwayGoals()
-    {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
-        FussballMeisterschaft.CountAwayGoals(games, unionKleinmuenchen).Should().Be(33);
-    }
-
-    [Fact]
     public void T06_CreateTeams()
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
+        var games = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
         var teams = FussballMeisterschaft.CreateListOfTeams(games);
 
         teams.Should().HaveCount(13);
@@ -107,12 +78,17 @@ public class FussballMeisterschaftTests
             options.ExcludingMissingMembers());
     }
 
+    private Team[] ReadAndSortTeams(string fileName)
+    {
+        var games = FussballMeisterschaft.ReadGamesFromFile(fileName);
+        var teams = FussballMeisterschaft.CreateListOfTeams(games);
+        return FussballMeisterschaft.SortByOefb(teams, games);
+    }
+
     [Fact]
     public void T07_SortTeams()
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
-        var teams = FussballMeisterschaft.CreateListOfTeams(games);
-        teams = FussballMeisterschaft.SortByScore(games, teams);
+        var teams = ReadAndSortTeams("Games.csv");
 
         teams.Should().HaveCount(13);
 
@@ -127,7 +103,7 @@ public class FussballMeisterschaftTests
         }, options =>
             options.ExcludingMissingMembers());
 
-        var md = teams[2];
+        var md = teams[1];
         md.Should().BeEquivalentTo(new
         {
             TeamName = mohrenDornbirn,
@@ -138,7 +114,7 @@ public class FussballMeisterschaftTests
         }, options =>
             options.ExcludingMissingMembers());
 
-        var wc = teams[1];
+        var wc = teams[2];
         wc.Should().BeEquivalentTo(new
         {
             TeamName = wildCats,
@@ -148,5 +124,53 @@ public class FussballMeisterschaftTests
             Points   = 54
         }, options =>
             options.ExcludingMissingMembers());
+    }
+
+    [Fact]
+    public void T08_SortTeamsEmpty()
+    {
+        var teams = ReadAndSortTeams("GamesEmpty.csv");
+
+        teams.Should().HaveCount(0);
+    }
+
+    [Fact]
+    public void T08_SortTeamsAllEqual()
+    {
+        var teams = ReadAndSortTeams("GamesAllEqual.csv");
+
+        teams.Should().HaveCount(12);
+
+        teams.Should().OnlyContain(team => team.Points == 1);
+        teams.Should().OnlyContain(team => team.PosIfSamePoints == 1);
+
+        teams.Select(team => team.TeamName).Should().BeInAscendingOrder();
+    }
+
+    [Fact]
+    public void T08_SortTeamsGroupEqualName()
+    {
+        var teams = ReadAndSortTeams("GamesAllEqual.csv");
+
+        teams.Should().HaveCount(12);
+
+        teams.Should().OnlyContain(team => team.Points == 1);
+        teams.Should().OnlyContain(team => team.PosIfSamePoints == 1);
+
+        teams.Select(team => team.TeamName).Should().BeInAscendingOrder();
+    }
+
+    [Fact]
+    public void T08_SortTeamsGroupEqualGoalDiff()
+    {
+        var teams = ReadAndSortTeams("GamesByTotalGoalDiff.csv");
+
+        FussballMeisterschaft.PrintTeams(teams);
+
+        teams.Should().HaveCount(10);
+
+        teams.Take(6).Should().OnlyContain(team => team.Points == 4);
+        teams.Skip(6).Should().OnlyContain(team => team.Points == 0);
+        teams.Skip(6).Select(team => team.GoalDiff).Should().BeInDescendingOrder();
     }
 }

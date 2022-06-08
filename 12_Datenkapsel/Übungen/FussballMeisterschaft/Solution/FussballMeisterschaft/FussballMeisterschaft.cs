@@ -7,11 +7,10 @@
 *--------------------------------------------------------------
 */
 
-using System.Globalization;
-
 namespace FussballMeisterschaft;
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -316,6 +315,7 @@ public class FussballMeisterschaft
     /// </summary>
     /// <param name="team1"></param>
     /// <param name="team2"></param>
+    /// <param name="compareName"></param>
     /// <returns>0 if equal, 1 if higher rank, -1 if lower rank</returns>
     public static int CompareTo(Team team1, Team team2, bool compareName)
     {
