@@ -112,7 +112,7 @@ public class FussballMeisterschaftTests
     {
         var games = FussballMeisterschaft.ReadGamesFromFile("GameCount.csv");
         var teams = FussballMeisterschaft.CreateListOfTeams(games);
-        teams = FussballMeisterschaft.SortByScore(games, teams);
+        teams = FussballMeisterschaft.SortByPoints(games, teams);
 
         teams.Should().HaveCount(13);
 
