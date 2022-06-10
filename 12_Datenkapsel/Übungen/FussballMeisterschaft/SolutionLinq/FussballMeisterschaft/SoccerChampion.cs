@@ -139,7 +139,7 @@ public class SoccerChampion
     /// <summary>
     /// Sort the teams by OFB rules.
     /// </summary>
-    /// <param name="games"></param>
+    /// <param name="games">We need them for direct compare (sub-Groups)</param>
     /// <param name="teams"></param>
     /// <returns>Sorted team array.</returns>
     public static IEnumerable<Team> SortByOefb(IEnumerable<Team> teams, IEnumerable<Game> games)
@@ -149,6 +149,7 @@ public class SoccerChampion
         //   => Create Results (with SortBy)
         //   => set the Position (=Property PosIfSamePoints) in teams
         // 2. sort again (using PosIfSamePoints)
+        
         var teamList = teams.ToList();
         var gameList = games.ToList();
 
@@ -158,8 +159,8 @@ public class SoccerChampion
 
         foreach (var samePointGroup in samePointGroups)
         {
-            var teamsSub = SortBy(CreateListOfTeams(FilterGamesByTeam(gameList, samePointGroup.Select(t => t.TeamName))));
-            SetPositionInSubGroup(teamList, teamsSub);
+            var subTeams = SortBy(CreateListOfTeams(FilterGamesByTeam(gameList, samePointGroup.Select(t => t.TeamName))));
+            SetPositionInSubGroup(teamList, subTeams);
         }
 
         return SortBy(teamList);
@@ -175,15 +176,15 @@ public class SoccerChampion
     /// <param name="subTeams">Result of the sub group</param>
     private static void SetPositionInSubGroup(IEnumerable<Team> teams, IEnumerable<Team> subTeams)
     {
-        var subTeamList = subTeams.ToList();
-        var teamsList   = teams.ToList();
+        var subTeamsList = subTeams.ToList();
+        var teamsList    = teams.ToList();
 
-        PrintTeams(subTeamList); // for debug
+        PrintTeams(subTeamsList); // for debug
 
         int  posIfSamePoints = 1;
         Team lastTeam        = null;
 
-        foreach (var team in subTeamList)
+        foreach (var team in subTeamsList)
         {
             if (lastTeam != null && !team.IsEqualRank(lastTeam))
             {
