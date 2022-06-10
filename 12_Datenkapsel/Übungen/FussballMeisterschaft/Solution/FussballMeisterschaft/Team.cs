@@ -9,21 +9,83 @@
 
 namespace FussballMeisterschaft;
 
-using System;
-
 public class Team
 {
-    public string TeamName        { get; set; }
-    public int    WinCount        { get; set; }
-    public int    LossCount       { get; set; }
-    public int    TieCount        { get; set; }
-    public int    GoalsCount      { get; set; }
-    public int    GotGoalsCount   { get; set; }
-    public int    AwayGoalsCount  { get; set; }
-    public int    PosIfSamePoints { get; set; }
+    private string _teamName        { get; set; }
+    private int    _winCount        { get; set; }
+    private int    _lossCount       { get; set; }
+    private int    _tieCount        { get; set; }
+    private int    _goalsCount      { get; set; }
+    private int    _gotGoalsCount   { get; set; }
+    private int    _awayGoalsCount  { get; set; }
+    private int    _posIfSamePoints { get; set; }
 
-    public int    GameCount => WinCount + LossCount + TieCount;
-    public int    Points    => WinCount * 3 + TieCount;
-    public int    GoalDiff  => GoalsCount - GotGoalsCount;
-    public string GoalVsGot => $"{GoalsCount}:{GotGoalsCount}";
+
+    public string TeamName
+    {
+        get { return _teamName; }
+        set { _teamName = value; }
+    }
+
+    public int WinCount
+    {
+        get { return _winCount; }
+        set { _winCount = value; }
+    }
+
+    public int LossCount
+    {
+        get { return _lossCount; }
+        set { _lossCount = value; }
+    }
+
+    public int TieCount
+    {
+        get { return _tieCount; }
+        set { _tieCount = value; }
+    }
+
+    public int GoalsCount
+    {
+        get { return _goalsCount; }
+        set { _goalsCount = value; }
+    }
+
+    public int GotGoalsCount
+    {
+        get { return _gotGoalsCount; }
+        set { _gotGoalsCount = value; }
+    }
+
+    public int AwayGoalsCount
+    {
+        get { return _awayGoalsCount; }
+        set { _awayGoalsCount = value; }
+    }
+
+    public int PosIfSamePoints
+    {
+        get { return _posIfSamePoints; }
+        set { _posIfSamePoints = value; }
+    }
+
+    public int GameCount
+    {
+        get { return WinCount + LossCount + TieCount; }
+    }
+
+    public int Points
+    {
+        get { return WinCount * 3 + TieCount; }
+    }
+
+    public int GoalDiff
+    {
+        get { return GoalsCount - GotGoalsCount; }
+    }
+
+    public string GoalVsGot
+    {
+        get { return $"{GoalsCount}:{GotGoalsCount}"; }
+    }
 }

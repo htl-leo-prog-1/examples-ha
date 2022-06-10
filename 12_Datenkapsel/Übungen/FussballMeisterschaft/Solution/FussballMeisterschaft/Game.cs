@@ -13,12 +13,60 @@ using System;
 
 public class Game
 {
-    public int      Round              { get; set; }
-    public DateTime Date               { get; set; }
-    public string   HomeTeam           { get; set; }
-    public string   GuestTeam          { get; set; }
-    public int      GoalsHome          { get; set; }
-    public int      GoalsGuest         { get; set; }
-    public int      HalfTimeGoalsHome  { get; set; }
-    public int      HalfTimeGoalsGuest { get; set; }
+    private int      _round              { get; set; }
+    private DateTime _date               { get; set; }
+    private string   _homeTeam           { get; set; }
+    private string   _guestTeam          { get; set; }
+    private int      _goalsHome          { get; set; }
+    private int      _goalsGuest         { get; set; }
+    private int      _halfTimeGoalsHome  { get; set; }
+    private int      _halfTimeGoalsGuest { get; set; }
+
+    public int Round
+    {
+        get { return _round; }
+        set { _round = value; }
+    }
+
+    public DateTime Date
+    {
+        get { return _date; }
+        set { _date = value; }
+    }
+
+    public string HomeTeam
+    {
+        get { return _homeTeam; }
+        set { _homeTeam = value; }
+    }
+
+    public string GuestTeam
+    {
+        get { return _guestTeam; }
+        set { _guestTeam = value; }
+    }
+
+    public int GoalsHome
+    {
+        get { return _goalsHome; }
+        set { _goalsHome = value; }
+    }
+
+    public int GoalsGuest
+    {
+        get { return _goalsGuest; }
+        set { _goalsGuest = value; }
+    }
+
+    public int HalfTimeGoalsHome
+    {
+        get { return _halfTimeGoalsHome; }
+        set { _halfTimeGoalsHome = value; }
+    }
+
+    public int HalfTimeGoalsGuest
+    {
+        get { return _halfTimeGoalsGuest; }
+        set { _halfTimeGoalsGuest = value; }
+    }
 }

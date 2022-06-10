@@ -29,8 +29,6 @@ public class FussballMeisterschaft
         // PrintTeams(teams);
     }
 
-    //TODO implement other method here, e.g. PrintTeam, IsGameOfTeam, ...
-
     /// <summary>
     /// Read the Csv File and return the result as an array.
     /// </summary>
@@ -81,13 +79,29 @@ public class FussballMeisterschaft
     /// <returns>Sorted team array.</returns>
     public static Team[] SortByOefb(Team[] teams, Game[] games)
     {
-        // 1. sort by (do not use PosIfSamePoints = 0)
+        // 1. sort by (do not use PosIfSamePoints = 0 - because it is 0)
         // 2. for all "groups" of teams with same points
         //   => extract group
         //   => Create Results (with SortBy)
-        //   => set the Position in teams
+        //   => set the Position (=Property PosIfSamePoints) in teams
+        // 3. sort again (using PosIfSamePoints)
+
 
         //TODO implement method
+    }
+
+    /// <summary>
+    /// Set the property "PosIfSamePoints" for the specified "sub-group".
+    /// All teams in the sub-group have the same "points".
+    /// Teams with same result (in the sub-group) must get the identical PosIsSamePoints.
+    /// It is necessary for the order by GoalDiff, ... of the main group.
+    /// </summary>
+    /// <param name="teams">All teams - must be sorted (by points).</param>
+    /// <param name="games">We need them to calculate the result of the sub-group.</param>
+    /// <param name="startIdx">Index where the team (with the same points) starts.</param>
+    /// <param name="count">Count of teams with same points.</param>
+    private static void SetPositionInSubGroup(Team[] teams, Game[] games, int startIdx, int count)
+    {
     }
 
     /// <summary>
@@ -114,6 +128,7 @@ public class FussballMeisterschaft
     /// </summary>
     /// <param name="team1"></param>
     /// <param name="team2"></param>
+    /// <param name="compareName"></param>
     /// <returns>0 if equal, 1 if higher rank, -1 if lower rank</returns>
     public static int CompareTo(Team team1, Team team2, bool compareName)
     {

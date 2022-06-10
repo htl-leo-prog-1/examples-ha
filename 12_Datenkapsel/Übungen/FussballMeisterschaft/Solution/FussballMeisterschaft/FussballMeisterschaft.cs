@@ -126,7 +126,7 @@ public class FussballMeisterschaft
     }
 
     /// <summary>
-    /// The home. and the guest team of the game is within the valid teamNames. 
+    /// The home and the guest team of the game is within the valid teamNames. 
     /// </summary>
     /// <param name="game"></param>
     /// <param name="teamNames"></param>
@@ -196,15 +196,28 @@ public class FussballMeisterschaft
         return Tools.Copy(teams, teamCount);
     }
 
-    private static bool IsGameOfTeam(Game game, string countryName)
+    /// <summary>
+    /// Test, if a team (specified by the name) is ether home or guest.
+    /// </summary>
+    /// <param name="game"></param>
+    /// <param name="teamName"></param>
+    /// <returns>true if home or guest</returns>
+    private static bool IsGameOfTeam(Game game, string teamName)
     {
-        return IsGameOfTeam(game.HomeTeam,     countryName)
-               || IsGameOfTeam(game.GuestTeam, countryName);
+        return IsGameOfTeam(game.HomeTeam,     teamName)
+               || IsGameOfTeam(game.GuestTeam, teamName);
     }
 
-    private static bool IsGameOfTeam(string countryName, string lookForCountryName)
+    /// <summary>
+    /// Compare of a teamName.
+    /// Ignore case and the name must be part of the teamName (contains).
+    /// </summary>
+    /// <param name="teamName"></param>
+    /// <param name="lookForTeamName"></param>
+    /// <returns></returns>
+    private static bool IsGameOfTeam(string teamName, string lookForTeamName)
     {
-        return countryName.ToUpper().Contains(lookForCountryName.ToUpper());
+        return teamName.ToUpper().Contains(lookForTeamName.ToUpper());
     }
 
     /// <summary>
@@ -215,11 +228,12 @@ public class FussballMeisterschaft
     /// <returns>Sorted team array.</returns>
     public static Team[] SortByOefb(Team[] teams, Game[] games)
     {
-        // 1. sort by (do not use PosIfSamePoints = 0)
+        // 1. sort by (do not use PosIfSamePoints = 0 - because it is 0)
         // 2. for all "groups" of teams with same points
         //   => extract group
         //   => Create Results (with SortBy)
-        //   => set the Position in teams
+        //   => set the Position (=Property PosIfSamePoints) in teams
+        // 3. sort again (using PosIfSamePoints)
 
         teams = SortByPoints(teams);
 
@@ -233,20 +247,30 @@ public class FussballMeisterschaft
             }
             else if (samePointCount > 0)
             {
-                SetPosSamePoints(teams, games, i - samePointCount - 1, samePointCount + 1);
+                SetPositionInSubGroup(teams, games, i - samePointCount - 1, samePointCount + 1);
                 samePointCount = 0;
             }
         }
 
         if (samePointCount > 0)
         {
-            SetPosSamePoints(teams, games, teams.Length - samePointCount - 1, samePointCount + 1);
+            SetPositionInSubGroup(teams, games, teams.Length - samePointCount - 1, samePointCount + 1);
         }
 
-        return teams;
+        return SortByPoints(teams);
     }
 
-    private static void SetPosSamePoints(Team[] teams, Game[] games, int startIdx, int count)
+    /// <summary>
+    /// Set the property "PosIfSamePoints" for the specified "sub-group".
+    /// All teams in the sub-group have the same "points".
+    /// Teams with same result (in the sub-group) must get the identical PosIsSamePoints.
+    /// It is necessary for the order by GoalDiff, ... of the main group.
+    /// </summary>
+    /// <param name="teams">All teams - must be sorted (by points).</param>
+    /// <param name="games">We need them to calculate the result of the sub-group.</param>
+    /// <param name="startIdx">Index where the team (with the same points) starts.</param>
+    /// <param name="count">Count of teams with same points.</param>
+    private static void SetPositionInSubGroup(Team[] teams, Game[] games, int startIdx, int count)
     {
         string[] teamNames = new string[count];
         for (int i = 0; i < count; i++)
@@ -326,7 +350,7 @@ public class FussballMeisterschaft
 
         if (team1.PosIfSamePoints != team2.PosIfSamePoints)
         {
-            return CompareTo(team1.PosIfSamePoints, team2.PosIfSamePoints);
+            return CompareTo(team2.PosIfSamePoints, team1.PosIfSamePoints); // less is better
         }
 
         if (team1.GoalDiff != team2.GoalDiff)
