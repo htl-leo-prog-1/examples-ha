@@ -14,8 +14,9 @@
   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 */
 
-namespace FussballMeisterschaft
+namespace FussballMeisterschaft.Tools
 {
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -26,24 +27,24 @@ namespace FussballMeisterschaft
     {
         public class ColumnMapping
         {
-            public string       ColumnName { get; set; }
-            public PropertyInfo MapTo      { get; set; }
-            public bool         Ignore     { get; set; }
+            public string ColumnName { get; set; }
+            public PropertyInfo MapTo { get; set; }
+            public bool Ignore { get; set; }
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-            public Func<string, object?>  GetValue    { get; set; }
-            public Func<object?, object?> AdjustValue { get; set; }
-            public Action<T, string>      SetValue    { get; set; }
+            public Func<string, object> GetValue { get; set; }
+            public Func<object, object> AdjustValue { get; set; }
+            public Action<T, string> SetValue { get; set; }
 
 #pragma warning restore CS8632
 
             public bool IsConfigured => Ignore || MapTo != null || SetValue != null;
-            public bool IsMapped     => !Ignore && MapTo != null;
-            public bool IsSetValue   => !Ignore && SetValue != null;
+            public bool IsMapped => !Ignore && MapTo != null;
+            public bool IsSetValue => !Ignore && SetValue != null;
         }
 
-        public ICollection<string>         IgnoreColumns { get; set; }
-        public IDictionary<string, string> MapColumns    { get; set; }
+        public ICollection<string> IgnoreColumns { get; set; }
+        public IDictionary<string, string> MapColumns { get; set; }
 
         public IList<T> Read(string[] csvLines)
         {
@@ -70,7 +71,7 @@ namespace FussballMeisterschaft
             var mapping = GetPropertyMapping(lines[0]);
             CheckPropertyMapping(mapping);
 
-            var list  = new List<T>();
+            var list = new List<T>();
             var first = true;
 
             foreach (var line in lines)
@@ -117,13 +118,13 @@ namespace FussballMeisterschaft
         protected virtual ColumnMapping GetColumnMapping(string columnName)
         {
             var ignoreColumn = IgnoreColumns?.Contains(columnName, StringComparer.InvariantCultureIgnoreCase) ?? false;
-            var mapToColumn  = (MapColumns?.ContainsKey(columnName) ?? false) ? MapColumns[columnName] : columnName;
+            var mapToColumn = MapColumns?.ContainsKey(columnName) ?? false ? MapColumns[columnName] : columnName;
 
             var columnMapping = new ColumnMapping
             {
                 ColumnName = columnName,
-                Ignore     = ignoreColumn,
-                MapTo      = ignoreColumn ? null : GetPropertyInfo(mapToColumn),
+                Ignore = ignoreColumn,
+                MapTo = ignoreColumn ? null : GetPropertyInfo(mapToColumn),
             };
 
             ConfigureColumnMapping?.Invoke(columnMapping);
@@ -149,7 +150,7 @@ namespace FussballMeisterschaft
         }
 
 #pragma warning disable 8632
-        private object? GetValue(string valueAsString, Type type)
+        private object GetValue(string valueAsString, Type type)
 #pragma warning restore 8632
         {
             if (type.IsGenericType && type.Name.StartsWith(@"Nullable"))
@@ -236,7 +237,7 @@ namespace FussballMeisterschaft
             {
                 var mapTo = mapping.MapTo;
 #pragma warning disable 8632
-                object? val = mapping.GetValue != null
+                object val = mapping.GetValue != null
                     ? mapping.GetValue(valueAsString)
                     : GetValue(valueAsString, mapTo.PropertyType);
 #pragma warning restore 8632

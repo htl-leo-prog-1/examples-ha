@@ -14,7 +14,7 @@
   WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 */
 
-namespace FussballMeisterschaft
+namespace FussballMeisterschaft.Tools
 {
     using System;
     using System.Collections.Generic;
@@ -29,12 +29,12 @@ namespace FussballMeisterschaft
 
         public Encoding Encoding { get; set; } = Encoding.Default;
 
-        public string DateFormat      { get; set; } = "yyyy/MM/dd";
-        public string TimeFormat      { get; set; } = "HH:mm:ss";
+        public string DateFormat { get; set; } = "yyyy/MM/dd";
+        public string TimeFormat { get; set; } = "HH:mm:ss";
         public string Fraction3Format { get; set; } = ".fff";
         public string Fraction5Format { get; set; } = ".fffff";
 
-        public string DateTimeFormat          => GetDateTimeFormat(DateFormat, TimeFormat);
+        public string DateTimeFormat => GetDateTimeFormat(DateFormat, TimeFormat);
         public string DateTimeFraction1Format => GetDateTimeFormat(DateFormat, TimeFormat, Fraction3Format);
         public string DateTimeFraction5Format => GetDateTimeFormat(DateFormat, TimeFormat, Fraction5Format);
 
@@ -58,16 +58,16 @@ namespace FussballMeisterschaft
         public void SetAustriaNumberFormat()
         {
             _nfi.NumberDecimalSeparator = ",";
-            _nfi.NumberGroupSeparator   = ".";
+            _nfi.NumberGroupSeparator = ".";
         }
 
         #region read
 
         public IList<IList<string>> ReadStringMatrixFromCsv(string[] lines, bool skipTitleLine)
         {
-            var elements       = new List<IList<string>>();
-            var lineIdx        = 0;
-            var readLineIdx    = 0;
+            var elements = new List<IList<string>>();
+            var lineIdx = 0;
+            var readLineIdx = 0;
             var compareLineIdx = skipTitleLine ? 1 : 0;
 
             while (true)
@@ -123,10 +123,10 @@ namespace FussballMeisterschaft
                 return null;
             }
 
-            var columns     = new List<string>();
-            var sb          = new StringBuilder(line.Length);
+            var columns = new List<string>();
+            var sb = new StringBuilder(line.Length);
             var noQuoteChar = '\0';
-            var quoteChar   = noQuoteChar;
+            var quoteChar = noQuoteChar;
 
             while (true)
             {
@@ -137,7 +137,7 @@ namespace FussballMeisterschaft
                     if (ch == quoteChar)
                     {
                         // end of " or ""
-                        if ((idx + 1) < line.Length && line[idx + 1] == quoteChar)
+                        if (idx + 1 < line.Length && line[idx + 1] == quoteChar)
                         {
                             idx++;
                             sb.Append(ch);
@@ -151,13 +151,13 @@ namespace FussballMeisterschaft
                     {
                         quoteChar = ch;
                     }
-                    else if (quoteChar == noQuoteChar && (ch == ListSeparatorChar))
+                    else if (quoteChar == noQuoteChar && ch == ListSeparatorChar)
                     {
                         columns.Add(sb.ToString());
                         sb.Clear();
                     }
 
-                    else if (quoteChar == noQuoteChar && (ch == '|'))
+                    else if (quoteChar == noQuoteChar && ch == '|')
                     {
                         columns.Add(sb.ToString());
                         sb.Clear();
@@ -361,25 +361,25 @@ namespace FussballMeisterschaft
 
             if (excelField.StartsWith(@"0x"))
             {
-                if ((excelField.Length % 2) == 1)
+                if (excelField.Length % 2 == 1)
                 {
                     throw new ArgumentException(@"string has odd length.", nameof(excelField));
                 }
 
                 int length = (excelField.Length - 2) / 2;
-                int chIdx  = 2;
+                int chIdx = 2;
 
                 bytes = new byte[length];
 
                 for (int i = 0; i < length; i++)
                 {
-                    bytes[i] =  (byte)(ToHex(excelField[chIdx]) * 16 + ToHex(excelField[chIdx + 1]));
-                    chIdx    += 2;
+                    bytes[i] = (byte)(ToHex(excelField[chIdx]) * 16 + ToHex(excelField[chIdx + 1]));
+                    chIdx += 2;
                 }
             }
             else
             {
-                bytes = System.Convert.FromBase64String(excelField);
+                bytes = Convert.FromBase64String(excelField);
             }
 
             return bytes;

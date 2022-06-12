@@ -23,14 +23,14 @@ using FluentAssertions.Extensions;
 
 public class FussballMeisterschaftTests
 {
-    const         string unionKleinmuenchen = "SPG UNION Kleinmünchen/FC Blau-Weiß Linz";
-    const         string mohrenDornbirn     = "FC Mohren Dornbirn Damen";
-    private const string wildCats           = "Wildcats 11teamsports Krottendorf";
+    const string unionKleinmuenchen = "SPG UNION Kleinmünchen/FC Blau-Weiß Linz";
+    const string mohrenDornbirn     = "FC Mohren Dornbirn Damen";
+    const string wildCats           = "Wildcats 11teamsports Krottendorf";
 
     [Fact]
     public void T01_ReadCsv()
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
+        var games = SoccerChampion.ReadGamesFromFile("Games.csv");
         games.Should().HaveCount(150);
         games.Where(g => g.GuestTeam == unionKleinmuenchen).Should().HaveCount(11);
         games.Where(g => g.HomeTeam == unionKleinmuenchen).Should().HaveCount(12);
@@ -53,8 +53,8 @@ public class FussballMeisterschaftTests
     [Fact]
     public void T02_FilterTwoTeam()
     {
-        var games         = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
-        var filteredGames = FussballMeisterschaft.FilterGamesByTeam(games, new string[] { unionKleinmuenchen, mohrenDornbirn });
+        var games         = SoccerChampion.ReadGamesFromFile("Games.csv");
+        var filteredGames = SoccerChampion.FilterGamesByTeam(games, new string[] { unionKleinmuenchen, mohrenDornbirn });
 
         filteredGames.Should().HaveCount(2);
         filteredGames.Should().OnlyContain(g => g.GuestTeam == unionKleinmuenchen || g.HomeTeam == unionKleinmuenchen);
@@ -64,8 +64,8 @@ public class FussballMeisterschaftTests
     [Fact]
     public void T06_CreateTeams()
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile("Games.csv");
-        var teams = FussballMeisterschaft.CreateListOfTeams(games);
+        var games = SoccerChampion.ReadGamesFromFile("Games.csv");
+        var teams = SoccerChampion.CreateListOfTeams(games);
 
         teams.Should().HaveCount(13);
         var ukm = teams.First(team => team.TeamName == unionKleinmuenchen);
@@ -82,9 +82,9 @@ public class FussballMeisterschaftTests
 
     private IList<Team> ReadAndSortTeams(string fileName)
     {
-        var games = FussballMeisterschaft.ReadGamesFromFile(fileName);
-        var teams = FussballMeisterschaft.CreateListOfTeams(games);
-        return FussballMeisterschaft.SortByOefb(teams, games).ToList();
+        var games = SoccerChampion.ReadGamesFromFile(fileName);
+        var teams = SoccerChampion.CreateListOfTeams(games);
+        return SoccerChampion.SortByOefb(teams, games).ToList();
     }
 
     [Fact]
@@ -167,7 +167,7 @@ public class FussballMeisterschaftTests
     {
         var teams = ReadAndSortTeams("GamesByTotalGoalDiff.csv");
 
-        FussballMeisterschaft.PrintTeams(teams);
+        SoccerChampion.PrintTeams(teams);
 
         teams.Should().HaveCount(10);
 
