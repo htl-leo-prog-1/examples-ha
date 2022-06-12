@@ -7,8 +7,12 @@
 	  <None Remove="GamesAllEqual.csv" />
 	  <None Remove="GamesByTotalGoalDiff.csv" />
 	  <None Remove="GamesEmpty.csv" />
+	  <None Remove="GamesTwoGroups.csv" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="GamesTwoGroups.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="GamesByTotalGoalDiff.csv">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

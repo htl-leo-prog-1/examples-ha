@@ -70,10 +70,10 @@ public class FussballMeisterschaftTests
         ukm.Should().BeEquivalentTo(new
         {
             TeamName = ukm,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
     }
@@ -96,10 +96,10 @@ public class FussballMeisterschaftTests
         ukm.Should().BeEquivalentTo(new
         {
             TeamName = unionKleinmuenchen,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
 
@@ -107,10 +107,10 @@ public class FussballMeisterschaftTests
         md.Should().BeEquivalentTo(new
         {
             TeamName = mohrenDornbirn,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
 
@@ -118,10 +118,10 @@ public class FussballMeisterschaftTests
         wc.Should().BeEquivalentTo(new
         {
             TeamName = wildCats,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
     }

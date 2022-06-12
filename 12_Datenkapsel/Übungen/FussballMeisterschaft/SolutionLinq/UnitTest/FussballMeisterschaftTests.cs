@@ -31,8 +31,8 @@ public class FussballMeisterschaftTests
     public void T01_ReadCsv()
     {
         var games = SoccerChampion.ReadGamesFromFile("Games.csv");
-        games.Should().HaveCount(150);
-        games.Where(g => g.GuestTeam == unionKleinmuenchen).Should().HaveCount(11);
+        games.Should().HaveCount(156);
+        games.Where(g => g.GuestTeam == unionKleinmuenchen).Should().HaveCount(12);
         games.Where(g => g.HomeTeam == unionKleinmuenchen).Should().HaveCount(12);
 
         games.GroupBy(g => g.HomeTeam).Should().HaveCount(13);
@@ -40,13 +40,13 @@ public class FussballMeisterschaftTests
 
         games.Should().NotContain(g => g.HomeTeam == g.GuestTeam);
         games.Should().NotContain(g => g.GoalsGuest < 0 || g.GoalsHome < 0);
-        games.Sum(g => g.GoalsGuest).Should().Be(296);
-        games.Sum(g => g.GoalsHome).Should().Be(393);
+        games.Sum(g => g.GoalsGuest).Should().Be(302);
+        games.Sum(g => g.GoalsHome).Should().Be(408);
 
         games.Should().OnlyContain(game => game.Date > 1.August(2021) && game.Date < 15.June(2022));
 
         var group = games.GroupBy(g => g.Round).ToList();
-        group.Should().HaveCount(25);
+        group.Should().HaveCount(26);
         group.Should().OnlyContain(grp => grp.Count() == 6);
     }
 
@@ -72,10 +72,10 @@ public class FussballMeisterschaftTests
         ukm.Should().BeEquivalentTo(new
         {
             TeamName = ukm,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
     }
@@ -98,10 +98,10 @@ public class FussballMeisterschaftTests
         ukm.Should().BeEquivalentTo(new
         {
             TeamName = unionKleinmuenchen,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
 
@@ -109,10 +109,10 @@ public class FussballMeisterschaftTests
         md.Should().BeEquivalentTo(new
         {
             TeamName = mohrenDornbirn,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
 
@@ -120,10 +120,10 @@ public class FussballMeisterschaftTests
         wc.Should().BeEquivalentTo(new
         {
             TeamName = wildCats,
-            Win      = 17,
+            Win      = 18,
             Loss     = 3,
             Tie      = 3,
-            Points   = 54
+            Points   = 57
         }, options =>
             options.ExcludingMissingMembers());
     }
@@ -174,5 +174,23 @@ public class FussballMeisterschaftTests
         teams.Take(6).Should().OnlyContain(team => team.Points == 4);
         teams.Skip(6).Should().OnlyContain(team => team.Points == 0);
         teams.Skip(6).Select(team => team.GoalDiff).Should().BeInDescendingOrder();
+    }
+    
+    [Fact]
+    public void T09_TwoGroups()
+    {
+        var teams = ReadAndSortTeams("GamesTwoGroups.csv");
+
+        SoccerChampion.PrintTeams(teams);
+
+        teams.Should().HaveCount(13);
+
+        var group1 = teams.Take(3).ToList();
+        var group2 = teams.Skip(9).Take(2).ToList();
+
+        group1.Should().OnlyContain(t => t.Points == 57 && t.PosIfSamePoints != 0);
+        group1.Should().BeInAscendingOrder(t => t.PosIfSamePoints);
+        group2.Should().OnlyContain(t => t.Points == 16 && t.PosIfSamePoints != 0);
+        group1.Should().BeInAscendingOrder(t => t.PosIfSamePoints);
     }
 }
