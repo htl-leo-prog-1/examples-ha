@@ -13,14 +13,14 @@ using System;
 
 public class Game
 {
-    private int      _round              { get; set; }
-    private DateTime _date               { get; set; }
-    private string   _homeTeam           { get; set; }
-    private string   _guestTeam          { get; set; }
-    private int      _goalsHome          { get; set; }
-    private int      _goalsGuest         { get; set; }
-    private int      _halfTimeGoalsHome  { get; set; }
-    private int      _halfTimeGoalsGuest { get; set; }
+    private int      _round;
+    private DateTime _date;
+    private string   _homeTeam;
+    private string   _guestTeam;
+    private int      _goalsHome;
+    private int      _goalsGuest;
+    private int      _halfTimeGoalsHome;
+    private int      _halfTimeGoalsGuest;
 
     public int Round
     {

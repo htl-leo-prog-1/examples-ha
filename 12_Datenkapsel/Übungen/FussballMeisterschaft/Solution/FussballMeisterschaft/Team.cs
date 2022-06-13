@@ -11,15 +11,14 @@ namespace FussballMeisterschaft;
 
 public class Team
 {
-    private string _teamName        { get; set; }
-    private int    _winCount        { get; set; }
-    private int    _lossCount       { get; set; }
-    private int    _tieCount        { get; set; }
-    private int    _goalsCount      { get; set; }
-    private int    _gotGoalsCount   { get; set; }
-    private int    _awayGoalsCount  { get; set; }
-    private int    _posIfSamePoints { get; set; }
-
+    private string _teamName;
+    private int    _winCount;
+    private int    _lossCount;
+    private int    _tieCount;
+    private int    _goalsCount;
+    private int    _gotGoalsCount;
+    private int    _awayGoalsCount;
+    private int    _posIfSamePoints;
 
     public string TeamName
     {
