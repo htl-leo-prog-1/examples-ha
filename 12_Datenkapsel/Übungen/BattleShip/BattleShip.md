@@ -45,7 +45,7 @@ Schreiben Sie ein Programm mit dem Namen **BattleShip** .
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Die Unittests prüfen auch interne Programmfunktionalitäten (Hilfs-Methoden). Diese sind hilfreich bei der Umsetzung - passen Sie das Design daher so an, dass diese Methoden verwendet werden.  Änderungen an den *Unittests* sind selbstverständlich nicht erlaubt.  
 
-Programminter können/sollen folgende Punkte umgesetz sein:
+Programmintern können/sollen folgende Punkte umgesetz sein:
 
 #### Datenkapsel **Ship**
 
@@ -59,9 +59,7 @@ Programminter können/sollen folgende Punkte umgesetz sein:
   Vertikale- oder horizontale Ausrichtung.
   
 Die Datenkapsel soll von der Csv Datei mit folgendem Inhalt gelesen werden können:  
-(Anstatt **IsVeritcal** wird in der Csv eine **Orientation** mit den möglichen Inhalten H oder V gespeichert)  
-
-
+(Anstatt **IsVeritcal** wird in der Csv eine **Orientation** mit den möglichen Inhalten H oder V gespeichert)
 ```
 Row;Col;ShipSize;Orientation
 9;5;5;H
