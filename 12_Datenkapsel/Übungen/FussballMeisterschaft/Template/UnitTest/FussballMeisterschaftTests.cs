@@ -173,7 +173,7 @@ public class FussballMeisterschaftTests
         teams.Skip(6).Should().OnlyContain(team => team.Points == 0);
         teams.Skip(6).Select(team => team.GoalDiff).Should().BeInDescendingOrder();
     }
-    
+
     [Fact]
     public void T09_TwoGroups()
     {
@@ -190,5 +190,36 @@ public class FussballMeisterschaftTests
         group1.Should().BeInAscendingOrder(t => t.PosIfSamePoints);
         group2.Should().OnlyContain(t => t.Points == 16 && t.PosIfSamePoints != 0);
         group1.Should().BeInAscendingOrder(t => t.PosIfSamePoints);
+    }
+
+    [Fact]
+    public void T10_MoreGroups()
+    {
+        var teams = ReadAndSortTeams("GamesMoreGroups.csv");
+
+        FussballMeisterschaft.PrintTeams(teams);
+
+        teams.Should().HaveCount(13);
+
+        var result = new string[]
+        {
+            unionKleinmuenchen,
+            "FC Mohren Dornbirn Damen",
+            "Wildcats 11teamsports Krottendorf",
+            "SV Horn",
+            "Union LUV Graz",
+            "Carinthians LIWOdruck Hornets",
+            "RW Rankweil",
+            "Wiener Sport-Club",
+            "Sportunion Raiffeisen Geretsberg",
+            "USC Landhaus",
+            "SV Fenastra Krenglbach",
+            "SC Neusiedl am See 1919",
+            "FC Altera Porta"
+        };
+
+        teams.GroupBy(t => t.Points).Where(g => g.Count()>=2).Should().HaveCount(4);
+
+        teams.Select(t => t.TeamName).Should().BeEquivalentTo(result);
     }
 }
