@@ -34,19 +34,19 @@ namespace Chess
 
         public static ChessPiece ReadChessPieceFromCsvLine(string line)
         {
-            var cols = line.Split(';');
+            var cols       = line.Split(';');
             var chessPiece = new ChessPiece();
 
             chessPiece.Col = (int)(cols[0][0] - 'A');
             chessPiece.Row = (int)(cols[0][1] - '1');
             chessPiece.Type = cols[1] switch
             {
-                "P"  => 6,
-                "K"  => 1,
-                "Q"  => 2,
-                "R"  => 3,
-                "B"  => 4,
-                "KN" => 5,
+                "P"  => ChessPiece.Pawn,
+                "K"  => ChessPiece.King,
+                "Q"  => ChessPiece.Queen,
+                "R"  => ChessPiece.Rook,
+                "B"  => ChessPiece.Bishop,
+                "KN" => ChessPiece.Knight,
                 _    => throw new ArgumentException()
             };
             chessPiece.IsBlack = cols[2].ToUpper() == "B";
@@ -62,15 +62,15 @@ namespace Chess
         {
             var field = CreateField(chessPieces);
 
-            string line = "   +";
-            Console.Write("   ");
+            string colHeader = "   ";
+            string line      = "   +";
             for (int col = 0; col < field.GetLength(1); col++)
             {
-                line += "---+";
-                Console.Write($"  {(char)('A' + col)} ");
+                line      += "---+";
+                colHeader += $"  {(char)('A' + col)} ";
             }
 
-            Console.WriteLine();
+            Console.WriteLine(colHeader);
             Console.WriteLine(line);
 
             for (int row = field.GetLength(0) - 1; row >= 0; row--)
@@ -84,27 +84,39 @@ namespace Chess
                     }
                     else
                     {
-                        Console.Write($"{ToChessPiece(field[row, col].Type),2} |");
+                        Console.Write($"{ToConsoleString(field[row, col]),3}|");
                     }
                 }
 
-                Console.WriteLine();
+                Console.WriteLine(row + 1);
                 Console.WriteLine(line);
             }
+
+            Console.WriteLine(colHeader);
         }
 
-        private static string ToChessPiece(int type)
+        private static string ToChessPiece(ChessPiece chessPieces)
         {
-            return Math.Abs(type) switch
+            return chessPieces.Type switch
             {
-                6 => "P",
-                1 => "K",
-                2 => "Q",
-                3 => "R",
-                4 => "B",
-                5 => "KN",
-                _ => "  "
+                ChessPiece.Pawn   => "P",
+                ChessPiece.King   => "K",
+                ChessPiece.Queen  => "Q",
+                ChessPiece.Rook   => "R",
+                ChessPiece.Bishop => "B",
+                ChessPiece.Knight => "KN",
+                _                 => "  "
             };
+        }
+
+        private static string ToColor(ChessPiece chessPieces)
+        {
+            return chessPieces.IsBlack ? "b" : "w";
+        }
+
+        private static string ToConsoleString(ChessPiece chessPieces)
+        {
+            return $"{ToChessPiece(chessPieces)}{ToColor(chessPieces)}";
         }
 
         public static bool IsValid(ChessPiece[] chessPieces)
@@ -114,9 +126,8 @@ namespace Chess
 
         public static bool IsValidPieceAmount(ChessPiece[] chessPieces)
         {
-            int[] ShouldBeAmounts = new int[] { 0, 1, 1, 2, 2, 2, 8 };
-            int[] amountsB        = new int[ShouldBeAmounts.Length];
-            int[] amountsW        = new int[ShouldBeAmounts.Length];
+            int[] amountsB = new int[ChessPiece.Pawn + 1];
+            int[] amountsW = new int[ChessPiece.Pawn + 1];
 
             foreach (var piece in chessPieces)
             {
@@ -130,9 +141,30 @@ namespace Chess
                 }
             }
 
+            int morePiecesB =
+                More(amountsB[ChessPiece.Queen],  1) +
+                More(amountsB[ChessPiece.Rook],   2) +
+                More(amountsB[ChessPiece.Bishop], 2) +
+                More(amountsB[ChessPiece.Knight], 2);
+
+            int morePiecesW =
+                More(amountsW[ChessPiece.Queen],  1) +
+                More(amountsW[ChessPiece.Rook],   2) +
+                More(amountsW[ChessPiece.Bishop], 2) +
+                More(amountsW[ChessPiece.Knight], 2);
+
+            int possibleChangedPawnB = 8 - amountsB[ChessPiece.Pawn];
+            int possibleChangedPawnW = 8 - amountsW[ChessPiece.Pawn];
+
             return amountsB[1] == 1 && // at least one king
                    amountsW[1] == 1 && // amountsB[1] == 1 &&
-                   Tools.IsMax(amountsW, ShouldBeAmounts) && Tools.IsMax(amountsB, ShouldBeAmounts);
+                   possibleChangedPawnW >= morePiecesW &&
+                   possibleChangedPawnB >= morePiecesB;
+        }
+
+        private static int More(int count, int defaultCount)
+        {
+            return count <= defaultCount ? 0 : count - defaultCount;
         }
 
         /// <summary>
@@ -151,7 +183,7 @@ namespace Chess
 
             foreach (var chessPiece in chessPieces)
             {
-                if (!ArrangeChessPiece(field, chessPiece))
+                if (!PlaceChessPiece(field, chessPiece))
                 {
                     return null;
                 }
@@ -160,31 +192,51 @@ namespace Chess
             return field;
         }
 
-        public static bool CanArrangeChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
+        /// <summary>
+        /// Validate the field.
+        /// Test, if a new chessPiece can be set to the filed.
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="chessPiece"></param>
+        /// <returns>true if the field is empty, false otherwise</returns>
+        public static bool CanPlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
         {
             int row = chessPiece.Row;
             int col = chessPiece.Col;
 
-            return field[row, col] == null;
+            return Tools.InRange(row, 7, 0) &&
+                   Tools.InRange(col, 7, 0) &&
+                   (chessPiece.Type != ChessPiece.Pawn || IsValidPawnPosition(field, chessPiece)) &&
+                   field[row, col] == null;
         }
 
         /// <summary>
-        /// Arrange (set) a chessPiece on the battle-field.
+        /// Check if the pawn is on a valid row.
+        /// Invalid rows are 0 or 7, depending on the color.
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="chessPiece">chessPiece, must be a pawn.</param>
+        /// <returns>true, if the pawn is on a valid row, otherwise false.</returns>
+        private static bool IsValidPawnPosition(ChessPiece[,] field, ChessPiece chessPiece)
+        {
+            int invalidRow = chessPiece.IsBlack ? 7 : 0;
+            return chessPiece.Row != invalidRow;
+        }
+
+        /// <summary>
+        /// Place (set) a chessPiece on the field.
         /// </summary>
         /// <param name="field">The field where to set the chessPiece.</param>
         /// <param name="chessPiece"></param>
-        /// <returns>true if the chessPiece can be arranged, otherwise false</returns>
-        public static bool ArrangeChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
+        /// <returns>true if the chessPiece can be placed, otherwise false</returns>
+        public static bool PlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
         {
-            if (!CanArrangeChessPiece(field, chessPiece))
+            if (!CanPlaceChessPiece(field, chessPiece))
             {
                 return false;
             }
 
-            int row = chessPiece.Row;
-            int col = chessPiece.Col;
-
-            field[row, col] = chessPiece;
+            field[chessPiece.Row, chessPiece.Col] = chessPiece;
 
             return true;
         }

@@ -23,6 +23,13 @@ public class ChessPiece
     //5 Springer - Knight
     //6 Bauer - Pawn
 
+    public const int King   = 1;
+    public const int Queen  = 2;
+    public const int Rook   = 3;
+    public const int Bishop = 4;
+    public const int Knight = 5;
+    public const int Pawn   = 6;
+
     public int Row  { get { return _row;}        set { _row       = value; } }
     public int Col  { get { return _col; }       set { _col       = value; } }
     public int Type { get { return _pieceType; } set { _pieceType = value; } }
