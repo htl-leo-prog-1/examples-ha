@@ -8,19 +8,46 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Game1.csv" />
+	  <None Remove="GameInvalidPawnCountB.csv" />
+	  <None Remove="GameInvalidPawnCountW.csv" />
+	  <None Remove="GameInvalidPawnQueenCountB.csv" />
+	  <None Remove="GameInvalidPawnQueenCountW.csv" />
+	  <None Remove="GameInvalidPawnQueenKnightCountW.csv" />
+	  <None Remove="GameInvalidPawnRowB.csv" />
+	  <None Remove="GameInvalidPawnRowW.csv" />
 	  <None Remove="InValidchessPiecesAmount.csv" />
 	  <None Remove="InValidchessPiecesPosition.csv" />
+	  <None Remove="StartGame.csv" />
 	  <None Remove="ValidchessPieces.csv" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="InValidchessPiecesAmount.csv">
+	  <Content Include="GameInvalidPawnQueenCountB.csv">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="InValidchessPiecesPosition.csv">
+	  <Content Include="GameInvalidPawnQueenKnightCountW.csv">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="ValidchessPieces.csv">
+	  <Content Include="GameInvalidPawnQueenCountW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnCountW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnCountB.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnRowW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnRowB.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Game1.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="StartGame.csv">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
