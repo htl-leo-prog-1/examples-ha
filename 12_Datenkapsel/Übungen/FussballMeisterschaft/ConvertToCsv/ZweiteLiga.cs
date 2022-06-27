@@ -9,18 +9,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Globalization;
 using System.IO;
 
 Console.WriteLine("Read ZweiteLiga.txt");
 
-
 using (var sr = new StreamReader("ZweiteLiga.txt"))
 {
-    var line = sr.ReadLine();
-
-    bool newGame = false;
     int runde = 0;
     int idx = 0;
     var game = new Game();
@@ -29,6 +24,8 @@ using (var sr = new StreamReader("ZweiteLiga.txt"))
         "Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime"
     };
 
+    var line = sr.ReadLine();
+
     while (line != null)
     {
         if (!string.IsNullOrEmpty(line))
@@ -36,7 +33,6 @@ using (var sr = new StreamReader("ZweiteLiga.txt"))
             if (line.StartsWith("Runde "))
             {
                 runde = int.Parse(line.Replace("Runde ", ""));
-                //Console.WriteLine($"Runde {runde}");
                 idx = 0;
             }
             else if (line.StartsWith("Spielbericht"))
@@ -57,7 +53,9 @@ using (var sr = new StreamReader("ZweiteLiga.txt"))
                 switch (idx)
                 {
                     case 0:
-                        game.Date = DateTime.ParseExact(line.Replace(" Uhr", "").Replace(",", ""), "d.MM.yyyy H:m",
+                        game.Date = DateTime.ParseExact(line
+                                .Replace(" Uhr", "")
+                                .Replace(",", ""), "d.MM.yyyy H:m",
                             CultureInfo.InvariantCulture);
                         break;
                     case 1:
