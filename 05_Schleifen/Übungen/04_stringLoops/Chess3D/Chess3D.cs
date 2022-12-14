@@ -12,9 +12,20 @@ using System;
 Console.WriteLine("Chess 3D");
 Console.WriteLine("**************");
 
-const int SIZE = 8;
-const int TOTALLINES = SIZE + 3;
-const int TOTALDIFF = SIZE + 2;
+string[] lines = new[]
+{
+    "+------------------------+",
+    "|   ###   ###   ###   ###| 8",
+    "|###   ###   ###   ###   | 7",
+    "|   ###   ###   ###   ###| 6",
+    "|###   ###   ###   ###   | 5",
+    "|   ###   ###   ###   ###| 4",
+    "|###   ###   ###   ###   | 3",
+    "|   ###   ###   ###   ###| 2",
+    "|###   ###   ###   ###   | 1",
+    "+------------------------+",
+    "  A  B  C  D  E  F  G  H",
+};
 
 int shift;
 bool isOk;
@@ -27,64 +38,16 @@ do
         isOk = int.TryParse(Console.ReadLine(), out shift);
     } while (!isOk || shift < 0);
 
-    int currentLine = TOTALLINES-1;
-    int CurrentShift(int line) => (line * shift + TOTALDIFF / 2) / TOTALDIFF;
+    int shiftLines = lines.Length - 1;    // do not count first line (A B C D E F G H) => always shift 0
 
-    for (var x = 0; x < CurrentShift(currentLine); x++)
+    for (int currentLine = 0; currentLine < lines.Length; currentLine++)
     {
-        Console.Write(" ");
-    }
-
-    Console.Write("+");
-    for (var x = 0; x < SIZE; x++)
-    {
-        Console.Write("---");
-    }
-
-    Console.WriteLine("+");
-    currentLine--;
-
-
-    for (var y = 0; y < SIZE; y++)
-    {
-        for (var x = 0; x < CurrentShift(currentLine); x++)
+        int currentShift = ((lines.Length- currentLine-1) * shift + shiftLines / 2) / shiftLines;
+        for (var x = 0; x < currentShift; x++)
         {
             Console.Write(" ");
         }
-
-        Console.Write("|");
-        for (var x = 0; x < SIZE; x++)
-        {
-            Console.Write((x + y) % 2 == 0 ? "   " : "###");
-        }
-
-        Console.Write($"| {SIZE - y}");
-
-
-        Console.WriteLine();
-        currentLine--;
+        Console.WriteLine(lines[currentLine]);
     }
 
-    for (var x = 0; x < CurrentShift(currentLine); x++)
-    {
-        Console.Write(" ");
-    }
-
-    Console.Write("+");
-    for (var x = 0; x < SIZE; x++)
-    {
-        Console.Write("---");
-    }
-
-    Console.WriteLine("+");
-    currentLine--;
-
-    Console.Write(" ");
-    for (var x = 0; x < SIZE; x++)
-    {
-        Console.Write($" {(char) ('A' + x)} ");
-    }
-
-    Console.WriteLine();
-    currentLine--;
-} while (shift >= 0);
+} while (shift > 0);
