@@ -24,7 +24,7 @@ public class Board
     private readonly int       _rows;
     private          string    _title;
 
-    public static event CellClickHandler CellClicked;
+    public static event CellClickHandler? CellClicked;
 
     /// <summary>
     ///     Spielfeld mit _rows/_cols anlegen
@@ -123,7 +123,7 @@ public class Board
     {
         if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
-            return null;
+            return null!;
         }
 
         return _staticBoard._form.GetText(row, col);
@@ -375,8 +375,8 @@ public class FormBoard : Form
             if (sender is TextBox)
             {
                 var t = sender as TextBox;
-                int x = t.Location.X / CELL_HEIGHT;
-                int y = t.Location.Y / CELL_WIDTH;
+                int x = t!.Location.X / CELL_HEIGHT;
+                int y = t!.Location.Y / CELL_WIDTH;
                 Board.OnCellClicked(y, x);
             }
         };
