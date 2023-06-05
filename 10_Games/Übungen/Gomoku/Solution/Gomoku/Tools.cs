@@ -13,7 +13,7 @@ namespace Gomoku;
 
 public static class Tools
 {
-    public static int ReadNumber(string message, int max, int min)
+    public static int ReadNumber(string message, int min, int max)
     {
         int number;
         bool isOk;
@@ -52,7 +52,7 @@ public static class Tools
         return number;
     }
 
-    public static bool TryParse(string input, out int value, int max, int min)
+    public static bool TryParse(string input, out int value, int min, int max)
     {
         input = input.Trim(' ');
         return int.TryParse(input, out value) && value >= min && value <= max;

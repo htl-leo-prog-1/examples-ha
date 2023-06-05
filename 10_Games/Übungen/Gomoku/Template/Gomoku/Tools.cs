@@ -13,7 +13,7 @@ namespace Gomoku;
 
 public static class Tools
 {
-    public static int ReadNumber(string message, int max, int min)
+    public static int ReadNumber(string message, int min, int max)
     {
         //TODO If you need the method, implement it here
         throw new NotImplementedException();
@@ -25,13 +25,13 @@ public static class Tools
         throw new NotImplementedException();
     }
 
-    public static bool TryParse(string input, out int value, int max, int min)
+    public static bool TryParse(string input, out int value, int min, int max)
     {
         //TODO If you need the method, implement it here
         throw new NotImplementedException();
     }
 
-    public static bool InRange(int value, int max, int min)
+    public static bool InRange(int value, int min, int max)
     {
         //TODO If you need the method, implement it here
         throw new NotImplementedException();

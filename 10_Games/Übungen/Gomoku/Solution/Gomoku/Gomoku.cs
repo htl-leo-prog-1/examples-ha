@@ -196,8 +196,8 @@ public static class Gomoku
                     var rowCol = input.Split(',');
 
                     isOk = rowCol.Length == 2 &&
-                           Tools.TryParse(rowCol[0], out row, rows - 1, 0) &&
-                           Tools.TryParse(rowCol[1], out col, cols - 1, 0) &&
+                           Tools.TryParse(rowCol[0], out row, 0, rows - 1) &&
+                           Tools.TryParse(rowCol[1], out col, 0, cols - 1) &&
                            field[row, col] == -1;
                     break;
             }
