@@ -294,8 +294,8 @@ public static class Gomoku
     /// <returns>true, if row/col is OK, otherwise false.</returns>
     public static bool IsInRange(int[,] field, int row, int col)
     {
-        return Tools.InRange(row, 0, field.GetLength(0)) &&
-               Tools.InRange(col, 0, field.GetLength(1));
+        return Tools.InRange(row, 0, field.GetLength(0)-1) &&
+               Tools.InRange(col, 0, field.GetLength(1)-1);
     }
 
     /// <summary>
@@ -386,10 +386,6 @@ public static class Gomoku
 
                     SetStone(field, row, col, player);
                 }
-            }
-
-            for (int i = 1; i < lines.Length; i++)
-            {
             }
         }
 

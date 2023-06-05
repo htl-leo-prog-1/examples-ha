@@ -14,7 +14,7 @@ c# Programmieren (c) HTL-Leonding
 
 ### Programmablauf
 Schreiben Sie ein Programm mit dem **Gomoku** gespielt werden kann.  
-* Beim Programmstart wird die Dimension des Spielfelds eingegeben. 
+* Beim Programmstart wird die Dimension des Spielfelds eingegeben.  
   Da es sich um ein quadratisches Spielfeld handelt, muss nur eine Dimension eingegeben werden, z.B.: `17`.  
   Erlaubte Größen sind 15x15, 17x17 oder 19x19.
 * Anschließend wird das **Board** mit den eingegebenen Dimensionen erstellt.
@@ -36,7 +36,7 @@ Damit die Unittests ausgeführt werden können, müssen sie folgende (Hilfs-)Met
 * `bool IsWinner(int[,] field, int row, int col)`  
 Überprüft, ob sich durch die Belegung eines Feldes ein Sieger ergeben hat. Dabei werden nicht alle Felder überprüfen, sondern nur die an die neu gesetzte Position angrenzenden.  
 * `int GetStoneCount(int[,] field)`  
-  Zählt alle am Spielfeld plazierte Steine. 
+  Zählt alle am Spielfeld platzierte Steine. 
 * `bool SetStone(int[,] field, int row, int col, int player)`  
   Die Methode setzt einen Stein am Spielfeld. Der Rückgabewert legt fest, ob mit dem Setzen des Steines der Spieler gewonnen hat (bool).
 * `void SaveGame(int[,] field, string fileName)`  

@@ -58,7 +58,7 @@ public static class Tools
         return int.TryParse(input, out value) && value >= min && value <= max;
     }
 
-    public static bool InRange(int value, int max, int min)
+    public static bool InRange(int value, int min, int max)
     {
         return value >= min && value <= max;
     }
