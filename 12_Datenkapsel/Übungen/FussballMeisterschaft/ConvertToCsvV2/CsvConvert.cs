@@ -9,87 +9,91 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 
-string fileName = "ErsteLiga.txt";
-
-if (args.Length > 0 && !string.IsNullOrEmpty(args[0]))
+foreach (var fullFileName in Directory.GetFiles(".", "*.txt"))
 {
-    fileName = args[0];
+    WriteCsvFile(Path.GetFileName(fullFileName));
 }
 
-Console.WriteLine($"Read {fileName}");
+Console.WriteLine("done");
 
-using (var sr = new StreamReader(fileName))
+void WriteCsvFile(string fileName)
 {
-    int runde = 0;
-    int idx = 0;
-    var game = new Game();
-    var outLines = new List<string>()
-    {
-        "Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime"
-    };
+    Console.WriteLine($"Read {fileName}");
 
-    var line = sr.ReadLine();
-
-    while (line != null)
+    using (var sr = new StreamReader(fileName))
     {
-        if (!string.IsNullOrEmpty(line))
+        int runde = 0;
+        int idx = 0;
+        var game = new Game();
+        var outLines = new List<string>()
         {
-            if (line.StartsWith("Runde "))
-            {
-                runde = int.Parse(line.Replace("Runde ", ""));
-                idx = 0;
-            }
-            else if (line.StartsWith("Spielbericht") || line.StartsWith("strafverifiziert"))
-            {
-                if (game.Result != "-:-")
-                {
-                    var outLine =
-                        $"{runde};{game.Date.ToString("d/M/yyyy HH:mm")};{game.HomeTeam};{game.GuestTeam};{game.Result};{game.Result2}";
-                    Console.WriteLine(outLine);
-                    outLines.Add(outLine);
-                }
+            "Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime"
+        };
 
-                game = new Game();
-                idx = 0;
-            }
-            else
-            {
-                switch (idx)
-                {
-                    case 0:
-                        game.Date = DateTime.ParseExact(line
-                                .Replace(" Uhr", "")
-                                .Replace(",", ""), "d.MM.yyyy H:m",
-                            CultureInfo.InvariantCulture);
-                        break;
-                    case 1:
-                        game.HomeTeam = line;
-                        break;
-                    case 2:
-                        game.Result = line;
-                        break;
-                    case 3:
-                        game.Result2 = line;
-                        break;
-                    case 4:
-                        game.GuestTeam = line;
-                        break;
-                    case 5:
-                    case 6:
-                        break; // LIVE BEI => 
-                    default:
-                        throw new ArgumentException();
-                }
+        var line = sr.ReadLine();
 
-                idx++;
+        while (line != null)
+        {
+            if (!string.IsNullOrEmpty(line))
+            {
+                if (line.StartsWith("Runde "))
+                {
+                    runde = int.Parse(line.Replace("Runde ", ""));
+                    idx = 0;
+                }
+                else if (line.StartsWith("Spielbericht") || line.StartsWith("strafverifiziert"))
+                {
+                    if (game.Result != "-:-")
+                    {
+                        var outLine =
+                            $"{runde};{game.Date.ToString("d/M/yyyy HH:mm")};{game.HomeTeam};{game.GuestTeam};{game.Result};{game.Result2}";
+                        Console.WriteLine(outLine);
+                        outLines.Add(outLine);
+                    }
+
+                    game = new Game();
+                    idx = 0;
+                }
+                else
+                {
+                    switch (idx)
+                    {
+                        case 0:
+                            game.Date = DateTime.ParseExact(line
+                                    .Replace(" Uhr", "")
+                                    .Replace(",", ""), "d.MM.yyyy H:m",
+                                CultureInfo.InvariantCulture);
+                            break;
+                        case 1:
+                            game.HomeTeam = line;
+                            break;
+                        case 2:
+                            game.Result = line;
+                            break;
+                        case 3:
+                            game.Result2 = line;
+                            break;
+                        case 4:
+                            game.GuestTeam = line;
+                            break;
+                        case 5:
+                        case 6:
+                            break; // LIVE BEI => 
+                        default:
+                            throw new ArgumentException();
+                    }
+
+                    idx++;
+                }
             }
+
+            line = sr.ReadLine();
         }
 
-        line = sr.ReadLine();
+        File.WriteAllLines($"{Path.GetFileNameWithoutExtension(fileName)}.csv", outLines);
     }
-
-    File.WriteAllLines($"{Path.GetFileNameWithoutExtension(fileName)}.csv", outLines);
 }

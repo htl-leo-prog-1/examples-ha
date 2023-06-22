@@ -6,13 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ErsteLiga.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ErsteLiga.txt">
+    <Content Include="ErsteLiga2022.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ZweiteLiga2022.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
-</Project>
+ </Project>
