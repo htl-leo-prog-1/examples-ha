@@ -6,10 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="ErsteLiga2022.txt">
+    <None Remove="2. Frauen Bundesliga 2020.txt" />
+    <None Remove="Planet Pure Frauen Bundesliga 2021.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="2. Frauen Bundesliga 2020.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ZweiteLiga2022.txt">
+    <Content Include="Planet Pure Frauen Bundesliga 2021.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Planet Pure Frauen Bundesliga 2020.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Planet Pure Frauen Bundesliga 2022.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2. Frauen Bundesliga 2022.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
