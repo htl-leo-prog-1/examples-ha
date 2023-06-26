@@ -16,14 +16,15 @@ In einer Csv Datei sind alle Spiele einer Fussballmeisterschaft gespeichert. Ges
 Dabei sind die aktuellen Regeln des ÖFB's bei Punktegleichstand zweier oder mehrerer Teams zu berücksichtigen.  
 
 ### Programmablauf
+
 Schreiben Sie ein Programm mit folgenden Eigenschaften.  
 * Der Name der Csv-Datei wird bestimmt.  
-  Wird dem Programm ein Programmzeilenargument übergeben, wird dieser als Csv Dateiname verwendet. Ansonsten wird "Games.csv" angenommen.   
+  Wird dem Programm ein Programmzeilenargument übergeben, wird dieser als Csv Dateiname verwendet. Ansonsten wird "Games.csv" angenommen.  
 * Der gesamte Inhalt der Csv Datei wird in ein Array der Datenkapsel **Game** geladen.  
 * Aus diesem **Game** Array werden die Teams (eine Array mit der Datenkapsel **Team**) bestimmt.
 * Im nächsten Schritt sortiert das Programm die Teams. Hier sind die ÖFB Regeln anzuwenden.
-* Als letzten Schritt gibt das Programm die fertige (sortierte) Liste (=Array) der Teams aus. 
- 
+* Als letzten Schritt gibt das Programm die fertige (sortierte) Liste (=Array) der Teams aus.
+
 ### Programmdesign
 
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
@@ -44,20 +45,20 @@ Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime
 * `Game[] FilterGamesByTeam(Game[] games, string[] teamName)`  
   Haben zwei oder mehrere Mannschaften die gleiche Punkteanzahl, müssen die Spiele gegeneinander analysiert werden.
   Mit dieser Methode werden aus dem übergebenen "games" die Spiele dieser Mannschaften herausgesucht. Hinweis: das Home- und Guest-Team müssen in der Liste der teamNamen(=Array) enthalten sein.  
-* `Team[] CreateListOfTeams(Game[] games)`   
+* `Team[] CreateListOfTeams(Game[] games)`  
   Erstellt eine Team-Liste(=Array) basierend auf den Spielen (Games). Alle Eigenschaften (=Properties) werden berechnet.  
   Die Team-Liste ist noch nicht sortiert.
 * `Team[] SortByOefb(Team[] teams, Game[] games)`  
   Sortiert die Teams nach "Erfolg".  
   Vorgehen: Alle Teams mit gleicher Punkteanzahl werden in Gruppen zusammengefasst. Für alle Gruppen wird ein neuer "Bewerb" erstellt und das Ergebnis berechnet (*FilterGamesByTeam*, *CreateListOfTeams* und *SortByPoints*). Die Position dieses Bewerbs wird in das Property *PosIfSamePoints* jedes Teams eingetragen (Hier ist es möglich, dass Teams gleich bewertet werden: CompareTo liefert 0, *PosIfSamePoints* ist dann auch gleich). Damit kann dann der Gesamtbewerb mit *SortByPoints* sortiert werden.   
 * `Team[] SortByPoints(Team[] teams)`  
-  Sortiert das Array. Zum vergleich zweier Teams wird die Mehtode `CompareTo` verwendet.  
+  Sortiert das Array. Zum Vergleich zweier Teams wird die Methode `CompareTo` verwendet.  
 * `int CompareTo(Team team1, Team team2, bool compareName)`  
   Zwei Teams werden verglichen: Points, PosIfSamePoints, GoalDiff, GoalsCount, AwayGoalsCount, TeamName (wenn Parameter "compareName")
   
   Hinweis Vergleich lt. ÖFB:
 
-  * Haben zwei oder mehr Mannschaften die gleiche Punkteanzahl, entscheidet die Anzahl der Punkte aus den direkten Spielen der betreffenden Teams gegeneinander über die Reihung.Ausnahme: Bei Strafverifizierungen erfolgt weiterhin eine automatische Rückreihung bei Punktegleichheit.
+  * Haben zwei oder mehr Mannschaften die gleiche Punkteanzahl, entscheidet die Anzahl der Punkte aus den direkten Spielen der betreffenden Teams gegeneinander über die Reihung. Ausnahme: Bei Strafverifizierungen erfolgt weiterhin eine automatische Rückreihung bei Punktegleichheit.
   * Bei gleicher Punkteanzahl aus den direkten Begegnungen entscheidet die bessere Tordifferenz aus den direkten Partien der betreffenden Teams.
   * Ist auch die Tordifferenz gleich, entscheidet die höhere Zahl an erzielten Toren.
   * Wenn auch die gleich ist, wird die Höhe der erzielten Auswärtstore herangezogen.
@@ -67,37 +68,40 @@ Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime
 #### Datenkapsel **Game**
 
 Properties:
- * `Round`  
+
+* `Round`  
     Runde in der Meisterschaft
- * `Date`   
- * `HomeTeam`           
- * `GuestTeam`          
- * `GoalsHome`          
- * `GoalsGuest`         
- * `HalfTimeGoalsHome`  
- * `HalfTimeGoalsGuest`   
+* `Date`  
+* `HomeTeam`  
+* `GuestTeam`  
+* `GoalsHome`  
+* `GoalsGuest`  
+* `HalfTimeGoalsHome`  
+* `HalfTimeGoalsGuest`  
 
 #### Datenkapsel **Team**
 
 Properties:
-* `TeamName`      
+
+* `TeamName`  
 * `PosIfSamePoints`  
-  Beim Punktegleichstand wird in das Property die Position innerhalb der "Gruppe" eingetragen. 
+  Beim Punktegleichstand wird in das Property die Position innerhalb der "Gruppe" eingetragen.  
   Dadurch kann nach der Berechnen des direkten Vergleichs mit *SortByPoints* sortiert werden.  
-  Siehe *CompareTo*. 
+  Siehe *CompareTo*.  
 * `WinCount`  
-  Anzahl der Spiele, die das Team gewonnen hat.     
-* `LossCount`     
+  Anzahl der Spiele, die das Team gewonnen hat.  
+* `LossCount`  
   Anzahl der Spiele, die das Team verloren hat.
-* `TieCount`      
+* `TieCount`  
   Anzahl der Spiele, die als Ergebnis "unentschieden" haben.
-* `GoalsCount`    
-* `GotGoalsCount` 
+* `GoalsCount`  
+* `GotGoalsCount`  
 
 ReadOnly-Properties (diese können berechnet werden)
+
 * `GameCount`  
   Gesamtanzahl der Spiele (Gewonnen+verloren+unentschieden)
-* `Points`    
+* `Points`  
   Erreichte Gesamtpunkte (Summe über alle Spiele) - Basis für den Platz.
 * `GoalDiff`  
   Tordifferenz als absoluter Wert (Bekommene Tore zu erzielte Tore)
@@ -109,17 +113,17 @@ ReadOnly-Properties (diese können berechnet werden)
 ```
 Rank Team                                      SP   S   N   U   Tore    +/-   Pt
 ====================================================================================
-   1 SPG UNION Kleinmünchen/FC Blau-Weiß Linz  23  17   3   3  89:30     59   54
-   2 FC Mohren Dornbirn Damen                  23  17   3   3  83:28     55   54
-   3 Wildcats 11teamsports Krottendorf         23  17   3   3  83:31     52   54
-   4 SV Horn                                   23  14   5   4  60:26     34   46
-   5 Union LUV Graz                            23  14   7   2  63:36     27   44
-   6 Carinthians LIWOdruck Hornets             23  13   6   4  49:20     29   43
-   7 RW Rankweil                               23  10   8   5  31:41    -10   35
-   8 Sportunion Raiffeisen Geretsberg          23   9  12   2  40:52    -12   29
-   9 Wiener Sport-Club                         23   8  11   4  59:60     -1   28
+   1 SPG UNION Kleinmünchen/FC Blau-Weiß Linz  24  18   3   3  90:30     60   57
+   2 FC Mohren Dornbirn Damen                  24  18   3   3  87:28     59   57
+   3 Wildcats 11teamsports Krottendorf         24  18   3   3  90:31     59   57
+   4 SV Horn                                   24  15   5   4  61:26     35   49
+   5 Union LUV Graz                            24  15   7   2  65:37     28   47
+   6 Carinthians LIWOdruck Hornets             24  13   7   4  49:21     28   43
+   7 RW Rankweil                               24  10   9   5  32:43    -11   35
+   8 Sportunion Raiffeisen Geretsberg          24   9  13   2  40:56    -16   29
+   9 Wiener Sport-Club                         24   8  12   4  59:61     -2   28
   10 USC Landhaus                              24   5  17   2  52:91    -39   17
-  11 SV Fenastra Krenglbach                    23   4  18   1  43:79    -36   13
-  12 SC Neusiedl am See 1919                   23   3  18   2  15:83    -68   11
-  13 FC Altera Porta                           23   1  21   1 22:112    -90    4
+  11 SV Fenastra Krenglbach                    24   5  18   1  46:81    -35   16
+  12 SC Neusiedl am See 1919                   24   3  19   2  15:90    -75   11
+  13 FC Altera Porta                           24   1  22   1 24:115    -91    4
   ```
