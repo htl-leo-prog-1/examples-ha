@@ -12,7 +12,7 @@ c# Programmieren (c) HTL-Leonding
 
 Schach ist ein sehr bekanntes Spiel: siehe https://de.wikipedia.org/wiki/Schach
 
-Das gesuchte Programm soll das Laden und Speichern eines Schachspiels (+ Validieren) unterstützen. Die zu plazierenden Figuren sind in einer Csv Datei abgelegt. Nach dem Lesen der Csv prüft das Programm, ob ein gültiges "Spielfeld" erstellt werden kann.
+Das gesuchte Programm soll das Laden und Speichern eines Schachspiels (+ Validieren) unterstützen. Die zu platzierenden Figuren sind in einer Csv Datei abgelegt. Nach dem Lesen der Csv prüft das Programm, ob ein gültiges "Spielfeld" erstellt werden kann.
 
 Folgende Spielregeln müssen eingehalten werden:
 
@@ -22,9 +22,9 @@ Folgende Spielregeln müssen eingehalten werden:
   * Erreicht ein Bauer das Ende des Spielfelds, darf er gegen eine beliebig andere Figur getauscht werden.
    Daher sind 9 Damen (eine vom der Startaufstellung und 8 durch Bauern getauschte) erlaubt.
   Sind 9 Damen vorhanden, darf es dann aber keinen Bauern mehr geben.  
-* Die Figuren dürfen nur auf freie Felder plaziert werden.  
+* Die Figuren dürfen nur auf freie Felder platziert werden.  
   Es ist nicht möglich, unterschiedliche Figuren auf das gleiche Feld zu setzen.
-* Ein weisser Bauer darf nich in der Reihe 1, ein schwarzer Bauer nicht in der Reihe 8 sein. Bauern können ja nur vorwärts fahren!
+* Ein weisser Bauer darf nicht in der Reihe 1, ein schwarzer Bauer nicht in der Reihe 8 sein. Bauern können ja nur vorwärts fahren!
 * Expertenaufgabe: Beide Könige (weiß und schwarz) dürfen nicht im "Schach" stehen.  
 Hinweis: eigentlich müsste man hier noch beachten, welche Farbe am Zug ist. 
 
@@ -66,7 +66,7 @@ Schreiben Sie ein Programm mit dem Namen **Chess** .
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Die Unittests prüfen auch interne Programmfunktionalitäten (Hilfs-Methoden). Diese sind bei der Umsetzung hilfreich - passen Sie das Design daher so an, dass diese Methoden verwendet werden.  Änderungen an den *Unittests* sind selbstverständlich nicht erlaubt.  
 
-Programmintern können/sollen folgende Punkte umgesetz sein:
+Programmintern können/sollen folgende Punkte umgesetzt sein:
 
 #### Datenkapsel **ChessPiece**
 
@@ -74,7 +74,7 @@ Programmintern können/sollen folgende Punkte umgesetz sein:
   Position - Row - des Schachfigur, 0 basiert
 * `Col`  
   Position - Column - des Schachfigur, 0 basiert
-* `PieceType`  
+* `Type`  
   Legt (als Ganzzahl) fest, um welche Figur es sich handelt.  
   * 1 => König - King
   * 2 => Dame - Queen
@@ -89,14 +89,14 @@ Programmintern können/sollen folgende Punkte umgesetz sein:
 
 * `ChessPiece[] ReadFromCsv(string fileName)`  
   Die Csv Datei wird gelesen und der Inhalt in einem Array der Datenkapsel `ChessPiece` gespeichert. Eine Validierung wird NICHT durchgeführt.  
-* `ChessPiece[,] CreateField(ChessPiece[] ships)`  
-  Die Methode erstellt das Spielfeld (Array mit einer fixe Größe von 8x8). Jedes durch ein Figur belegte Feld wird mit der Refernz auf die Datenkapsel `ChessPiece` initialisiert, alle anderen Felder bleiben null.  
+* `ChessPiece[,] CreateField(ChessPiece[] pieces)`  
+  Die Methode erstellt das Spielfeld (Array mit einer fixe Größe von 8x8). Jedes durch ein Figur belegte Feld wird mit der Referenz auf die Datenkapsel `ChessPiece` initialisiert, alle anderen Felder bleiben null.  
   Es werden nur gültige Spielfelder erstellt. Im Fehlerfall gibt die Methode `null` als Ergebnis zurück.  
-  Gültige Spielfelder sind jene Felder, die die richtige Anzahl von Figuren aufweisen und die Figuren korrekt plaziert haben (siehe **Aufgabenstellung**).
+  Gültige Spielfelder sind jene Felder, die die richtige Anzahl von Figuren aufweisen und die Figuren korrekt platziert haben (siehe **Aufgabenstellung**).
 * `void Print(ChessPiece[] field)`  
-  Die Methode druckt das Spielfeld auf der Konsole aus. Hinweis: Verwenden sie die Mehtode *CreateField* um das Spielfeld zu erstellen. Die Ausgabe richtet sich nach dem unten angegebenen Beispiel, siehe **Bildsschirmausgabe**. 
+  Die Methode druckt das Spielfeld auf der Konsole aus. Hinweis: Verwenden sie die Methode *CreateField* um das Spielfeld zu erstellen. Die Ausgabe richtet sich nach dem unten angegebenen Beispiel, siehe **Bildsschirmausgabe**.  
 
-Testen Sie das Programm ausführlich. 
+Testen Sie das Programm ausführlich.  
 
 ### Bildschirmausgabe
 
