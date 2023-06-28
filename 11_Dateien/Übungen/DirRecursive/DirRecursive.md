@@ -20,7 +20,7 @@ Beispiel: Der Filter `*.cs` sucht alle c# Dateien (Endung `cs`).
 Am Ende muss die Gesamtanzahl der gefundenen Dateien ausgegeben werden.
   
 ### Bildschirmausgabe
-Die Steuereung des Programms erfolgt über die Programm-Argumente. Eine Eingabe mit `Console.ReadLine()` wird daher **nicht** benötigt. Fehlermeldungen (z.B. falscher Dateiname) werden auf der Konsole ausgegeben.
+Die Steuerung des Programms erfolgt über die Programm-Argumente. Eine Eingabe mit `Console.ReadLine()` wird daher **nicht** benötigt. Fehlermeldungen (z.B. falscher Dateiname) werden auf der Konsole ausgegeben.
 
 ```
 DirRecursive.exe c:\tmp\c# *.cs

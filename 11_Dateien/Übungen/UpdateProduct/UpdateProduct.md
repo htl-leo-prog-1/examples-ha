@@ -17,11 +17,11 @@ Das gesuchte Programm **UpdateProductCsv** soll in einer Csv Datei (diese enthä
 Das Programm soll die folgenden Funktionalitäten aufweisen.
 * Beim Programmstart wird geprüft, ob exakt zwei Argumente übergeben wurden.
 * Das erste Argument muss ein gültiger Dateiname **mit** der Erweiterung CSV sein.
-* Das zweite Argument muss in eine Kommazahl konvertiert werden können (Punkt als Dezimaltrennzeichne).
+* Das zweite Argument muss in eine Kommazahl konvertiert werden können (Punkt als Dezimaltrennzeichen).
 * Das Programm liest anschließend alle Artikel aus der CSV Datei in eine interne Liste (=Array).
 * Alle Preise werden mit dem übergebenen Prozentsatz (zweites Argument) umgerechnet. Achten sie auf eine zweistellige Rundung.
 * Die Artikelliste wird in eine neue Datei gespeichert:
-    * Zuerste wird eine Datei mit dem Originalnamen und der Erweiterung *$$$* erstellt.
+    * Zuerst wird eine Datei mit dem Originalnamen und der Erweiterung *$$$* erstellt.
     * Die Originaldatei wird in *bak* umbenannt.
       Eine eventuell vorhandene *bak* Datei wird zuvor gelöscht.  
     * Als letzter Schritt wird die *$$$* in *csv* verschoben.  
@@ -30,10 +30,10 @@ Das Programm soll die folgenden Funktionalitäten aufweisen.
 
 ### Programmdesign
 * Achten Sie auf die richtigen Datentypen. Eine Währung (eine Zahl mit 2 Nachkommastellen) sollte als `decimal` gespeichert werden.
-* In der CSV Datei ist der Verkaufspreis mit eimem Punkt als Dezimaltrennzeichen gespeichert. 
+* In der CSV Datei ist der Verkaufspreis mit einem Punkt als Dezimaltrennzeichen gespeichert. 
 
 ### Unittests
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementieren Sie die Methoden so, dass **alle** Unittests erfolgreich ausgeführt werden können. Änderungen an den *Unittests* sind nicht erlaubt.
 
 ### Bildschirmausgabe
-Die Steuereung des Programms erfolgt über die Programm-Argumente. Eine Eingabe mit `Console.ReadLine()` wird daher **nicht** benötigt. Fehlermeldungen (z.B. falscher Dateiname) werden auf der Konsole ausgegeben.
+Die Steuerung des Programms erfolgt über die Programm-Argumente. Eine Eingabe mit `Console.ReadLine()` wird daher **nicht** benötigt. Fehlermeldungen (z.B. falscher Dateiname) werden auf der Konsole ausgegeben.

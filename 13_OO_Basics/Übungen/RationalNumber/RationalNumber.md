@@ -21,7 +21,7 @@ Die gesuchte Klasse muss folgende Funktionalitäten  aufweisen:
   Alle Methoden verwenden einen Parameter. Die aktuelle Zahl (das aktuelle Objekt) wird mit dieser Zahl addiert, subtrahiert, multipliziert oder dividiert und als neue Zahl zurück gegeben. 
 * `Inverse`  
    Berechnet aus z.B. 1/4 den Wert -1/4.
-   Das Ergebnis liefert die Mehtode als Rückgabewert.  
+   Das Ergebnis liefert die Methode als Rückgabewert.  
 * `Reciprocal`  
    Berechnung des Kehrwerts, aus z.B 1/4 den Wert 4/1.
 * `ToString`  

@@ -37,7 +37,7 @@ Produktnamen (Stringarray) übergeben
 **Gesamtanzahl der Münzen als integer**!! Nicht das Integerarray). Aktueller Einwurf wird bis
 zur Produktauswahl nicht gezählt
 * **ProductsAvailable** liefert die Anzahl verfügbarer Produkte
-* **Credit** Wert der eingeworfenen Müntzen - wieviel wurde schon bezahlt! 
+* **Credit** Wert der eingeworfenen Münzen - wie viel wurde schon bezahlt! 
  
 ### Businessmethoden
 * **InsertCoin**: Eine Münze wird eingeworfen. Der Wert wird in Cent angegeben. Ungültige
@@ -45,7 +45,7 @@ Werte (z.B. 17) fallen genau so durch, wie unzulässige Münzen (1 Cent, 2 Cent)
 schon zumindest 50 Cent eingeworfen, fällt die Münze ebenfalls durch. Der Rückgabewert
 signalisiert die fehlerfreie Übernahme der Münze
 * **SelectProduct**: Der Kunde wählt das Produkt über den Namen aus.
-* * Falls es nicht existiert oder zuwenig Geld eingeworfen wurde, liefert die Methode
+* * Falls es nicht existiert oder zu wenig Geld eingeworfen wurde, liefert die Methode
 false zurück.
 * * Sonst wird der jeweilige Produktzähler erhöht und das eingeworfene Geld in die
 Kasse übernommen.
@@ -53,7 +53,7 @@ Kasse übernommen.
 (Wechselgeld mit möglichst hohen Münzwerten).  
 Im ersten out-Parameter soll die
 Anzahl der Münzen des Wechselgeldes als Intarray zurückgeliefert werden.  
-Im zweiten out-Parameter soll zurückgeliefert werden, wieviel Cent nicht
+Im zweiten out-Parameter soll zurückgeliefert werden, wie viel Cent nicht
 zurückgegeben werden können (wenn sich zu wenig Münzen im Automaten
 befinden).
 * **CancelOrder**: Die aktuelle Bestellung wird abgebrochen.  

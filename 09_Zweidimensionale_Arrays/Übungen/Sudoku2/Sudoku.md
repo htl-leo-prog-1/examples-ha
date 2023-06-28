@@ -19,9 +19,9 @@ In dieser Aufgabe sollen Methoden geschrieben werden, die beim Lösen eines Sudo
  Das Sudoku wird am Bildschirm ausgegeben. Versuchen Sie eine ansprechende Form zu finden.
  Mit dem Parameter **showHelp** wird gesteuert, ob die noch möglichen Zahlen der Zelle gedruckt werden sollen.  
 * `bool IsSudokuComplete(int[,] sudoku)`  
-Die Mehtode Überprüft, ob in allen Zellen des Sudokus ein Wert enthalten ist. 
+Die Methode Überprüft, ob in allen Zellen des Sudokus ein Wert enthalten ist. 
 * `bool SetField(int[,] sudoku, int row, int col, int no)`  
-Nur über diese Methode kann/darf ein Wert des Sudokus gesetzt werden. Ist das Setzen des Wertes nicht möglich liefert die Mehtode den Rückgabewert **false**.
+Nur über diese Methode kann/darf ein Wert des Sudokus gesetzt werden. Ist das Setzen des Wertes nicht möglich liefert die Methode den Rückgabewert **false**.
 Mit dem Wert 0 für **no** kann auch ein Wert wieder gelöscht werden. 
 * `int[,][] GetPossibleNumbers(int[,] sudoku)`  
 Für jede leere Zelle des Sudokus wird berechnet, welche Werte (1-9) noch möglich sind. Die Werte ergeben sich aus den bereits enthaltenen Zahlen der Reihe, Spalte und Segment. 

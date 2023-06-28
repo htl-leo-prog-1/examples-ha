@@ -18,13 +18,13 @@ Schreiben Sie ein Programm mit dem **Gomoku** gespielt werden kann.
   Da es sich um ein quadratisches Spielfeld handelt, muss nur eine Dimension eingegeben werden, z.B.: `17`.  
   Erlaubte Größen sind 15x15, 17x17 oder 19x19.
 * Anschließend wird das **Board** mit den eingegebenen Dimensionen erstellt.
-* Zwei Benutzer können abwechselnd eine Position (Zeile/Spalte) eingeben, in die der nächste Stein plaziert werden soll.  
+* Zwei Benutzer können abwechselnd eine Position (Zeile/Spalte) eingeben, in die der nächste Stein platziert werden soll.  
   Beispiel für die Eingabe `3,7`  
 * Das Spiel ist beendet, wenn ein Spieler gewonnen hat **oder** kein Stein mehr eingeworfen werden kann (das Spielfeld ist voll => unentschieden).
 * Ein Spieler kann **aufgeben**.  
   Mit der Eingabe eine Rufzeichens hat der andere Spieler gewonnen und das Programm wird beendet.
 * Mit der Eingabe von `s` (für `save`) wird der Status des Spiels in eine CSV Datei gespeichert.  
-* Gibt ein Spieler `l` (für `load`) ein, wird das aktuelle Spiel beendet und das Spiel aus der CSV Datei geladen.   
+* Gibt ein Spieler `l` (für `load`) ein, wird das aktuelle Spiel beendet und das Spiel aus der CSV Datei geladen.  
 * Bei einer fehlerhaften Eingabe muss diese wiederholt werden: z.B. einer falsche Spielfeldgröße, bei einer ungültigen Zeile/Spalte, bei einem bereits besetztem Feld, ... 
 
 ### Programmdesign

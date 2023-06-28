@@ -62,7 +62,7 @@ Damit die Unittests ausgeführt werden können müssen sie folgende (Hilfs-)Meth
 * `int CountMinesAround(bool[,] mineField, int row, int col)`  
   Die Mehtode berechnet an der gegebenen Reihe (row) und Spalte(col) die umgebenen Minen.
 * `int CountMinesOnBoard(bool[,] mineField)`  
-  Die Anzahl der am Minenfeld verstekhte Minen wird gezählt.
+  Die Anzahl der am Minenfeld versteckten Minen wird gezählt.
 
 Testen Sie das Programm ausführlich - die Unittests prüfen **nur** die oben angeführten Methoden! 
 

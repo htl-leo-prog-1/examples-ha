@@ -45,7 +45,7 @@ Schreiben Sie ein Programm mit dem Namen **BattleShip** .
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Die Unittests prüfen auch interne Programmfunktionalitäten (Hilfs-Methoden). Diese sind hilfreich bei der Umsetzung - passen Sie das Design daher so an, dass diese Methoden verwendet werden.  Änderungen an den *Unittests* sind selbstverständlich nicht erlaubt.  
 
-Programmintern können/sollen folgende Punkte umgesetz sein:
+Programmintern können/sollen folgende Punkte umgesetzt sein:
 
 #### Datenkapsel **Ship**
 
@@ -77,7 +77,7 @@ Row;Col;ShipSize;Orientation
 * `void Print(Ship[] ships)`  
   Die Methode druck das aufgrund der übergebenen Schiffe erstellte Spielfeld auf der Konsole aus. Siehe **Bildsschirmausgabe**. 
 * `bool ArrangeShip(bool[,] field, Ship ship)`  
-  Hilfsmethode, die innerhalb von **CreateField** verwendet werden kann. Dabei wird *ein* Schiff am Spielfeld plaziert. Kann das Schiff nicht plaziert werden (z.B. es überschneidet sich mit einem anderen), wird *false* als Ergebnis geliefert.  
+  Hilfsmethode, die innerhalb von **CreateField** verwendet werden kann. Dabei wird *ein* Schiff am Spielfeld platziert. Kann das Schiff nicht platziert werden (z.B. es überschneidet sich mit einem anderen), wird *false* als Ergebnis geliefert.  
   Hinweis: Prüfen Sie mit einer Methode (z.B. CanArrangeShip) vor dem Setzen des Schiffes, ob die Position noch frei ist. 
 * Verwenden sie die Konstanten im Programm  
         `private const  int   Size            = 10;`  

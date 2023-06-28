@@ -8,7 +8,7 @@ c# Programmieren (c) HTL-Leonding
 
 ## Aufgabenstellung
 
-Gesucht ist ein Programm, dass zwei Zahlen einliest - entweder römisch (z.B. *MXII*) oder arabisch (z.B.: 444) und die Summe als römiche Zahl ausgibt.  
+Gesucht ist ein Programm, dass zwei Zahlen einliest - entweder römisch (z.B. *MXII*) oder arabisch (z.B.: 444) und die Summe als römische Zahl ausgibt.  
 Dazu müssen Zahlen in und aus dem römischen Format konvertiert werden können.
 
 ## Berechnungshinweis
@@ -37,7 +37,7 @@ Diese Werte sind in einem Array von einer Datenkapsel (struct oder class) abzule
 
 ### Konvertierung "römisch" nach "arabisch"
 
-Die Konvertierung funktioniert analog. Anstatt den Restwert zu vergleichen, werden die ersten Zeichen der römischen Zahl (=string) gesucht. Wird z.B. am Beginn der römichen Zahl ein *M* gefunden, kann 1000 addiert werden und die weitere Konverierung wird ohne dem *M* fortgesetzt.
+Die Konvertierung funktioniert analog. Anstatt den Restwert zu vergleichen, werden die ersten Zeichen der römischen Zahl (=string) gesucht. Wird z.B. am Beginn der römischen Zahl ein *M* gefunden, kann 1000 addiert werden und die weitere Konvertierung wird ohne dem *M* fortgesetzt.
 
 Geprüft wird auf: M(=1000), CM(=900), ...
 

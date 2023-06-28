@@ -27,7 +27,7 @@ In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementier
 Damit die Unittests ausgeführt werden können müssen sie folgende (Hilfs-)Methoden umsetzen:
 
 * `int GetFreeRow(int[,] allocation, int col)`  
-Die Mehtode sucht für die gegebene Spalte (col) die tiefste noch freie Zeile. -1 wird zurückgegeben, wenn keine Zeile mehr frei ist.   
+Die Methode sucht für die gegebene Spalte (col) die tiefste noch freie Zeile. -1 wird zurückgegeben, wenn keine Zeile mehr frei ist.   
 * `int IsWinner(int[,] allocation, int row, int col)`  
 Überprüft, ob sich durch die Belegung eines Feldes ein Sieger ergeben hat. Dabei werden nicht alle Felder überprüfen, sondern nur die an die neu gesetzte Position angrenzenden.  
 Rückgabe: 0 falls kein Gewinner, sonst 1/2
