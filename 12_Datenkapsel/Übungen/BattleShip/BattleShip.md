@@ -10,11 +10,11 @@ c# Programmieren (c) HTL-Leonding
 
 ## Aufgabenstellung
 
-**BattleShip** (oder **Schiffe versenken**) ist ein Spiel für zwei Spieler. Dabei wird abwechselnd versucht, die auf einem 10x10 plazierten Schiffe des Gegners zu erraten. Gewonnen hat der Spieler, der als ersters alle Schiffe erraten konnte.
+**BattleShip** (oder **Schiffe versenken**) ist ein Spiel für zwei Spieler. Dabei wird abwechselnd versucht, die auf einem 10x10 platzierten Schiffe des Gegners zu erraten. Gewonnen hat der Spieler, der als erster alle Schiffe erraten konnte.
 
 siehe https://de.wikipedia.org/wiki/Schiffe_versenken
 
-Das gesuchte Programm soll das Definieren und Validieren des Spielfeldes (fix 10x10) unterstützen. Die zu plazierenden Schiffe sind in einer Csv Datei abgelegt. Das Programm prüft, ob die richtige Anzahl von Schiffen im Csv entahlten sind und ob daraus ein gültiges "Kampfgebiet" erstellt werden kann.
+Das gesuchte Programm soll das Definieren und Validieren des Spielfeldes (fix 10x10) unterstützen. Die zu platzierenden Schiffe sind in einer Csv Datei abgelegt. Das Programm prüft, ob die richtige Anzahl von Schiffen im Csv enthalten sind und ob daraus ein gültiges "Kampfgebiet" erstellt werden kann.
 
 Folgende Spielregeln müssen eingehalten werden:
 
@@ -45,7 +45,7 @@ Schreiben Sie ein Programm mit dem Namen **BattleShip** .
 Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.  
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Die Unittests prüfen auch interne Programmfunktionalitäten (Hilfs-Methoden). Diese sind hilfreich bei der Umsetzung - passen Sie das Design daher so an, dass diese Methoden verwendet werden.  Änderungen an den *Unittests* sind selbstverständlich nicht erlaubt.  
 
-Programmintern können/sollen folgende Punkte umgesetz sein:
+Programmintern können/sollen folgende Punkte umgesetzt sein:
 
 #### Datenkapsel **Ship**
 
@@ -73,11 +73,11 @@ Row;Col;ShipSize;Orientation
 * `bool[,] CreateField(Ship[] ships)`  
   Die Methode erstellt das (fixe Größe: 10x10) Spielfeld. Jedes durch ein Schiff belegte Feld wird mit "true" initialisiert, alle anderen Felder bleiben "false".  
   Es werden nur gültige Spielfelder erstellt. Im Fehlerfall gibt die Methode `null` als Ergebnis zurück.  
-  Gültige Spielfelder sind jene Felder, die die richtige Anzahl von Schiffen aufweisen und die Schiffe korrekt plaziert haben (siehe **Aufgabenstellung**).
+  Gültige Spielfelder sind jene Felder, die die richtige Anzahl von Schiffen aufweisen und die Schiffe korrekt platziert haben (siehe **Aufgabenstellung**).
 * `void Print(Ship[] ships)`  
   Die Methode druck das aufgrund der übergebenen Schiffe erstellte Spielfeld auf der Konsole aus. Siehe **Bildsschirmausgabe**. 
 * `bool ArrangeShip(bool[,] field, Ship ship)`  
-  Hilfsmethode, die innerhalb von **CreateField** verwendet werden kann. Dabei wird *ein* Schiff am Spielfeld plaziert. Kann das Schiff nicht plaziert werden (z.B. es überschneidet sich mit einem anderen), wird *false* als Ergebnis geliefert.  
+  Hilfsmethode, die innerhalb von **CreateField** verwendet werden kann. Dabei wird *ein* Schiff am Spielfeld platziert. Kann das Schiff nicht platziert werden (z.B. es überschneidet sich mit einem anderen), wird *false* als Ergebnis geliefert.  
   Hinweis: Prüfen Sie mit einer Methode (z.B. CanArrangeShip) vor dem Setzen des Schiffes, ob die Position noch frei ist. 
 * Verwenden sie die Konstanten im Programm  
         `private const  int   Size            = 10;`  
