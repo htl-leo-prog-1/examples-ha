@@ -271,7 +271,7 @@ namespace UnitTest
         {
             try
             {
-                return DateTime.ParseExact(excelField, format, CultureInfo.InvariantCulture);
+                return ParseExact(excelField, format, CultureInfo.InvariantCulture);
             }
             catch (Exception)
             {
