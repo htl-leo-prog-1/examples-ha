@@ -15,21 +15,14 @@ Console.WriteLine("=============================");
 Console.WriteLine();
 
 Console.Write("Please enter amount of seconds [0..86399]:");
-var input        = Console.ReadLine();
-var totalSeconds = Convert.ToInt32(input);
+string input     = Console.ReadLine();
+int totalSeconds = int.Parse(input);
 
-if (totalSeconds < (24 * 60 * 60))
-{
-    // Ausgabeformat: hh:mm:ss
+// Ausgabeformat: hh:mm:ss
 
-    var seconds      = totalSeconds % 60;
-    var totalMinutes = totalSeconds / 60;
-    var minutes      = totalMinutes % 60;
-    var hours        = totalMinutes / 60;
+int seconds      = totalSeconds % 60;
+int totalMinutes = totalSeconds / 60;
+int minutes      = totalMinutes % 60;
+int hours        = totalMinutes / 60;
 
-    Console.WriteLine($"{hours:00}:{minutes:00}:{seconds:00}");
-}
-else
-{
-    Console.WriteLine($"Falsche Eingabe: {totalSeconds}");
-}
+Console.WriteLine($"{hours:00}:{minutes:00}:{seconds:00}");

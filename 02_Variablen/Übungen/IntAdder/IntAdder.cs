@@ -3,7 +3,7 @@
  *--------------------------------------------------------------
  *                Musterlösung 
  *--------------------------------------------------------------
- * Description: IntAdder, ein Programm zum addieren von Ganzzahlen
+ * Description: IntAdder, ein Programm zum Addieren von Ganzzahlen
  *--------------------------------------------------------------
 */
 
