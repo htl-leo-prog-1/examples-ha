@@ -20,7 +20,7 @@ const double CHARGEPERHOUREAFTER = 0.5;
 const double MAXCHARGE           = 10.0;
 
 Console.Write("Please enter hours: ");
-var parkingHours = Convert.ToDouble(Console.ReadLine());
+var parkingHours = double.Parse(Console.ReadLine());
 
 while (parkingHours > 0)
 {
@@ -62,5 +62,5 @@ while (parkingHours > 0)
     Console.WriteLine($"You have to pay {charge:F2} Euro");
 
     Console.Write("Please enter hours: (0 to exit): ");
-    parkingHours = Convert.ToDouble(Console.ReadLine());
+    parkingHours = double.Parse(Console.ReadLine());
 }

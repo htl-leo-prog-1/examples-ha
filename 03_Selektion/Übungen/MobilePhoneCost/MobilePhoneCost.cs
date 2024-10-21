@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------
 *				HTBLA-Leonding / Class: 1xHIF
 *--------------------------------------------------------------
-*              Musterlösung-HA
+*              Musterlï¿½sung-HA
 *--------------------------------------------------------------
 * Description:
 * Cost calculation for mobile phones
@@ -15,18 +15,18 @@ Console.WriteLine("==================================");
 
 Console.Write("Please enter the monthly cost [0..999]:");
 var input       = Console.ReadLine();
-var costMonthly = Convert.ToDouble(input);
+var costMonthly = double.Parse(input);
 
 if (costMonthly > 0.0 && costMonthly < 1000.0)
 {
     Console.Write("Please enter annual service fee [0..999]:");
     input = Console.ReadLine();
-    var serviceFee = Convert.ToDouble(input);
+    var serviceFee = double.Parse(input);
     if (serviceFee >= 0.0 && serviceFee < 1000.0)
     {
         Console.Write("Please enter activation cost [0..999]:");
         input = Console.ReadLine();
-        var activationCost = Convert.ToDouble(input);
+        var activationCost = double.Parse(input);
         if (activationCost >= 0.0 && activationCost < 1000.0)
         {
             if (activationCost != 0.0)

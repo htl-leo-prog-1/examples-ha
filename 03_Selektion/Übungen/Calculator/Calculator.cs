@@ -21,14 +21,14 @@ Console.WriteLine();
 
 Console.WriteLine("Erste Zahl: ");
 string userInput = Console.ReadLine();
-double operand1  = Convert.ToDouble(userInput);
+double operand1  = double.Parse(userInput);
 
 Console.WriteLine("Operation [+ - * /]: ");
 string op = Console.ReadLine();
 
 Console.WriteLine("Zweite Zahl: ");
 userInput = Console.ReadLine();
-double operand2 = Convert.ToDouble(userInput);
+double operand2 = double.Parse(userInput);
 
 double result = 0.0;
 

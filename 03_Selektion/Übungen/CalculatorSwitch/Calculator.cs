@@ -16,13 +16,13 @@ Console.WriteLine("====================");
 Console.WriteLine();
 
 Console.Write("Please enter left operand [double]: ");
-var leftOperand = Convert.ToDouble(Console.ReadLine());
+var leftOperand = double.Parse(Console.ReadLine());
 
 Console.WriteLine("Please enter operator: [+,-,*,/]: ");
 var operatorInput = Console.ReadLine();
 
 Console.Write("Please enter right operand [double]: ");
-var rightOperand = Convert.ToDouble(Console.ReadLine());
+var rightOperand = double.Parse(Console.ReadLine());
 
 switch (operatorInput)
 {

@@ -4,10 +4,10 @@ Console.WriteLine("Willkommen beim DvD-Verleih \'Happy Hours\'");
 Console.WriteLine("=========================================");
 
 Console.Write("Wieviele Tage beträgt die Verleihdauer? ");
-int days = Convert.ToInt32(Console.ReadLine());
+int days = int.Parse(Console.ReadLine());
 
 Console.Write("Wie hoch ist die Verleihgebühr pro Tag? ");
-double dailyFee = Convert.ToDouble(Console.ReadLine());
+double dailyFee = double.Parse(Console.ReadLine());
 
 double amount = 0.0;
 if (days <= 3)

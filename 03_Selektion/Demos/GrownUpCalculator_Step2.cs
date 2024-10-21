@@ -13,8 +13,8 @@ using System;
 const int GROWN_UP_AGE = 18;
 
 Console.Write("How old are you? ");
-var userInput = Console.ReadLine();
-var age       = Convert.ToInt32(userInput);
+string userInput = Console.ReadLine();
+int age       = int.Parse(userInput);
 
 if (age <= GROWN_UP_AGE)
 {

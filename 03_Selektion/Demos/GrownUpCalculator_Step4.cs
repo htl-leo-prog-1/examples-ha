@@ -11,8 +11,8 @@
 using System;
 
 Console.Write("How old are you? ");
-var userInput = Console.ReadLine();
-var age       = Convert.ToInt32(userInput);
+string userInput = Console.ReadLine();
+int age       = int.Parse(userInput);
 
 if (age == 25 || age == 50)
 {

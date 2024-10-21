@@ -89,7 +89,7 @@ namespace Wochentag
             d.jahr = 1968;
             d.monat = 1;
             d.tag = 21;
-            Console.WriteLine("Dieser Tag '{0}-{1}-{2}' ist ein '{3}' ", d.tag, d.monat, d.jahr, Tagname(Wochentag(d)));
+            Console.WriteLine($"Dieser Tag '{d.tag}-{d.monat}-{d.jahr}' ist ein '{Tagname(Wochentag(d))}' " );
         }
     }
 }

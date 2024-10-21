@@ -4,10 +4,10 @@ Console.WriteLine("Video Rental System");
 Console.WriteLine("*******************");
 
 Console.Write("Please enter the price per day for the video: ");
-int pricePerDay = Convert.ToInt32(Console.ReadLine());
+int pricePerDay = int.Parse(Console.ReadLine());
 
 Console.Write("Please enter the number of days the video was rented: ");
-int numberOfDays = Convert.ToInt32(Console.ReadLine());
+int numberOfDays = int.Parse(Console.ReadLine());
 
 double totalAmount = 0;
 

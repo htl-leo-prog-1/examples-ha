@@ -19,7 +19,7 @@ Console.WriteLine("Percent to Grade!");
 Console.WriteLine("=================");
 Console.Write("Bitte geben Sie die Prozente ein, die Sie erreicht haben: ");
 input   = Console.ReadLine();
-percent = Convert.ToDouble(input);
+percent = double.Parse(input);
 if (0 <= percent && percent < 50)
 {
     result = "Nicht Genügend";
@@ -44,9 +44,9 @@ else if (percent <= 100)
 // Ausgabe
 if (percent >= 0 && percent <= 100)
 {
-    Console.WriteLine("{0} Prozent ergeben die Note {1}", input, result);
+    Console.WriteLine($"{input} Prozent ergeben die Note {result}");
 }
 else
 {
-    Console.WriteLine("Die Eingabe war {0} ungültig", input);
+    Console.WriteLine($"Die Eingabe war {input} ungültig");
 }

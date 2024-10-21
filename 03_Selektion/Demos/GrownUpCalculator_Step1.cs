@@ -13,9 +13,9 @@ using System;
 const int GROWN_UP_AGE = 18;
 
 Console.Write("How old are you? ");
-var userInput = Console.ReadLine();
-var age       = Convert.ToInt32(userInput);
+string userInput = Console.ReadLine();
+int age       = int.Parse(userInput);
 
-var diff = GROWN_UP_AGE - age;
+int diff = GROWN_UP_AGE - age;
 
 Console.WriteLine($"In approx. {diff} years you will be grown-up");

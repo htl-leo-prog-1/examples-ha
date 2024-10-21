@@ -26,13 +26,13 @@ Console.WriteLine("==================================");
 Console.WriteLine();
 Console.Write("Erste Ganzzahl [int]: ");
 input       = Console.ReadLine();
-firstNumber = Convert.ToInt32(input);
+firstNumber = int.Parse(input);
 Console.Write("Zweite Ganzzahl [int]: ");
 input        = Console.ReadLine();
-secondNumber = Convert.ToInt32(input);
+secondNumber = int.Parse(input);
 Console.Write("Dritte Ganzzahl [int]: ");
 input       = Console.ReadLine();
-thirdNumber = Convert.ToInt32(input);
+thirdNumber = int.Parse(input);
 // Verarbeitung
 if (secondNumber < firstNumber)
 {
@@ -57,7 +57,5 @@ if (secondNumber < firstNumber)
 
 difference = thirdNumber - firstNumber;
 // Ausgabe
-Console.WriteLine("Zahlen in sortierter Reihenfolge: {0}, {1}, {2}",
-    firstNumber, secondNumber, thirdNumber);
-Console.WriteLine("Die Differenz zwischen der kleinsten Zahl {0} und der größten Zahl {1} beträgt {2}",
-    firstNumber, thirdNumber, difference);
+Console.WriteLine($"Zahlen in sortierter Reihenfolge: {firstNumber}, {secondNumber}, {thirdNumber}");
+Console.WriteLine($"Die Differenz zwischen der kleinsten Zahl {firstNumber} und der größten Zahl {thirdNumber} beträgt {difference}");

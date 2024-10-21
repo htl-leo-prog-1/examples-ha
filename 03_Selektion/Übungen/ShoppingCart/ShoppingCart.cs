@@ -14,9 +14,9 @@ const double MINIMUM              = 29.0;
 Console.WriteLine("Shopping Cart");
 
 Console.Write("Netto-Stückpreis: ");
-nettoPreis = Convert.ToDouble(Console.ReadLine());
+nettoPreis = double.Parse(Console.ReadLine());
 Console.Write("Stückzahl: ");
-stueckZahl = Convert.ToInt32(Console.ReadLine());
+stueckZahl = int.Parse(Console.ReadLine());
 Console.Write("Geschenkoption (ja / nein)? ");
 geschenkOption = Console.ReadLine();
 Console.Write("Lieferung nach de oder at? ");
@@ -50,5 +50,5 @@ if (gesamtPreis < MINIMUM)
     gesamtPreis = gesamtPreis + VERSANDKOSTEN;
 }
 
-Console.WriteLine("Gesamtpreis: EUR {0:0.00}", gesamtPreis);
-Console.WriteLine("Mwst: EUR {0:0.00}",        (gesamtPreis / (100 + mwst) * (mwst)));
+Console.WriteLine($"Gesamtpreis: EUR {gesamtPreis:0.00}" );
+Console.WriteLine($"Mwst: EUR {(gesamtPreis / (100 + mwst) * (mwst)):0.00}"        );

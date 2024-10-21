@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------
  *				HTBLA-Leonding / Class: xAHIF
  *--------------------------------------------------------------
- *                Musterlösung 
+ *                Musterlï¿½sung 
  *--------------------------------------------------------------
  * Description:
  * Tells you, when you are grown up
@@ -12,7 +12,7 @@ using System;
 
 Console.WriteLine("How old are you? ");
 string userInput = Console.ReadLine();
-int    age       = Convert.ToInt32(userInput);
+int    age       = int.Parse(userInput);
 
 if (age > 18 && age < 21)
 {

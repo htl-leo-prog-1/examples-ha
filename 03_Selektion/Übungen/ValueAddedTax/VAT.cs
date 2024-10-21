@@ -26,7 +26,7 @@ Console.WriteLine("===========================");
 Console.WriteLine();
 Console.Write("Betrag [double]: ");
 userInput = Console.ReadLine();
-price     = Convert.ToDouble(userInput);
+price     = double.Parse(userInput);
 Console.Write("Brutto- oder Nettopreis [bBnN]: ");
 bOrN = Console.ReadLine();
 // Verarbeitung
@@ -45,6 +45,5 @@ grossPrice13 = netPrice * 1.13;
 riseInPrice  = grossPrice13 - grossPrice10;
 // Ausgabe
 Console.WindowWidth = 110;
-Console.WriteLine("Bei einem Nettopreis von {0:f2} erhöht sich der Bruttopreis von {1:f2} auf {2:f2}",
-    netPrice, grossPrice10, grossPrice13);
-Console.WriteLine("Das entspricht einer Preiserhöhung von {0:f2} Euros!", riseInPrice);
+Console.WriteLine("Bei einem Nettopreis von {netPrice:f2} erhöht sich der Bruttopreis von {grossPrice10:f2} auf {grossPrice13:f2}");
+Console.WriteLine("Das entspricht einer Preiserhöhung von {riseInPrice:f2} Euros!");

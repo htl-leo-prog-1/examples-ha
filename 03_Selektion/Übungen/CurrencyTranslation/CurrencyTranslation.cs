@@ -26,7 +26,7 @@ string startCurrency = Console.ReadLine();
 
 Console.Write("Betrag: ");
 string input = Console.ReadLine();
-startAmount = Convert.ToDouble(input);
+startAmount = double.Parse(input);
 
 switch (startCurrency)
 {

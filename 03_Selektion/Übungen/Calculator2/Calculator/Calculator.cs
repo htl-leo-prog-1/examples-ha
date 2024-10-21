@@ -31,12 +31,12 @@ Console.WriteLine("=================");
 Console.WriteLine();
 Console.Write("Linker Operand [double]: ");
 userInput   = Console.ReadLine();
-leftOperand = Convert.ToDouble(userInput);
+leftOperand = double.Parse(userInput);
 Console.Write("Operation [+ - * /]: ");
 operatorText = Console.ReadLine();
 Console.Write("Rechter Operand [double]: ");
 userInput    = Console.ReadLine();
-rightOperand = Convert.ToDouble(userInput);
+rightOperand = double.Parse(userInput);
 
 // Verarbeitung
 if (operatorText == "+")
@@ -78,6 +78,5 @@ if (isError)
 }
 else
 {
-    Console.WriteLine("Ergebnis von {0} {1} {2} = {3:f3}",
-        leftOperand, operatorText, rightOperand, result);
+    Console.WriteLine($"Ergebnis von {leftOperand} {operatorText} {rightOperand} = {result:f3}");
 }
