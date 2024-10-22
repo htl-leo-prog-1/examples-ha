@@ -27,6 +27,6 @@ else
     }
     else
     {
-        Console.WriteLine("You to old to use this program");
+        Console.WriteLine("You are too old to use that program");
     }
 }
