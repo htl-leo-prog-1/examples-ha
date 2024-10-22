@@ -26,7 +26,7 @@ Console.Write("Aktueller Verkaufspreis: ");
 eingabe = Console.ReadLine();
 
 // Verarbeitung
-brutto10  = Convert.ToDouble(eingabe);
+brutto10  = double.Parse(eingabe);
 netto     = brutto10 / 1.1;
 mwst10    = brutto10 - netto;
 mwst5     = mwst10 / 2.0;
@@ -35,11 +35,11 @@ ersparnis = mwst10 - mwst5;
 
 // Ausgabe
 Console.WriteLine();
-Console.WriteLine("Nettopreis:                {0,20:f2}", netto);
-Console.WriteLine("Derzeitige Mehrwertsteuer: {0,20:f2}", mwst10);
+Console.WriteLine($"Nettopreis:                {netto,20:f2}");
+Console.WriteLine($"Derzeitige Mehrwertsteuer: {mwst10,20:f2}");
 Console.WriteLine();
 Console.WriteLine("Werte bei 5% Steuer");
 Console.WriteLine("-------------------");
-Console.WriteLine("Mehrwertsteuer:            {0,20:f2}", mwst5);
-Console.WriteLine("Zukünftiger Verkaufspreis: {0,20:f2}", brutto5);
-Console.WriteLine("Ersparnis:                 {0,20:f2}", ersparnis);
+Console.WriteLine($"Mehrwertsteuer:            {mwst5,20:f2}");
+Console.WriteLine($"Zukünftiger Verkaufspreis: {brutto5,20:f2}");
+Console.WriteLine($"Ersparnis:                 {ersparnis,20:f2}");
