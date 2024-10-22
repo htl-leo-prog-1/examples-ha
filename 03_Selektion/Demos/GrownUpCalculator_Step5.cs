@@ -18,7 +18,7 @@ if (age == 25 || age == 50)
 {
     Console.WriteLine("Congratulations for your round birthday");
 }
-else if (age is (>= 18 and <= 20))
+else if (age >= 18 && age <= 20))
 {
     Console.WriteLine("Your are grownup");
 }

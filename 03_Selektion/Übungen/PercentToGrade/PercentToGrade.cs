@@ -15,12 +15,14 @@ using System;
 string input;
 double percent;
 string result = "";
+
 Console.WriteLine("Percent to Grade!");
 Console.WriteLine("=================");
 Console.Write("Bitte geben Sie die Prozente ein, die Sie erreicht haben: ");
 input   = Console.ReadLine();
 percent = double.Parse(input);
-if (0 <= percent && percent < 50)
+
+if (percent < 50.0)
 {
     result = "Nicht Genügend";
 }
@@ -28,7 +30,7 @@ else if (percent < 62.5)
 {
     result = "Genügend";
 }
-else if (percent < 75)
+else if (percent < 75.0)
 {
     result = "Befriedigend";
 }
@@ -36,13 +38,13 @@ else if (percent < 87.5)
 {
     result = "Gut";
 }
-else if (percent <= 100)
+else if (percent <= 100.0)
 {
     result = "Sehr Gut";
 }
 
 // Ausgabe
-if (percent >= 0 && percent <= 100)
+if (percent >= 0.0 && percent <= 100.0)
 {
     Console.WriteLine($"{input} Prozent ergeben die Note {result}");
 }

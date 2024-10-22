@@ -18,7 +18,7 @@ int age       = int.Parse(userInput);
 
 if (age <= GROWN_UP_AGE)
 {
-    var diff = GROWN_UP_AGE - age;
+    int diff = GROWN_UP_AGE - age;
     Console.WriteLine($"In approx. {diff} years you will be grown-up");
 }
 else

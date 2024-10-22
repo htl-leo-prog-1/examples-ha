@@ -14,19 +14,26 @@
 using System;
 
 Console.WriteLine("Please enter a year");
-int year = Convert.ToInt32(Console.ReadLine());
+int year = int.Parse(Console.ReadLine());
 
-bool isDividableBy4   = year % 4 == 0;
-bool isDividableBy100 = year % 100 == 0;
-bool isDividableBy400 = year % 400 == 0;
-
-bool isLeapYear = isDividableBy4 && (!isDividableBy100 || isDividableBy400);
-
-if (isLeapYear)
+if (!(year >= 0 && year < 5000))
 {
-    Console.WriteLine("Leap Year");
+	Console.WriteLine($"invalid input {year}");
 }
 else
 {
-    Console.WriteLine("No Leap Year");
+	bool isDividableBy4   = year % 4 == 0;
+	bool isDividableBy100 = year % 100 == 0;
+	bool isDividableBy400 = year % 400 == 0;
+
+	bool isLeapYear = isDividableBy4 && (!isDividableBy100 || isDividableBy400);
+
+	if (isLeapYear)
+	{
+		Console.WriteLine("Leap Year");
+	}
+	else
+	{
+		Console.WriteLine("No Leap Year");
+	}
 }

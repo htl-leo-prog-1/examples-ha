@@ -20,7 +20,7 @@ if (age == 25 || age == 50)
 }
 else
 {
-    if (age is (>= 18 and <= 20))
+    if (age >= 18 && age <= 20)
     {
         Console.WriteLine("Your are grownup");
     }
@@ -28,7 +28,7 @@ else
     {
         if (age <= 18)
         {
-            var diff = 18 - age;
+            int diff = 18 - age;
             Console.WriteLine($"In approx. {diff} years you will be grown-up");
         }
         else

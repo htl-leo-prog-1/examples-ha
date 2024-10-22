@@ -14,7 +14,7 @@ Console.Write("How old are you? ");
 string userInput = Console.ReadLine();
 int age       = int.Parse(userInput);
 
-if (age is (>= 18 and <= 20))
+if (age >= 18 && age <= 20)
 {
     Console.WriteLine("Your are grownup");
 }

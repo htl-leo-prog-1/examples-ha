@@ -18,15 +18,23 @@ int minutes = workMinutes % 60;
 
 Console.Write($"{userMinutes} Minuten sind ");
 if (weeks > 0)
+{
     Console.Write("{weeks} Wochen, ");
+}
 
 if (days > 0)
+{
     Console.Write($"{days} Tage, " );
+}
 
 if (hours > 0)
+{
     Console.Write($"{hours} Stunden, ");
+}
 
 if (minutes > 0)
+{
     Console.Write($"{minutes} Minuten.");
+}
 
 Console.WriteLine();
