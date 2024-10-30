@@ -12,11 +12,11 @@ using System;
 
 int grade1;
 int grade2;
-
-string result = "";
+double gradeAverage;
 
 Console.WriteLine("Grade Calculator!");
 Console.WriteLine("=================");
+
 Console.Write("Note 1 [1..5]: ");
 grade1 = int.Parse(Console.ReadLine());
 
@@ -41,5 +41,7 @@ else if (grade1 == 1 && grade2 == 1)
 }
 else
 {
-    Console.WriteLine($"Bestanden mit {(grade1+grade2)/2.0}");
+    gradeAverage = (grade1 + grade2) / 2.0;
+
+    Console.WriteLine($"Bestanden mit {gradeAverage}");
 }
