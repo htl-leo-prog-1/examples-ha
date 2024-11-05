@@ -15,7 +15,7 @@ Console.WriteLine("Convert decimal to binary");
 Console.WriteLine("======================================");
 Console.WriteLine();
 Console.Write("Please enter decimal value [int, >=0]: ");
-var decimalNumber = Convert.ToInt32(Console.ReadLine());
+int decimalNumber = int.Parse(Console.ReadLine());
 
 var remainingNumber = decimalNumber;
 string binaryString = "";
@@ -23,7 +23,7 @@ string binaryString = "";
 while (remainingNumber > 0)
 {
     var remaining = remainingNumber % 2;
-    remainingNumber = remainingNumber / 2;
+    remainingNumber /= 2;
 
     binaryString = remaining + binaryString;
 }

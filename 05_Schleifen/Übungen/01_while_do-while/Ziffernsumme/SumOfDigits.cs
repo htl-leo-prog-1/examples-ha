@@ -12,18 +12,18 @@ using System;
 Console.WriteLine("Sum of digits calculation");
 Console.WriteLine("=========================");
 
-var calculateNext = true;
+bool calculateNext = true;
 
 while (calculateNext)
 {
     Console.Write("Please enter a number [1..in.Max]: ");
 
-    var number = Convert.ToInt32(Console.ReadLine());
-    var sumOfDigits = 0;
+    int number = int.Parse(Console.ReadLine());
+    int sumOfDigits = 0;
 
     while (number != 0)
     {
-        var digit = number % 10;
+        int digit = number % 10;
         sumOfDigits += digit;
         number = number / 10;
     }

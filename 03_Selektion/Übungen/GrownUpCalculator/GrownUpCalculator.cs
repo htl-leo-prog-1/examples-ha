@@ -23,7 +23,7 @@ else if (age <= 18)
     var diff = 18 - age;
     Console.WriteLine("In approx. " + diff + " years you will be grown-up");
 }
-else if (age is (>= 65 and <= 120))
+else if (age is (>= 65 and <= 120))  // or: else if (age >= 65 && age <= 120))
 {
     Console.WriteLine("Hallo Senior");
 }

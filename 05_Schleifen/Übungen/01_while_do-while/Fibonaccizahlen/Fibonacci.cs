@@ -15,13 +15,13 @@ Console.WriteLine("=================");
 Console.WriteLine();
 
 Console.Write("Please enter start value [1..], 0 for exit: ");
-var startvalue = Convert.ToInt32(Console.ReadLine());
+int startvalue = Convert.ToInt32(Console.ReadLine());
 
 while (startvalue > 0)
 {
-    var last = 1;
-    var preLast = 1;
-    var fibunacci = preLast + last;
+    int last = 1;
+    int preLast = 1;
+    int fibunacci = preLast + last;
 
     while (fibunacci <= startvalue)
     {

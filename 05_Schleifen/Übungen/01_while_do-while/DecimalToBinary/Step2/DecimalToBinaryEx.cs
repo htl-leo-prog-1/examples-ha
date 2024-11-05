@@ -5,19 +5,19 @@
 *--------------------------------------------------------------
  * Beschreibung:
  * Das Programm wandelt eine positve Ganzzahl aus dem Dezimalsystem
- * in das Binärsystem um
+ * in das Binärsystem um.
 *--------------------------------------------------------------
 */
 
 using System;
 
 Console.Write("Please enter a decimal value [0..] (-1 for exit): ");
-var decimalValue = Convert.ToInt32(Console.ReadLine());
+int decimalValue = int.Parse(Console.ReadLine());
 
 while (decimalValue != -1)
 {
-    var remaining = decimalValue;
-    var binaryString = "";
+    int remaining = decimalValue;
+    string binaryString = "";
 
     if (decimalValue == 0)
     {
@@ -32,11 +32,10 @@ while (decimalValue != -1)
 
         while (remaining != 0)
         {
-            var rem = remaining % 2;
-            remaining = remaining / 2;
+            int rem = remaining % 2;
+            remaining /= 2;
 
             binaryString = rem + binaryString;
-            // Console.WriteLine($"remaining: {remaining}, Rest: {rem}");
         }
     }
 
