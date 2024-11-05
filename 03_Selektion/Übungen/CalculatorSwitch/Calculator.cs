@@ -16,23 +16,23 @@ Console.WriteLine("====================");
 Console.WriteLine();
 
 Console.Write("Please enter left operand [double]: ");
-var leftOperand = double.Parse(Console.ReadLine());
+double leftOperand = double.Parse(Console.ReadLine());
 
 Console.WriteLine("Please enter operator: [+,-,*,/]: ");
-var operatorInput = Console.ReadLine();
+string operatorInput = Console.ReadLine();
 
 Console.Write("Please enter right operand [double]: ");
-var rightOperand = double.Parse(Console.ReadLine());
+double rightOperand = double.Parse(Console.ReadLine());
 
 switch (operatorInput)
 {
     case "+":
-        var plus = leftOperand + rightOperand;
+        double plus = leftOperand + rightOperand;
         Console.WriteLine($"{leftOperand} + {rightOperand} = {plus}");
         break;
 
     case "-":
-        var minus = leftOperand - rightOperand;
+        double minus = leftOperand - rightOperand;
         Console.WriteLine($"{leftOperand} - {rightOperand} = {minus}");
         break;
 
