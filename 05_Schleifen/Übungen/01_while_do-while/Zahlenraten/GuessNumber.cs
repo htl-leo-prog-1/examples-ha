@@ -1,29 +1,45 @@
-﻿using System;
+﻿/*--------------------------------------------------------------
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: Guess Number
+ *--------------------------------------------------------------
+ */
 
-const int GUESS_NUMBER = 75;
+
+using System;
+
 const int MAX_GUESSES = 10;
+const int MAX_GUESS_VALUE = 100;
 
 Console.WriteLine("Zahlenraten");
-Console.WriteLine("===========\n");
+Console.WriteLine("===========");
+Console.WriteLine();
+
+int randomNumber = Random.Shared.Next(1, MAX_GUESS_VALUE + 1);
+
+var random = new Random(); // Erzeugt einen Zufallszahlen-Generator
+int guessNumber = random.Next(1, 101); // Zufallszahl von 1 bis 100 erzeugen
+
 
 int countTries = 0;
 int guess = -1;
 
 Console.WriteLine("Versuche meine Zahl zu erraten (1-100)!");
-while (countTries <= MAX_GUESSES && guess != GUESS_NUMBER && guess != 0)
+while (countTries <= MAX_GUESSES && guess != randomNumber && guess != 0)
 {
     countTries++;
-    Console.Write("{0}. Versuch: ", countTries);
-    guess = Convert.ToInt32(Console.ReadLine());
+    Console.Write($"{countTries}. Versuch: ");
+    guess = int.Parse(Console.ReadLine());
     if (guess != 0)
     {
         Console.ForegroundColor = ConsoleColor.DarkRed;
-        if (GUESS_NUMBER < guess)
+        if (randomNumber < guess)
         {
             Console.WriteLine("   Gesuchte Zahl ist kleiner! ");
         }
-
-        if (GUESS_NUMBER > guess)
+        else if (randomNumber > guess)
         {
             Console.WriteLine("   Gesuchte Zahl ist größer! ");
         }
@@ -33,7 +49,7 @@ while (countTries <= MAX_GUESSES && guess != GUESS_NUMBER && guess != 0)
 }
 
 Console.WriteLine();
-if (guess != GUESS_NUMBER)
+if (guess != randomNumber)
 {
     Console.WriteLine("Versuch abgebrochen.");
 }
