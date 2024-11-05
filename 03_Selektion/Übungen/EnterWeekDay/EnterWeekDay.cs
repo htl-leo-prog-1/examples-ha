@@ -15,14 +15,14 @@ Console.WriteLine("Wochentagseingabe");
 Console.WriteLine("-----------------------");
 
 Console.Write("Bitte geben sie den ersten Buchstaben des Wochentags ein [MDMDFSS]: ");
-var dayAbbriviation = Console.ReadLine();
+string dayAbbreviation = Console.ReadLine();
 
-switch (dayAbbriviation)
+switch (dayAbbreviation)
 {
     case "M":
         Console.Write("Bitte geben sie den zweiten Buchstaben des Wochentags ein [OI]: ");
-        dayAbbriviation = Console.ReadLine();
-        switch (dayAbbriviation)
+        dayAbbreviation = Console.ReadLine();
+        switch (dayAbbreviation)
         {
             case "O":
                 Console.WriteLine("Sie haben Montag ausgewählt");
@@ -31,14 +31,14 @@ switch (dayAbbriviation)
                 Console.WriteLine("Sie haben Mittwoch ausgewählt");
                 break;
             default:
-                Console.WriteLine("Ungültige Eingabe \"{dayAbbriviation}\", O bzw. I erwartet.");
+                Console.WriteLine("Ungültige Eingabe \"{dayAbbreviation}\", O bzw. I erwartet.");
                 break;
         }
         break;
     case "D":
         Console.Write("Bitte geben sie den zweiten Buchstaben des Wochentags ein [IO]: ");
-        dayAbbriviation = Console.ReadLine();
-        switch (dayAbbriviation)
+        dayAbbreviation = Console.ReadLine();
+        switch (dayAbbreviation)
         {
             case "I":
                 Console.WriteLine("Sie haben Dienstag ausgewählt");
@@ -47,7 +47,7 @@ switch (dayAbbriviation)
                 Console.WriteLine("Sie haben Donnerstag ausgewählt");
                 break;
             default:
-                Console.WriteLine("Ungültige Eingabe \"{dayAbbriviation}\", I bzw. O erwartet.");
+                Console.WriteLine("Ungültige Eingabe \"{dayAbbreviation}\", I bzw. O erwartet.");
                 break;
         }
         break;
@@ -56,8 +56,8 @@ switch (dayAbbriviation)
         break;
     case "S":
         Console.Write("Bitte geben sie den zweiten Buchstaben des Wochentags ein [AO]: ");
-        dayAbbriviation = Console.ReadLine();
-        switch (dayAbbriviation)
+        dayAbbreviation = Console.ReadLine();
+        switch (dayAbbreviation)
         {
             case "A":
                 Console.WriteLine("Sie haben Samstag ausgewählt");
@@ -66,11 +66,11 @@ switch (dayAbbriviation)
                 Console.WriteLine("Sie haben Sonntag ausgewählt");
                 break;
             default:
-                Console.WriteLine("Ungültige Eingabe \"{dayAbbriviation}\", A bzw. O erwartet.");
+                Console.WriteLine("Ungültige Eingabe \"{dayAbbreviation}\", A bzw. O erwartet.");
                 break;
         }
         break;
     default:
-        Console.WriteLine("Ungültige Eingabe \"{dayAbbriviation}\", M, D, F oder S erwartet.");
+        Console.WriteLine("Ungültige Eingabe \"{dayAbbreviation}\", M, D, F oder S erwartet.");
         break;
 }
