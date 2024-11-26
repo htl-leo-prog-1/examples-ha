@@ -17,12 +17,12 @@ Console.WriteLine();
 Console.Write("Please enter decimal value [int, >=0]: ");
 int decimalNumber = int.Parse(Console.ReadLine());
 
-var remainingNumber = decimalNumber;
+int remainingNumber = decimalNumber;
 string binaryString = "";
 
 while (remainingNumber > 0)
 {
-    var remaining = remainingNumber % 2;
+    int remaining = remainingNumber % 2;
     remainingNumber /= 2;
 
     binaryString = remaining + binaryString;

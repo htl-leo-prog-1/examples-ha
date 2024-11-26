@@ -17,9 +17,9 @@ Console.WriteLine("=================");
 Console.WriteLine();
 
 Console.Write("Please enter start value: ");
-var val = Convert.ToInt32(Console.ReadLine());
-var count = 0;
-var maxValue = 0;
+int val = Convert.ToInt32(Console.ReadLine());
+int count = 0;
+int maxValue = 0;
 
 while (val > 1)
 {
