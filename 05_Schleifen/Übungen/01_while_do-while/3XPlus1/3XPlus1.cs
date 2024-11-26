@@ -19,19 +19,19 @@ Console.WriteLine();
 Console.Write("Please enter start value: ");
 int val = Convert.ToInt32(Console.ReadLine());
 int count = 0;
-int maxValue = 0;
+int maxValue = int.MinValue;
 
 while (val > 1)
 {
-    if (val % 2 != 0)
-    {
-        Console.Write($"{val} * 3 + 1 =");
-        val = 3 * val + 1;
-    }
-    else
+    if (val % 2 == 0)
     {
         Console.Write($"{val} / 2 =");
         val /= 2;
+    }
+    else
+    {
+        Console.Write($"{val} * 3 + 1 =");
+        val = 3 * val + 1;
     }
 
     if (maxValue < val)

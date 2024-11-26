@@ -1,12 +1,12 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: DrawLine
-* Draw a line from on point to an other
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: DrawLine
+ * Draw a line from on point to an other
+ *--------------------------------------------------------------
+ */
 
 using System;
 
@@ -28,14 +28,12 @@ int y2 = int.Parse(Console.ReadLine());
 const int MAX_X = 80;
 const int MAX_Y = 25;
 
-// int ToY(int y) => MAX_Y - 1 - y;
-int ToY(int y) => y;
-int ToX(int x) => x;
-
 Console.SetWindowSize(MAX_X, MAX_Y);
 Console.Clear();
 
-Console.SetCursorPosition(0, ToY(0));
+//draw grid x
+
+Console.SetCursorPosition(0, 0);
 Console.Write('0');
 for (var x = 1; x < MAX_X; x++)
 {
@@ -45,7 +43,7 @@ for (var x = 1; x < MAX_X; x++)
     }
     else if (x % 5 == 0)
     {
-        Console.Write($"{x%10}");
+        Console.Write($"{x % 10}");
     }
     else
     {
@@ -53,12 +51,14 @@ for (var x = 1; x < MAX_X; x++)
     }
 }
 
+//draw grid y
+
 for (var y = 1; y < MAX_Y; y++)
 {
-    Console.SetCursorPosition(0, ToY(y));
+    Console.SetCursorPosition(0, y);
     if (y % 5 == 0)
     {
-        Console.Write($"{y%10}");
+        Console.Write($"{y % 10}");
     }
     else
     {
@@ -66,22 +66,26 @@ for (var y = 1; y < MAX_Y; y++)
     }
 }
 
+// draw line
+
 int diffX = x2 - x1;
 int diffY = y2 - y1;
-int mulX = diffX >=0 ? 1 : -1;
-int mulY = diffY >= 0 ? 1 : -1;
 
-int diff = Math.Max(Math.Abs(diffX),Math.Abs(diffY));
+int diff = Math.Max(Math.Abs(diffX), Math.Abs(diffY));
+
+int mulX = diffX >= 0 ? 1 : -1;
+int mulY = diffY >= 0 ? 1 : -1;
+int roundX = mulX * diff / 2;
+int roundY = mulY * diff / 2;
 
 for (int i = 0; i <= diff; i++)
 {
-    int x = x1 + (i * diffX + mulX*diff / 2) / diff;
-    int y = y1 + (i * diffY + mulY*diff / 2) / diff;
+    int x = x1 + (i * diffX + roundX) / diff;
+    int y = y1 + (i * diffY + roundY) / diff;
 
-    Console.SetCursorPosition(x, ToY(y) );
+    Console.SetCursorPosition(x, y);
     Console.Write('*');
 }
 
 Console.SetCursorPosition(0, MAX_Y - 1);
 Console.WriteLine();
-

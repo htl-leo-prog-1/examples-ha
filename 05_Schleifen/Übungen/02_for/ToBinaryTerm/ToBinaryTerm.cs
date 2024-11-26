@@ -26,12 +26,12 @@ do
 } while (!isOk || number < 1);
 
 
-var remainingNumber = number;
+int remainingNumber = number;
 string termString = "";
 
 for (int bit = 0; remainingNumber > 0; bit++)
 {
-    var remaining = remainingNumber % 2;
+    int remaining = remainingNumber % 2;
     remainingNumber = remainingNumber / 2;
 
     if (remaining > 0)
