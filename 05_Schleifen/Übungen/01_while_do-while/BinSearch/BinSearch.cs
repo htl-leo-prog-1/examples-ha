@@ -28,15 +28,14 @@ bool isEndGame = false;
 
 while (!isEndGame)
 {
-    var guess = (maxGuess + minGuess) / 2;
+    int guess = (maxGuess + minGuess) / 2;
     Console.WriteLine($"My guess is: {guess}");
 
-    var answer = "";
+    string answer;
 
     do
     {
         Console.Write($"Is your number [g]reater, [l]ess or [e]qual (x for end the game): ");
-        // Console.Write($"Is your number [g]reater, [l]ess or [e]qual: ");
         answer = Console.ReadLine();
     } while (answer != "g" && answer != "l" && answer != "e" && answer != "x");
 
