@@ -4,13 +4,13 @@
 *              Musterlösung-HA
 *--------------------------------------------------------------
 * Description:
-* Berechnung der Fibunacci Zahlen
+* Berechnung der Fibonacci Zahlen
 *--------------------------------------------------------------
 */
 
 using System;
 
-Console.WriteLine("Fibunacci");
+Console.WriteLine("Fibonacci");
 Console.WriteLine("=================");
 Console.WriteLine();
 
@@ -21,16 +21,16 @@ while (startvalue > 0)
 {
     int last = 1;
     int preLast = 1;
-    int fibunacci = preLast + last;
+    int fibonacci = preLast + last;
 
-    while (fibunacci <= startvalue)
+    while (fibonacci <= startvalue)
     {
         preLast = last;
-        last = fibunacci;
-        fibunacci = preLast + last;
+        last = fibonacci;
+        fibonacci = preLast + last;
     }
 
-    Console.WriteLine($"Next fibonacci after {startvalue} => {fibunacci}");
+    Console.WriteLine($"Next fibonacci after {startvalue} => {fibonacci}");
 
     Console.Write("Please enter start value [1..], 0 for exit: ");
     startvalue = Convert.ToInt32(Console.ReadLine());
