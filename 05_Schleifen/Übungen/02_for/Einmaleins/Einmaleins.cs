@@ -28,7 +28,7 @@ do
 
 Console.WriteLine();
 
-var sepLine = "+";
+string sepLine = "+";
 for (var i = 1; i <= columnCount; i++)
 {
     sepLine += "---+";
@@ -36,10 +36,10 @@ for (var i = 1; i <= columnCount; i++)
 
 Console.WriteLine(sepLine);
 
-for (var y = 1; y <= columnCount; y++)
+for (int y = 1; y <= columnCount; y++)
 {
     Console.Write("|");
-    for (var x = 1; x <= columnCount; x++)
+    for (int x = 1; x <= columnCount; x++)
     {
         Console.Write($"{x*y,3}|");
     }

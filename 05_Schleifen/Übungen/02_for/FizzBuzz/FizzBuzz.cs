@@ -41,8 +41,8 @@ int countPerLine = 0;
 
 for (int current = startValue; current <= endValue; current++)
 {
-    var isDiv3 = current % 3 == 0;
-    var isDiv5 = current % 5 == 0;
+    bool isDiv3 = current % 3 == 0;
+    bool isDiv5 = current % 5 == 0;
 
     if (isDiv3 && isDiv5)
     {
