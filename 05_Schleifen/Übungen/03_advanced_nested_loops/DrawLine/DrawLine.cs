@@ -35,7 +35,7 @@ Console.Clear();
 
 Console.SetCursorPosition(0, 0);
 Console.Write('0');
-for (var x = 1; x < MAX_X; x++)
+for (int x = 1; x < MAX_X; x++)
 {
     if (x % 10 == 0)
     {
@@ -53,7 +53,7 @@ for (var x = 1; x < MAX_X; x++)
 
 //draw grid y
 
-for (var y = 1; y < MAX_Y; y++)
+for (int y = 1; y < MAX_Y; y++)
 {
     Console.SetCursorPosition(0, y);
     if (y % 5 == 0)
