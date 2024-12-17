@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 public delegate void CellClickHandler(int row, int col);
 
@@ -222,7 +223,7 @@ public class FormBoard : Form
         Text = title;
     }
 
-    public sealed override string Text
+    public override string Text
     {
         get => base.Text;
         set => base.Text = value;

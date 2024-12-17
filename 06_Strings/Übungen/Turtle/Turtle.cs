@@ -1,12 +1,12 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: Turtle
-* Eine Schildkröte läuf am Bildschirm
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: Turtle
+ * Eine Schildkröte läuf am Bildschirm
+ *--------------------------------------------------------------
+ */
 
 using System;
 
@@ -25,7 +25,7 @@ do
 
     do
     {
-        Console.Write("Please enter the movement string (empty to accept): ");
+        Console.Write("Please enter the movement string (empty to exit): ");
         userInput = Console.ReadLine();
         movementString += userInput;
     } while (userInput.Length > 0 && userInput[0] != '$');
@@ -40,13 +40,13 @@ do
             break;
         case "$3":
             movementString = "U11111";
-            movementString += "D0011223344556677";
+            movementString += "GD0011223344556677";
             movementString += "U2222222222";
             movementString += "D0011223344556677";
             movementString += "U66000";
-            movementString += "D44444";
+            movementString += "WD44444";
             movementString += "U566";
-            movementString += "D222222";
+            movementString += "RD222222";
             break;
     }
 
@@ -69,6 +69,18 @@ do
                 break;
             case 'D':
                 penDown = true;
+                break;
+            case 'B':
+                Console.ForegroundColor = ConsoleColor.Black;
+                break;
+            case 'W':
+                Console.ForegroundColor = ConsoleColor.White;
+                break;
+            case 'R':
+                Console.ForegroundColor = ConsoleColor.Red;
+                break;
+            case 'G':
+                Console.ForegroundColor = ConsoleColor.Green;
                 break;
             case '0':
                 posY++;
@@ -127,6 +139,7 @@ do
         }
     }
 
+    Console.ResetColor();
     Console.SetCursorPosition(0, MAX_Y - 1);
     Console.WriteLine();
 } while (movementString.Length > 0);

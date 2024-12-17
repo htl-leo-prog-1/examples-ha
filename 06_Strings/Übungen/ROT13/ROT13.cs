@@ -8,15 +8,21 @@
  * characters 13 positions to the right (the first half of
  * the range) or to the left (the second half of the range).
  * After encrypting, the encrypted text is decrypted again.
+ * Advanced Version: it is possible to specify the offset (const)
  *--------------------------------------------------------------
  */
 
 using System;
 
+const int CharCount = 'Z' - 'A' + 1;
+const int OffsetEncrypt = 13;
+const int OffsetDecrypt = -OffsetEncrypt;
+
 Console.WriteLine("Einfache Verschlüsselung mit ROT13");
 Console.Write("Zu verschlüsselnden Text eingeben: ");
 string text = Console.ReadLine();
 string encrypted = "";
+
 for (int i = 0; i < text.Length; i++)
 {
     char fromCh = text[i];
@@ -24,11 +30,12 @@ for (int i = 0; i < text.Length; i++)
 
     if (fromCh >= 'a' && fromCh <= 'z')
     {
-        toCh = fromCh + 13 > 'z' ? (char) (fromCh - 13) : (char) (fromCh + 13);
+        // Version 1: check, if result is <= 'z' => add offset, else sub offset (=26-offset)
+        toCh = fromCh + OffsetEncrypt > 'z' ? (char) (fromCh - (CharCount - OffsetEncrypt)) : (char) (fromCh + OffsetEncrypt);
     }
     else if (fromCh >= 'A' && fromCh <= 'Z')
     {
-        toCh = fromCh + 13 > 'Z' ? (char) (fromCh - 13) : (char) (fromCh + 13);
+        toCh = fromCh + OffsetEncrypt > 'Z' ? (char) (fromCh - (CharCount - OffsetEncrypt)) : (char) (fromCh + OffsetEncrypt);
     }
 
     encrypted += toCh;
@@ -44,11 +51,12 @@ for (int i = 0; i < encrypted.Length; i++)
 
     if (fromCh >= 'a' && fromCh <= 'z')
     {
-        toCh = (char) ('a' + ((fromCh + 13 - 'a') % 26));
+        // Version 2: use modulo operator: we have to add 26 because offset can be negative (-25..25)
+        toCh = (char) ('a' + (fromCh + OffsetDecrypt - 'a' + CharCount) % CharCount);
     }
     else if (fromCh >= 'A' && fromCh <= 'Z')
     {
-        toCh = (char) ('A' + ((fromCh + 13 - 'A') % 26));
+        toCh = (char) ('A' + (fromCh + OffsetDecrypt - 'A' + CharCount) % CharCount);
     }
 
     decrypted += toCh;

@@ -1,12 +1,12 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: CharCount
-* Sudoku Helper - calculates all possibilities of a row/col
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: CharCount
+ * Sudoku Helper - calculates all possibilities of a row/col
+ *--------------------------------------------------------------
+ */
 
 using System;
 
@@ -14,66 +14,67 @@ Console.WriteLine("Sudoku row/column helper");
 Console.WriteLine("************************");
 
 string allDigits = "123456789";
-string containingDigits;
 
-do
+Console.Write("Please enter all digits if a row/col/3x3 (empty to exit): ");
+string containingDigits = Console.ReadLine();
+
+while (!string.IsNullOrEmpty(containingDigits))
 {
-    Console.Write("Please enter all digits if a row/col/3x3 (empty to exit): ");
-    containingDigits = Console.ReadLine();
+    bool isValid = true;
 
-    if (!string.IsNullOrEmpty(containingDigits))
+    for (int n = 0; n < containingDigits.Length && isValid; n++)
     {
-        string allUserDigits = "";
-        bool   isValid       = true;
-        for (int n = 0; n < containingDigits.Length && isValid; n++)
-        {
-            char ch = containingDigits[n];
-            if (char.IsDigit(ch) && ch != '0')
-            {
-                for (int i = 0; i < allUserDigits.Length && isValid; i++)
-                {
-                    isValid = ch != allUserDigits[i];
-                }
+        char ch = containingDigits[n];
 
-                allUserDigits += ch;
-            }
-            else if (ch != ' ')
+        if (char.IsDigit(ch) && ch != '0')
+        {
+            for (int i = n + 1; i < containingDigits.Length && isValid; i++)
             {
-                isValid = false;
+                isValid = ch != containingDigits[i];
+            }
+        }
+        else if (ch != ' ' && ch != '0')
+        {
+            isValid = false;
+        }
+    }
+
+    if (isValid)
+    {
+        string missingDigits = "";
+
+        for (int j = 0; j < allDigits.Length; j++)
+        {
+            char ch = allDigits[j];
+            bool found = false;
+
+            for (int i = 0; i < containingDigits.Length && !found; i++)
+            {
+                found |= ch == containingDigits[i];
+            }
+
+            if (!found)
+            {
+                missingDigits += ch;
             }
         }
 
-        if (isValid)
+        if (string.IsNullOrEmpty(missingDigits))
         {
-            bool nothingFound = true;
-
-            for (int j = 0; j < allDigits.Length; j++)
-            {
-                char chForTest = allDigits[j];
-                bool found     = false;
-
-                for (int i = 0; i < allUserDigits.Length; i++)
-                {
-                    found |= chForTest == allUserDigits[i];
-                }
-
-                if (!found)
-                {
-                    nothingFound = false;
-                    Console.Write($"{chForTest}");
-                }
-            }
-
-            if (nothingFound)
-            {
-                Console.Write(" nothing");
-            }
-
-            Console.WriteLine(" is possible");
+            Console.Write("nothing");
         }
         else
         {
-            Console.WriteLine("invalid input");
+            Console.Write(missingDigits);
         }
+
+        Console.WriteLine(" is possible");
     }
-} while (!string.IsNullOrEmpty(containingDigits));
+    else
+    {
+        Console.WriteLine("invalid input");
+    }
+
+    Console.Write("Please enter all digits if a row/col/3x3 (empty to exit): ");
+    containingDigits = Console.ReadLine();
+}
