@@ -40,7 +40,7 @@ string Decode(string plainText)
 
 string Encode(string plainText)
 {
-    var encode = "";
+    string encode = "";
 
     for (int i = 0; i < plainText.Length; i++)
     {
@@ -53,10 +53,10 @@ string Encode(string plainText)
 
 Console.WriteLine("Encryption/Decryption with ROT13");
 Console.Write("Please enter a text: ");
-var plainText = Console.ReadLine();
+string plainText = Console.ReadLine();
 
-var encodedText = Encode(plainText);
-var plainAgainText = Decode(encodedText);
+string encodedText = Encode(plainText);
+string plainAgainText = Decode(encodedText);
 
 Console.WriteLine($"Plain:     {plainText}");
 Console.WriteLine($"Encrypted: {encodedText}");

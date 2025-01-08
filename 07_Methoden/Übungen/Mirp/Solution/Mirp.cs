@@ -21,8 +21,7 @@ bool IsPrim(int number)
         return true;
     }
 
-    int i;
-    for (i = 3; i < number; i += 2)
+    for (int i = 3; i < number; i += 2)
     {
         if (number % i == 0)
             return false;
@@ -48,7 +47,7 @@ int Reverse(int number)
 
 bool IsMirp(int number)
 {
-    var reverseNumber = Reverse(number);
+    int reverseNumber = Reverse(number);
 
     return number != reverseNumber && IsPrim(number) && IsPrim(reverseNumber);
 }
