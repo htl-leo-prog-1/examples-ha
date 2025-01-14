@@ -11,7 +11,7 @@ using System;
 
 bool IsPrim(int number)
 {
-    if (number < 2)
+    if (number < 2 || number % 2 == 0)
     {
         return false;
     }
