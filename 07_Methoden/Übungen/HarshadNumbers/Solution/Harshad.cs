@@ -51,7 +51,7 @@ Console.WriteLine("****************************");
 
 int count = 0;
 
-for (int i = 1; i < 500; i++)
+for (int i = 1; i <= 500; i++)
 {
     if (IsHarshadNumbers(i))
     {
@@ -67,7 +67,7 @@ int harshadCount = 0;
 int findFrom = 1;
 int findTo = 1000000;
 
-for (int i = findFrom; i < findTo; i++)
+for (int i = findFrom; i <= findTo; i++)
 {
     if (IsHarshadNumbers(i))
     {
