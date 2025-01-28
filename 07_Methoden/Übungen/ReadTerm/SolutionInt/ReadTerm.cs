@@ -92,7 +92,7 @@ do
 
     if (!string.IsNullOrEmpty(term))
     {
-        var result = Evaluate(term);
+        int result = Evaluate(term);
         Console.WriteLine($"Term \"{term}\" evaluates to: {result}");
     }
 } while (!string.IsNullOrEmpty(term));
