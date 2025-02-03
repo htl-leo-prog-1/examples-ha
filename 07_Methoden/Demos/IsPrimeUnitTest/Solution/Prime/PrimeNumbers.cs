@@ -9,21 +9,35 @@
 
 namespace Prime;
 
+using System;
+
 public static class PrimeNumbers
 {
+    /// <summary>
+    /// Test, if a number is a prime number.
+    /// </summary>
+    /// <param name="number">The number to be tested.</param>
+    /// <returns>true if the number is a prime number.</returns>
     public static bool IsPrime(int number)
     {
+        
         if (number < 0)
         {
             number = -number;
         }
-
+    
         if (number < 2)
         {
             return false;
         }
 
-        for (int i = 2; i <= number / 2; i++)
+        if (number % 2 == 0)
+        {
+            return number==2;
+        }
+
+        int maxCheck = (int)(Math.Sqrt(number));
+        for (int i = 3; i <= maxCheck; i+=2)
         {
             if (number % i == 0)
             {
