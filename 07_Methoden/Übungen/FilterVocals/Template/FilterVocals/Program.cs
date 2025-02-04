@@ -30,6 +30,7 @@ namespace FilterVocals
         public static string FilterVocals(string text)
         {
 			//TODO: Implement FilterVocals
+            return string.Empty;
         }
     }
 }
