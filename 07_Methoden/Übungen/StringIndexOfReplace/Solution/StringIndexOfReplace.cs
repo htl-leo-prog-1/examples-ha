@@ -69,7 +69,7 @@ string Replace(string str, string oldValue, string newValue)
     string result = String.Empty;
 
     int idx = 0;
-    int nextIdx = str.IndexOf(oldValue, idx);
+    int nextIdx = IndexOf(str.oldValue, idx);
 
     while (nextIdx >= 0)
     {
@@ -78,7 +78,7 @@ string Replace(string str, string oldValue, string newValue)
 
         idx = nextIdx + oldValue.Length;
 
-        nextIdx = str.IndexOf(oldValue, idx);
+        nextIdx = IndexOf(str, oldValue, idx);
     }
 
     return result + SubString(str, idx, str.Length);
