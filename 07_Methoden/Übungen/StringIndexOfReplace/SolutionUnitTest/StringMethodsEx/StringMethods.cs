@@ -1,4 +1,5 @@
-﻿/*--------------------------------------------------------------
+﻿
+/*--------------------------------------------------------------
  *				HTBLA-Leonding / Class: 1xHIF
  *--------------------------------------------------------------
  *              Musterlösung-HA
@@ -42,9 +43,9 @@ namespace StringMethodsEx
         public static int LastIndexOf(string str, string searchString, int startIdx)
         {
             // return str.LastIndexOf(searchString, startIdx);
-            if (!string.IsNullOrEmpty(searchString) && startIdx < str.Length && startIdx >= 0)
+            if (!string.IsNullOrEmpty(searchString) && startIdx <= str.Length && startIdx >= 0)
             {
-                for (int i = startIdx; i >= 0; i--)
+                for (int i = startIdx - searchString.Length + 1; i >= 0; i--)
                 {
                     bool isEqual = str.Length - i >= searchString.Length;
                     for (int j = 0; j < searchString.Length && j + i < str.Length && isEqual; j++)

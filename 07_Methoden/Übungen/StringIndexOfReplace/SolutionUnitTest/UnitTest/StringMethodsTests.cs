@@ -18,34 +18,39 @@ namespace UnitTest
     public class StringMethodsTests
     {
         [Theory]
-        [InlineData("Hallo Welt - hello world", "ll", 0,  2)]
-        [InlineData("Hallo Welt - hello world", "ll", 2,  2)]
-        [InlineData("Hallo Welt - hello world", "ll", 3,  15)]
-        [InlineData("Hallo Welt - hello world", "ll", 15, 15)]
-        [InlineData("Hallo Welt - hello world", "ll", 16, -1)]
-        [InlineData("Hallo Welt - hello world", "ll", 25, -1)]
-        [InlineData("Hallo Welt - hello world", "",   0,  -1)]
-        [InlineData("Hallo Welt - hello world", "",   25, -1)]
-        [InlineData("Hallo Welt - hello world", "ll", -1, -1)]
-        [InlineData("ll",                       "ll", 0,  0)]
-        [InlineData("ll",                       "ll", 1,  -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 0,  2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 2,  2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 3,  15)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 15, 15)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 16, -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 25, -1)]
+        [InlineData("HaLlo Welt - heLlo world", "",   0,  -1)]
+        [InlineData("HaLlo Welt - heLlo world", "",   25, -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", -1, -1)]
+        [InlineData("Ll",                       "Ll", 0,  0)]
+        [InlineData("Ll",                       "Ll", 1,  -1)]
         public void T01_IndexOf(string text, string searchString, int startIdx, int expected)
         {
             StringMethods.IndexOf(text, searchString, startIdx).Should().Be(expected);
         }
 
         [Theory]
-        [InlineData("Hallo Welt - hello world", "ll", 25, -1)]
-        [InlineData("Hallo Welt - hello world", "ll", 23, 15)]
-        [InlineData("Hallo Welt - hello world", "ll", 15, 15)]
-        [InlineData("Hallo Welt - hello world", "ll", 14, 2)]
-        [InlineData("Hallo Welt - hello world", "ll", 2,  2)]
-        [InlineData("Hallo Welt - hello world", "ll", 1,  -1)]
-        [InlineData("Hallo Welt - hello world", "",   0,  -1)]
-        [InlineData("Hallo Welt - hello world", "",   25, -1)]
-        [InlineData("Hallo Welt - hello world", "ll", -1, -1)]
-        [InlineData("ll",                       "ll", 1,  0)]
-        [InlineData("ll",                       "ll", 0,  0)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 25, -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 23, 15)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 17, 15)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 16, 15)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 15, 2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 14, 2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 4,  2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 3,  2)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 2,  -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", 1,  -1)]
+        [InlineData("HaLlo Welt - heLlo world", "",   0,  -1)]
+        [InlineData("HaLlo Welt - heLlo world", "",   25, -1)]
+        [InlineData("HaLlo Welt - heLlo world", "Ll", -1, -1)]
+        [InlineData("Ll",                       "Ll", 2,  0)]
+        [InlineData("Ll",                       "Ll", 1,  0)]
+        [InlineData("Ll",                       "Ll", 0,  -1)]
         public void T02_LastIndexOf(string text, string searchString, int startIdx, int expected)
         {
             StringMethods.LastIndexOf(text, searchString, startIdx).Should().Be(expected);
@@ -67,11 +72,11 @@ namespace UnitTest
         }
 
         [Theory]
-        [InlineData("Hallo", 2, 2,     "ll")]
-        [InlineData("Hallo", 2, 3,     "llo")]
-        [InlineData("Hallo", 2, 4,     "llo")]
-        [InlineData("Hallo", 0, 10000, "Hallo")]
-        [InlineData("Hallo", -1, 4, "")]
+        [InlineData("HaLlo", 2, 2,     "Ll")]
+        [InlineData("HaLlo", 2, 3,     "Llo")]
+        [InlineData("HaLlo", 2, 4,     "Llo")]
+        [InlineData("HaLlo", 0, 10000, "HaLlo")]
+        [InlineData("HaLlo", -1, 4, "")]
         public void T04_SubString(string text, int startIdx, int count, string expected)
         {
             StringMethods.SubString(text, startIdx, count).Should().Be(expected);
