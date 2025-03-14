@@ -15,7 +15,7 @@ namespace Intersect
     {
         public static int[] Intersect(int[] numbersA, int[] numbersB)
         {
-            var isInBoth = new bool[numbersA.Length];
+            bool[] isInBoth = new bool[numbersA.Length];
             int count = 0;
 
             for (int i = 0; i < numbersA.Length; i++)
@@ -28,7 +28,7 @@ namespace Intersect
             }
 
             int index = 0;
-            var result = new int[count];
+            int[] result = new int[count];
             for (int i = 0; i < isInBoth.Length; i++)
             {
                 if (isInBoth[i])

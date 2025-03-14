@@ -15,7 +15,7 @@ namespace Intersect
     {
         static void Main(string[] args)
         {
-            int[] numbersA = {1, 1, 3, 5, 7, 9};
+            int[] numbersA = {1, 1, 3, 5, 7, 9, 1, 3};
             int[] numbersB = {0, 1, 2, 3};
 
             Console.WriteLine("Intersect");

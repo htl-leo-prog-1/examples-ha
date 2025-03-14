@@ -7,6 +7,8 @@
 *--------------------------------------------------------------
 */
 
+using System;
+
 namespace UnitTest;
 
 using FluentAssertions;
@@ -26,6 +28,8 @@ public class IntersectTests
     [InlineData(new int[] {1, 1, 3, 5, 1, 3}, new int[] {1, 1, 1, 1, 1, 3, 3, 5, 5}, new int[] {1, 3, 5})]
     public void T01_Intersect(int[] a, int[] b, int[] expected)
     {
-        IntersectTools.Intersect(a, b).Should().Equal(expected);
+        int[] result = IntersectTools.Intersect(a, b);
+        Array.Sort(result);
+        result.Should().Equal(expected);
     }
 }
