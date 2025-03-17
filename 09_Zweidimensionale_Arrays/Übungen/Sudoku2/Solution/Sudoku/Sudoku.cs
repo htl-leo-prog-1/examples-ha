@@ -23,6 +23,7 @@ public static class Sudoku
     ///     This allows the user to see which cells have already been filled with a number and which remain empty.
     /// </summary>
     /// <param name="sudoku">The sudoku field to print</param>
+    /// <param name="showHelp"></param>
     public static void PrintSudoku(int[,] sudoku, bool showHelp)
     {
         var possibleNos = GetPossibleNumbers(sudoku);
@@ -177,7 +178,7 @@ public static class Sudoku
 
     /// <summary>
     /// Calculate the possible numbers for each field.
-    /// Possible numbers are the numbers which are not in the column, row or segement.
+    /// Possible numbers are the numbers which are not in the column, row or segment.
     /// </summary>
     /// <param name="sudoku"></param>
     /// <returns></returns>
