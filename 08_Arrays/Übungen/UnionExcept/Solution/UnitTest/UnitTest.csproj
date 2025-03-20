@@ -12,6 +12,6 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\UnionExpect\UnionExpect.csproj" />
+	  <ProjectReference Include="..\UnionExcept\UnionExcept.csproj" />
 	</ItemGroup>
 </Project>

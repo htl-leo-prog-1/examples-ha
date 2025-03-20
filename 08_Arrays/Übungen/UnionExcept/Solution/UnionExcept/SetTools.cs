@@ -3,13 +3,13 @@
  *--------------------------------------------------------------
  *              Musterlösung-HA
  *--------------------------------------------------------------
- * Description: Method for Union and Expect between two arrays
+ * Description: Method for Union and Except between two arrays
  *--------------------------------------------------------------
  */
 
 using System;
 
-namespace UnionExpect
+namespace UnionExcept
 {
     public class SetTools
     {
@@ -52,7 +52,7 @@ namespace UnionExpect
         /// <param name="numbersA"></param>
         /// <param name="numbersB"></param>
         /// <returns>Distinct array of all numbers of A without B</returns>
-        public static int[] Expect(int[] numbersA, int[] numbersB)
+        public static int[] Except(int[] numbersA, int[] numbersB)
         {
             int[] union = new int[numbersA.Length];
             int length = 0;

@@ -3,13 +3,13 @@
  *--------------------------------------------------------------
  *              Musterlösung-HA
  *--------------------------------------------------------------
- * Description: Method for Union and Expect between two arrays
+ * Description: Method for Union and Except between two arrays
  *--------------------------------------------------------------
  */
 
 using System;
 
-namespace UnionExpect
+namespace UnionExcept
 {
     class Program
     {
@@ -30,19 +30,19 @@ namespace UnionExpect
             TryUnion(new[] {1, 3, 5, 7, 9}, new int[] {0, 2, 4, 6, 8});
             Console.WriteLine("===========");
 
-            Console.WriteLine("Expect");
+            Console.WriteLine("Except");
             Console.WriteLine("===========");
 
             Console.WriteLine("Normalfall");
-            TryExpect(new[] {1, 1, 3, 5, 7, 9, 1, 3}, new int[] {0, 1, 2, 3});
+            TryExcept(new[] {1, 1, 3, 5, 7, 9, 1, 3}, new int[] {0, 1, 2, 3});
             Console.WriteLine("===========");
 
             Console.WriteLine("Alle gleich");
-            TryExpect(new[] {1, 1, 3, 5}, new int[] {1, 3, 3, 5});
+            TryExcept(new[] {1, 1, 3, 5}, new int[] {1, 3, 3, 5});
             Console.WriteLine("===========");
 
             Console.WriteLine("Keine Überschneidung");
-            TryExpect(new[] {1, 3, 5, 7, 9}, new int[] {0, 2, 4, 6, 8});
+            TryExcept(new[] {1, 3, 5, 7, 9}, new int[] {0, 2, 4, 6, 8});
             Console.WriteLine("===========");
         }
 
@@ -56,12 +56,12 @@ namespace UnionExpect
             PrintArray("Ziffern in Feld A und Feld B: ", result);
         }
 
-        private static void TryExpect(int[] arA, int[] arB)
+        private static void TryExcept(int[] arA, int[] arB)
         {
             PrintArray("Feld A: ", arA);
             PrintArray("Feld B: ", arB);
 
-            var result = SetTools.Expect(arA, arB);
+            var result = SetTools.Except(arA, arB);
             Console.WriteLine($"Ergebnis enthält {result.Length} Ziffern");
             PrintArray("Ziffern in Feld A und Feld B: ", result);
         }
