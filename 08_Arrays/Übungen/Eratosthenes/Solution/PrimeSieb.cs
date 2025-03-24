@@ -25,15 +25,15 @@ namespace PrimeSieb
             const int MAXLINES = 22;
 
             Console.Write("Bis zu welcher Zahl wollen Sie Primzahlen ausgeben? ");
-            int maxNumber = Convert.ToInt32(Console.ReadLine());
+            int maxNumber = int.Parse(Console.ReadLine()!);
             while ((maxNumber <= 0))
             {
                 Console.WriteLine("Die größte Zahl muss größer als 1 sein!");
                 Console.Write("Bis zu welcher Zahl wollen Sie Primzahlen ausgeben:");
-                maxNumber = int.Parse(Console.ReadLine());
+                maxNumber = int.Parse(Console.ReadLine()!);
             }
 
-            var isPrime = CalcIsPrime(maxNumber);
+            bool[] isPrime = CalcIsPrime(maxNumber);
 
             Console.WriteLine("Primzahlen von 1 - " + maxNumber + ":");
             int lineCounter = 1;
@@ -56,7 +56,7 @@ namespace PrimeSieb
 
         private static bool[] CalcIsPrime(int maxNumber)
         {
-            var isPrime = new bool[maxNumber + 1];
+            bool[] isPrime = new bool[maxNumber + 1];
 
             isPrime[0] = false; //0 ist keine Primzahl
             isPrime[1] = false; //1 ist keine Primzahl
