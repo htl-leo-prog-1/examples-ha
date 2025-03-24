@@ -42,7 +42,7 @@ Console.WriteLine();
 
 Matrix.Print(matrixC);
 Console.WriteLine("rotate clockwise");
-var matrix = Matrix.RotateClockwise(matrixC);
+int[,] matrix = Matrix.RotateClockwise(matrixC);
 Matrix.Print(matrix);
 Console.WriteLine("rotate counterclockwise");
 matrix = Matrix.RotateCounterclockwise(matrix);

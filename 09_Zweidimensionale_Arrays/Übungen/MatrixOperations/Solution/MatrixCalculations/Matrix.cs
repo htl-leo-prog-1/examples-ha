@@ -23,7 +23,7 @@ namespace MatrixCalculations
                 return;
             }
 
-            foreach (var line in ToStrings(matrix))
+            foreach (string line in ToStrings(matrix))
             {
                 Console.WriteLine(line);
             }
@@ -39,15 +39,15 @@ namespace MatrixCalculations
 
             GetMinMaxValue(matrix,out min, out max);
 
-            var result = new string[rows];
+            string[] result = new string[rows];
 
             int fieldSize = Math.Max(min.ToString().Length, max.ToString().Length);
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
                 result[row] = string.Empty;
 
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
                     if (col > 0)
                     {
@@ -69,11 +69,11 @@ namespace MatrixCalculations
             min = int.MaxValue;
             max = int.MinValue;
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
-                    var val = matrix[row, col];
+                    int val = matrix[row, col];
                     if (val < min)
                     {
                         min = val;
@@ -98,7 +98,7 @@ namespace MatrixCalculations
                 return null;
             }
 
-            var multiplied = new int[rowsA, colsB];
+            int[,] multiplied = new int[rowsA, colsB];
 
             for (int row = 0; row < rowsA; row++)
             {
@@ -163,11 +163,11 @@ namespace MatrixCalculations
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
-            var newMatrix = new int[cols, rows];
+            int[,] newMatrix = new int[cols, rows];
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
                     newMatrix[cols - col - 1, row] = matrix[row, col];
                 }
@@ -181,11 +181,11 @@ namespace MatrixCalculations
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
-            var newMatrix = new int[cols, rows];
+            int[,] newMatrix = new int[cols, rows];
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
                     newMatrix[col, rows - row - 1] = matrix[row, col];
                 }
@@ -199,11 +199,11 @@ namespace MatrixCalculations
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
-            var newMatrix = new int[rows, cols];
+            int[,] newMatrix = new int[rows, cols];
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
                     newMatrix[rows - row - 1, col] = matrix[row, col];
                 }
@@ -217,11 +217,11 @@ namespace MatrixCalculations
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
-            var newMatrix = new int[rows, cols];
+            int[,] newMatrix = new int[rows, cols];
 
-            for (var row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (var col = 0; col < cols; col++)
+                for (int col = 0; col < cols; col++)
                 {
                     newMatrix[row, cols - col - 1] = matrix[row, col];
                 }
