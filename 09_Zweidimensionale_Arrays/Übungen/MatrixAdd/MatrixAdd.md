@@ -38,18 +38,18 @@ In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementier
 Die Bildschirmausgabe des Hauptprogramms (=Testprogramms) könnte wie folgt aussehen:
 
 ```
-1 2 3
-4 5 6
-7 8 9
-+
+ 1  2  3
+ 4  5  6
+ 7  8 99
+*
 11 12 13
 24 25 26
 37 38 39
 =
-12 14 16
-28 30 32
-44 46 48
+ 12  14  16
+ 28  30  32
+ 44  46 138
 
-Distinct numbers: 12,14,16,28,30,32,44,46,48
+Distinct numbers: 12,14,16,28,30,32,44,46,138
 
 ```

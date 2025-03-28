@@ -20,7 +20,7 @@ namespace Matrix
             {
                 { 1, 2, 3 },
                 { 4, 5, 6 },
-                { 7, 8, 9 }
+                { 7, 8, 99 }
             };
 
             int[,] matrixB =
@@ -28,13 +28,6 @@ namespace Matrix
                 { 11, 12, 13 },
                 { 24, 25, 26 },
                 { 37, 38, 39 }
-            };
-
-            int[,] matrixC =
-            {
-                { 12, 14, 16 },
-                { 28, 30, 32 },
-                { 44, 46, 48 }
             };
 
 
@@ -46,7 +39,7 @@ namespace Matrix
             MatrixTools.Print(resultAdd);
 
             Console.WriteLine();
-            int[] distinct = MatrixTools.Distinct(matrixC);
+            int[] distinct = MatrixTools.Distinct(resultAdd);
 
             Console.WriteLine($"Distinct numbers: {string.Join(',',distinct)}");
         }
