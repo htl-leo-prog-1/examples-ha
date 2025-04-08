@@ -1,11 +1,11 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: LottoSimulation
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: LottoSimulation
+ *--------------------------------------------------------------
+ */
 
 namespace LottoSimulation
 {
@@ -18,9 +18,9 @@ namespace LottoSimulation
 
         static void Main()
         {
-            int[] correctResult = new [] { 400874, 423358, 151635, 22687, 1416, 30, 0 };
+            int[] correctResult = new[] {400874, 423358, 151635, 22687, 1416, 30, 0};
 
-            int[,] tips = CreateRandomTips(COUNT_TIPS);
+            int[][] tips = CreateRandomTips(COUNT_TIPS);
 
             Console.WriteLine("Lottosimulator");
             Console.WriteLine("==============");
@@ -28,7 +28,7 @@ namespace LottoSimulation
 
             int[] thrownNumbers = CreateTip();
 
-            Console.WriteLine($"{tips.GetLength(0)} Tippkolonnen");
+            Console.WriteLine($"{tips.Length} Tippkolonnen");
             Console.WriteLine();
 
             DateTime start = DateTime.Now;
@@ -42,7 +42,7 @@ namespace LottoSimulation
 
         private static void DisplayResults(int[] results, int[] correctResult)
         {
-            for (int i = 6; i >= 0; i--)
+            for (int i = results.Length - 1; i >= 0; i--)
             {
                 Console.WriteLine($"{i}er: {results[i]}");
             }
@@ -64,22 +64,16 @@ namespace LottoSimulation
             }
         }
 
-        private static int[,] CreateRandomTips(int count)
+        private static int[][] CreateRandomTips(int count)
         {
-            int[,] tips = new int[count, 6];
+            int[][] tips = new int[count][];
 
             for (int i = 0; i < count; i++)
             {
-                int[] tip = CreateTip();
-
-                for (int j = 0; j < tip.Length; j++)
-                {
-                    tips[i,j] = tip[j];
-                }
+                tips[i] = CreateTip();
             }
 
             return tips;
-
         }
 
         /// <summary>
@@ -91,9 +85,9 @@ namespace LottoSimulation
         /// <param name="tips"></param>
         /// <param name="thrownNumbers"></param>
         /// <returns>Array mit Verteilung der Treffer von 0 - 6</returns>
-        static int[] AnalyzeLottery(int[,] tips, int[] thrownNumbers)
+        static int[] AnalyzeLottery(int[][] tips, int[] thrownNumbers)
         {
-            int[] results = new int[7]; // von 0er bis 6er
+            int[] results = new int[thrownNumbers.Length + 1]; // von 0er bis 6er
             // für den schnelleren Vergleich wird ein bool-Array angelegt
             // Um nicht den Index dauernd umrechnen zu müssen wird es von 0 - 45 angelegt.
             bool[] isNumberThrown = new bool[46];
@@ -102,38 +96,28 @@ namespace LottoSimulation
                 isNumberThrown[t] = true;
             }
 
-            int countTips = tips.GetLength(0);
+            int countTips = tips.Length;
 
             for (int i = 0; i < countTips; i++)
             {
-                int rightNumbers = 0;
-                for (int j = 0; j < 6; j++)
-                {
-                    if (isNumberThrown[tips[i, j]])
-                    {
-                        rightNumbers++;
-                    }
-                }
-
-                results[rightNumbers]++;
+                results[CountSameNumbers(isNumberThrown, tips[i])]++;
             }
 
             return results;
         }
 
         /// <summary>
-        /// Für den Tipp mit dem Index wird errechnet, wieviele Zahlen richtig sind.
+        /// Für den Tipp wird errechnet, wieviele Zahlen richtig sind.
         /// </summary>
         /// <param name="isNumberThrown">bool-Array zur schnellen Prüfung</param>
-        /// <param name="tips"></param>
-        /// <param name="tipIdx"></param>
+        /// <param name="tip"></param>
         /// <returns>Anzahl der richtigen Zahlen</returns>
-        private static int CalculateRightNumbers(bool[] isNumberThrown, int[,] tips, int tipIdx)
+        private static int CountSameNumbers(bool[] isNumberThrown, int[] tip)
         {
             int counter = 0;
-            for (int i = 0; i < 6; i++)
+            foreach (int val in tip)
             {
-                if (isNumberThrown[tips[tipIdx, i]])
+                if (isNumberThrown[val])
                 {
                     counter++;
                 }
@@ -149,7 +133,7 @@ namespace LottoSimulation
         static int[] CreateTip()
         {
             int[] numbers = new int[6];
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < numbers.Length; i++)
             {
                 int number;
 
@@ -166,7 +150,7 @@ namespace LottoSimulation
 
         static bool Contains(int[] numbers, int lookFor, int lastIdx)
         {
-            for (int i = 0; i <= lastIdx; i++)
+            for (int i = 0; i <= Math.Min(numbers.Length, lastIdx); i++)
             {
                 if (numbers[i] == lookFor)
                 {
