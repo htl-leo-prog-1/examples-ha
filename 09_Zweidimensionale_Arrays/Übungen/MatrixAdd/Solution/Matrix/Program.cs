@@ -32,7 +32,7 @@ namespace Matrix
 
 
             MatrixTools.Print(matrixA);
-            Console.WriteLine("*");
+            Console.WriteLine("+");
             MatrixTools.Print(matrixB);
             Console.WriteLine("=");
             int[,] resultAdd = MatrixTools.Add(matrixA, matrixB);

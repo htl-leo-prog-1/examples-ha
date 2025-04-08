@@ -7,6 +7,8 @@
 *--------------------------------------------------------------
 */
 
+using System.ComponentModel;
+
 namespace LottoSimulation
 {
     using System;
@@ -18,22 +20,22 @@ namespace LottoSimulation
 
         static void Main()
         {
-            var correctResult = new [] { 400874, 423358, 151635, 22687, 1416, 30, 0 };
+            int[] correctResult = new [] { 400874, 423358, 151635, 22687, 1416, 30, 0 };
 
-            var tips = CreateRandomTips(COUNT_TIPS);
+            int[,] tips = CreateRandomTips(COUNT_TIPS);
 
             Console.WriteLine("Lottosimulator");
             Console.WriteLine("==============");
             Console.WriteLine();
 
-            var thrownNumbers = CreateTip();
+            int[] thrownNumbers = CreateTip();
 
             Console.WriteLine($"{tips.GetLength(0)} Tippkolonnen");
             Console.WriteLine();
 
-            var start = DateTime.Now;
-            var results = AnalyzeLottery(tips, thrownNumbers);
-            var duration = DateTime.Now - start;
+            DateTime start = DateTime.Now;
+            int[] results = AnalyzeLottery(tips, thrownNumbers);
+            TimeSpan duration = DateTime.Now - start;
 
             DisplayResults(results, correctResult);
 
@@ -66,8 +68,20 @@ namespace LottoSimulation
 
         private static int[,] CreateRandomTips(int count)
         {
-            //TODO Methode implementieren
-            throw new NotImplementedException();
+            int[,] tips = new int[count, 6];
+
+            for (int i = 0; i < count; i++)
+            {
+                int[] tip = CreateTip();
+
+                for (int j = 0; j < tip.Length; j++)
+                {
+                    tips[i,j] = tip[j];
+                }
+            }
+
+            return tips;
+
         }
 
         /// <summary>
@@ -81,8 +95,22 @@ namespace LottoSimulation
         /// <returns>Array mit Verteilung der Treffer von 0 - 6</returns>
         static int[] AnalyzeLottery(int[,] tips, int[] thrownNumbers)
         {
-            //TODO Methode implementieren
-            throw new NotImplementedException();
+            int[] result = new int[7];
+
+            for (int i = 0; i < tips.GetLength(0); i++)
+            {
+                int tipResult = CountSameNumbers(tips, thrownNumbers, j);
+                result[tipResult]++;
+            }
+
+            return result;
+        }
+
+        static int CountSameNumbers(int[,] tips, int[] thrownNumbers, int idx)
+        {
+            int count=0;
+
+            return count;
         }
 
         /// <summary>
@@ -91,8 +119,37 @@ namespace LottoSimulation
         /// <returns>Tippkolonne</returns>
         static int[] CreateTip()
         {
-            //TODO Methode implementieren
-            throw new NotImplementedException();
+            int[] tip = new int[6];
+
+            for (int i = 0; i < tip.Length; i++)
+            {
+                int random = Random.Shared.Next(1, 46);
+
+                while (Contains(tip, random, i))
+                {
+                    random = Random.Shared.Next(1, 46);
+                }
+
+                tip[i] = random;
+
+            }
+
+            return tip;
+        }
+
+        private static bool Contains(int[] numbers, int value, int length)
+        {
+            length = Math.Min(length, numbers.Length);
+
+            for (int i = 0; i < length; i++)
+            {
+                if (numbers[i] == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
