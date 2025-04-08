@@ -7,6 +7,8 @@
 *--------------------------------------------------------------
 */
 
+using System.Linq;
+
 namespace LottoSimulation
 {
     using System;
@@ -66,7 +68,14 @@ namespace LottoSimulation
 
         private static int[][] CreateRandomTips(int count)
         {
-            throw new NotImplementedException();
+            int[][] tips = new int[count][];
+
+            for (int i = 0; i < count; i++)
+            {
+                tips[i] = CreateTip();
+            }
+
+            return tips;
         }
 
         /// <summary>
@@ -80,12 +89,36 @@ namespace LottoSimulation
         /// <returns>Array mit Verteilung der Treffer von 0 - 6</returns>
         static int[] AnalyzeLottery(int[][] tips, int[] thrownNumbers)
         {
-            throw new NotImplementedException();
+            int[] result = new int[thrownNumbers.Length + 1];
+
+            bool[] numbers = new bool[46];
+
+            foreach (int no in thrownNumbers)
+            {
+                numbers[no] = true;
+            }
+
+            for (int i = 0; i < tips.Length; i++)
+            {
+                result[CountSameNumbers(tips[i], numbers)]++;
+            }
+
+            return result;
         }
 
-        static int CountSameNumbers(int[] tip, int[] thrownNumbers)
+        static int CountSameNumbers(int[] tip, bool[] thrownNumbers)
         {
-            throw new NotImplementedException();
+            int count = 0;
+
+            foreach (int no in tip)
+            {
+                if (thrownNumbers[no])
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -94,7 +127,34 @@ namespace LottoSimulation
         /// <returns>Tippkolonne</returns>
         static int[] CreateTip()
         {
-            throw new NotImplementedException();
+            int[] tip = new int[6];
+
+            for (int i = 0; i < tip.Length; i++)
+            {
+                int val;
+
+                do
+                {
+                    val = random.Next(1, 46);
+
+                } while (Contains(tip, val, i-1));
+
+                tip[i] = val;
+            }
+
+            return tip;
+        }
+        static bool Contains(int[] numbers, int lookFor, int lastIdx)
+        {
+            for (int i = 0; i <= lastIdx; i++)
+            {
+                if (numbers[i] == lookFor)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
