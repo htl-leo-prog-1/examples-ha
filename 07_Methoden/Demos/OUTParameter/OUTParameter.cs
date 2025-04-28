@@ -3,7 +3,7 @@
 *--------------------------------------------------------------
 *              Musterlösung-HA
 *--------------------------------------------------------------
-* Description: Eingabe Verarbeitung Ausgabe, Parameterübergabe
+* Description: Demo Min/Max with "out" parameter
 *--------------------------------------------------------------
 */
 
