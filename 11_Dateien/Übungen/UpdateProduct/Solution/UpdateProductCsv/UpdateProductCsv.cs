@@ -61,7 +61,7 @@ namespace UpdateProductCsv
             fileName   = args[0];
             double percent;
 
-            if (!double.TryParse(args[1], NumberStyles.None, CultureInfo.InvariantCulture, out percent))
+            if (!double.TryParse(args[1], CultureInfo.InvariantCulture, out percent))
             {
                 Console.WriteLine($"Illegal percentage: {args[1]}");
                 return false;
