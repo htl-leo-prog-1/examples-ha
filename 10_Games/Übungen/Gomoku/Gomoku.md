@@ -57,9 +57,9 @@ Gomoku
 =========
 Board size [15,17 or 19]: 15
 "row,col" to set stone, e.g. 5,7
-! to give up game (quit program)
+! to resign game (quit program)
 s to save the game (and continue)
-l give up the current game and load the store game - continue with the stored game.
+l resign the current game and load the store game - continue with the stored game.
 Player 1: 5,5
 Player 2: 4,4
 Player 1: 5,5

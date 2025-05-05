@@ -56,9 +56,9 @@ public static class Gomoku
     public static int PlayGame(int[,] field, int playerIndex)
     {
         Console.WriteLine("\"row,col\" to set stone, e.g. 5,7");
-        Console.WriteLine("! to give up game (quit program)");
+        Console.WriteLine("! to resign game (quit program)");
         Console.WriteLine("s to save the game (and continue)");
-        Console.WriteLine("l give up the current game and load the store game - continue with the stored game.");
+        Console.WriteLine("l resign the current game and load the store game - continue with the stored game.");
 
         int maxStones = field.GetLength(0) * field.GetLength(1);
 
@@ -151,7 +151,7 @@ public static class Gomoku
 
     /// <summary>
     /// Read the user input.
-    /// Possible inputs: set stone, give up, load or save the game 
+    /// Possible inputs: set stone, resign, load or save the game 
     ///
     /// /// </summary>
     /// <param name="player">the current player</param>
