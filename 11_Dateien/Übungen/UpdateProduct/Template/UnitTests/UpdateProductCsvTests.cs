@@ -42,7 +42,7 @@ public class UpdateProductCsvTests
         var fileName    = "Products.csv";
         var csvImporter = new CsvImport<Product>();
 
-        var fileInfoOrig = new FileInfo(fileName);
+        var fileInfoOrig = new FileInfo(fileName).LastWriteTime;
 
         var products = csvImporter.Read(fileName);
 
@@ -52,9 +52,9 @@ public class UpdateProductCsvTests
         var pathName     = $"{Path.GetDirectoryName(fullPathName)}\\";
         var bakPathName  = $"{pathName}{Path.GetFileNameWithoutExtension(fullPathName)}.bak";
 
-        var fileInfoBak = new FileInfo(bakPathName);
+        var fileInfoBak = new FileInfo(bakPathName).LastWriteTime;
 
-        fileInfoOrig.LastWriteTime.Should().Be(fileInfoBak.LastWriteTime, "You have to rename the file to bak.");
+        fileInfoOrig.Should().Be(fileInfoBak, "You have to rename the file to bak.");
 
         var productUpdated = csvImporter.Read(fileName);
 
