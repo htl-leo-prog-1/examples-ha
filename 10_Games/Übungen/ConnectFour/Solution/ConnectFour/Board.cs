@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 public delegate void CellClickHandler(int row, int col);
 
@@ -24,7 +25,7 @@ public class Board
     private readonly int       _rows;
     private          string    _title;
 
-    public static event CellClickHandler CellClicked;
+    public static event CellClickHandler? CellClicked;
 
     /// <summary>
     ///     Spielfeld mit _rows/_cols anlegen
@@ -35,7 +36,7 @@ public class Board
     {
         _rows  = rows;
         _cols  = cols;
-        _title = default!;
+        _title = "Board";
         _form  = default!;
     }
 
@@ -123,7 +124,7 @@ public class Board
     {
         if (row < 0 || row >= _staticBoard._rows || col < 0 || col >= _staticBoard._cols)
         {
-            return null;
+            return null!;
         }
 
         return _staticBoard._form.GetText(row, col);
@@ -163,10 +164,12 @@ public class Board
     {
         CellClicked?.Invoke(row, col);
     }
-    
+
     [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
     public static extern short GetKeyState(int keyCode);
+
     public const int KEY_PRESSED = 0x8000;
+
     public static bool IsKeyDown(Keys key)
 
     {
@@ -222,7 +225,8 @@ public class FormBoard : Form
         Text = title;
     }
 
-    public sealed override string Text
+    [AllowNull]
+    public override string Text
     {
         get => base.Text;
         set => base.Text = value;
@@ -375,8 +379,8 @@ public class FormBoard : Form
             if (sender is TextBox)
             {
                 var t = sender as TextBox;
-                int x = t.Location.X / CELL_HEIGHT;
-                int y = t.Location.Y / CELL_WIDTH;
+                int x = t!.Location.X / CELL_HEIGHT;
+                int y = t!.Location.Y / CELL_WIDTH;
                 Board.OnCellClicked(y, x);
             }
         };
@@ -433,7 +437,6 @@ public class FormBoard : Form
     /// <param name="text"></param>
     /// <param name="color"></param>
     private delegate void SetTextDelegate(int row, int col, string text, string color);
-
 }
 
 # endregion
