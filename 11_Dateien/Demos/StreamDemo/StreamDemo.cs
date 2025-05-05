@@ -11,14 +11,14 @@ using System;
 using System.IO;
 using System.Text;
 
-string path = @"c:\tmp\test.txt";
+string path = @".\test.txt";
 
 if (File.Exists(path))
 {
     File.Delete(path);
 }
 
-using (var sw = new StreamWriter(path, false, Encoding.Default))
+using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
 {
     sw.WriteLine("This");
     sw.WriteLine("is some text");
@@ -28,10 +28,14 @@ using (var sw = new StreamWriter(path, false, Encoding.Default))
 
 using (StreamReader sr = new StreamReader(path, Encoding.Default))
 {
-    var line = sr.ReadLine();
+    string? line = sr.ReadLine();
     while (line != null)
     {
-        Console.WriteLine();
+        Console.WriteLine(line);
         line = sr.ReadLine();
     }
 }
+
+string[] lines = File.ReadAllLines(path);
+
+Console.ReadKey();
