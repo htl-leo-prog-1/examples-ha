@@ -18,6 +18,8 @@ namespace UpdateProductCsv
         public static int Main(string[] args)
         {
             //TODO: Implement Main method
+
+            return 1;
         }
 
         // TODO: Implement methods for Read, Update and Write Csv 
