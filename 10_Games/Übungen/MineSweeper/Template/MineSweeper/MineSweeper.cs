@@ -4,6 +4,7 @@
 *              Musterlösung-HA
 *--------------------------------------------------------------
 * Description: MineSweeper
+* https://de.wikipedia.org/wiki/Minesweeper
 *--------------------------------------------------------------
 */
 
@@ -16,6 +17,7 @@ public class MineSweeper
     private static readonly string _emptyField   = "\u2593";
     private static readonly string _markedAsMine = "\u25B6";
     private static readonly string _hitMine      = "\u2B59";
+    private static readonly string _notFoundMine = "\u2B24";
 
     public static void Run()
     {
@@ -40,6 +42,10 @@ public class MineSweeper
         //TODO Initialize board 
     }
 
+    /// <summary>
+    /// Play game: Repeat ask user and set mine (or mark as mine) on board.
+    /// </summary>
+    /// <param name="mineField"></param>
     private static void PlayGame(bool[,] mineField)
     {
         //TODO Read User-input and update board 
@@ -75,7 +81,7 @@ public class MineSweeper
     /// <param name="countMines">Count of mines to be place on the mine-field</param>
     /// <param name="rows">Mine-Field rows</param>
     /// <param name="cols">Mine-Field columns</param>
-    /// <returns>Created mine-field, if not valid (e.g. to many mines) null</returns>
+    /// <returns>Created mine-field, if not valid (e.g. to many mines) throw exception</returns>
     public static bool[,] CreateMineField(int countMines, int rows, int cols)
     {
         var random = new Random();
@@ -83,5 +89,4 @@ public class MineSweeper
         // TODO implement CreateMineField
         throw new NotImplementedException();
     }
-
 }

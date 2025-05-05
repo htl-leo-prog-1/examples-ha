@@ -1,11 +1,11 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: ConnectFour
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: ConnectFour
+ *--------------------------------------------------------------
+ */
 
 using System;
 
@@ -13,7 +13,7 @@ public static class Tools
 {
     public static int ReadNumber(string message, int max, int min)
     {
-        int number;
+        int  number;
         bool isOk;
         do
         {

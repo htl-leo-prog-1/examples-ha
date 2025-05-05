@@ -24,7 +24,7 @@ public class MineSweeper
     private static readonly string _hitMine      = "\u2B59";
     private static readonly string _notFoundMine = "\u2B24";
 
-    static bool [,] _mineField;
+    static bool [,] _mineField = default!;
 
     public static void Run()
     {
@@ -351,14 +351,14 @@ public class MineSweeper
     /// <param name="countMines">Count of mines to be place on the mine-field</param>
     /// <param name="rows">Mine-Field rows</param>
     /// <param name="cols">Mine-Field columns</param>
-    /// <returns>Created mine-field, if not valid (e.g. to many mines) null</returns>
+    /// <returns>Created mine-field, if not valid (e.g. to many mines) throw exception</returns>
     public static bool[,] CreateMineField(int countMines, int rows, int cols)
     {
         var random = new Random();
 
         if (countMines > (rows * cols))
         {
-            return null;
+            throw new ArgumentException();
         }
 
         var mineField = new bool[rows, cols];

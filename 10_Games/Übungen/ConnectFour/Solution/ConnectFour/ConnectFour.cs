@@ -1,11 +1,11 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: ConnectFour
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: ConnectFour
+ *--------------------------------------------------------------
+ */
 
 namespace ConnectFour
 {
@@ -176,7 +176,7 @@ namespace ConnectFour
         private static int CheckDirection(int[,] allocation, int row, int col, int deltaRow, int deltaCol)
         {
             int player = allocation[row, col];
-            int counterEqual = 1 + // this field
+            int counterEqual = 1 +                                                                 // this field
                                CountDirection(allocation, player, row, col, deltaRow,  deltaCol) + // direction +
                                CountDirection(allocation, player, row, col, -deltaRow, -deltaCol); // direction -
 
