@@ -41,7 +41,7 @@ namespace FileWizard
         /// <returns>Gültiger Dateiname (Datei existiert)</returns>
         private static string GetFileName()
         {
-            string fileName;
+            string? fileName;
             do
             {
                 Console.Write("Welche Datei soll ich öffnen? ");
@@ -52,9 +52,11 @@ namespace FileWizard
                     fileName = null;
                 }
             } while (fileName == null);
+
             CreateBackup(fileName);
             return fileName;
         }
+
         /// <summary>
         /// Präsentiert eine Auswahl an Datei-Funktionen
         /// und führt die vom Benutzer gewählte Funktion
@@ -87,11 +89,11 @@ namespace FileWizard
                 case 5: fileName = GetFileName(); break;
                 default: break;
             }
+
             return operation == 0;
         }
 
 
- 
         /// <summary>
         /// Erstellen einer Sicherungskopie einer Datei.
         /// Es wird an den Dateinamen '.bak' angehängt.
@@ -102,16 +104,17 @@ namespace FileWizard
         /// <param name="fileName">Zu sichernde Datei</param>
         private static void CreateBackup(string fileName)
         {
-            string backupFileName = fileName + ".bak";
+            string backupFileName = $"{fileName}.bak";
             int i = 1;
             string test = backupFileName;
             while (File.Exists(backupFileName))
             {
-                backupFileName = fileName + ".bak" + i;
+                backupFileName = $"{fileName}.bak{i}";
                 i++;
             }
+
             File.Copy(fileName, backupFileName);
-            Log("Datei " + backupFileName + " wurde erstellt.");
+            Log($"Datei {backupFileName} wurde erstellt.");
         }
 
         private static void Log(string message)
@@ -137,8 +140,9 @@ namespace FileWizard
                 lines[i] = lines[lines.Length - i - 1];
                 lines[lines.Length - i - 1] = swap;
             }
+
             File.WriteAllLines(fileName, lines, Encoding.Default);
-            Log("Zeilen in " + fileName + " wurden reversiert!");
+            Log($"Zeilen in {fileName} wurden reversiert!");
         }
 
 
@@ -154,10 +158,11 @@ namespace FileWizard
             string[] lines = File.ReadAllLines(fileName, Encoding.Default);
             for (int i = 0; i < lines.Length; i++)
             {
-                lines[i] = String.Format("{0, 2}: {1}", i + 1, lines[i]);
+                lines[i] = $"{i+1, 2}: {lines[i]}";
             }
+
             File.WriteAllLines(fileName, lines, Encoding.Default);
-            Log("Zeilennummern in " + fileName + " hinzugefügt!");
+            Log($"Zeilennummern in {fileName} hinzugefügt!");
         }
 
         /// <summary>
@@ -172,17 +177,16 @@ namespace FileWizard
         private static void ReplaceCharacters(string fileName)
         {
             Console.WriteLine("Welche(s) Zeichen soll(en) ersetzt werden?");
-            string searchString = Console.ReadLine();
+            string searchString = Console.ReadLine()!;
             Console.WriteLine("Wodurch? ");
-            string replaceString = Console.ReadLine();
+            string replaceString = Console.ReadLine()!;
 
             string text = File.ReadAllText(fileName, Encoding.Default);
             text = text.Replace(searchString, replaceString);
             File.WriteAllText(fileName, text, Encoding.Default);
-            Log("Alle \"" + searchString + "\" in " + fileName 
-                + " wurden durch " + "\"" + replaceString + "\" ersetzt!");
+            Log($"Alle \"{searchString}\" in {fileName} wurden durch \"{replaceString }\" ersetzt!");
         }
-		
+
         /// <summary>
         /// Ausgabe der Textdatei auf die Konsole
         /// Verwende ReadAllText
@@ -194,6 +198,5 @@ namespace FileWizard
             Log(File.ReadAllText(fileName, Encoding.Default));
             Console.WriteLine("------- Ausgabe Ende --------");
         }
-
     }
 }

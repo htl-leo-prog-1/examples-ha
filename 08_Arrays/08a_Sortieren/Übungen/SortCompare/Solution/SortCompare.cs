@@ -29,10 +29,10 @@ namespace SortCompare
             Console.WriteLine();
 
             Console.Write("Please enter array size: ");
-            var arraySize = int.Parse(Console.ReadLine());
+            int arraySize = int.Parse(Console.ReadLine());
 
 
-            var numbers = CreateRandom(arraySize);
+            int[] numbers = CreateRandom(arraySize);
             int[] numbersSorted;
 
             Console.WriteLine($"Ticks for sorting {arraySize} numbers: ");

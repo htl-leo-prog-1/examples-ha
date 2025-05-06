@@ -29,6 +29,7 @@ namespace FileWizard
             System.Threading.Thread.Sleep(3000);
         }
 
+
         /// <summary>
         /// Erfragen eines Dateinamen vom Benutzer.
         /// Gibt dieser einen ungültigen Dateinamen ein
