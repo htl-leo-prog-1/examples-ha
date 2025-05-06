@@ -212,7 +212,7 @@ public class MineSweeper
     }
 
     /// <summary>
-    /// User end the game. Clear al fields
+    /// User end the game. Clear all fields
     /// </summary>
     /// <param name="mineField"></param>
     static void ClearAllFields(bool[,] mineField)
