@@ -38,4 +38,9 @@ using (StreamReader sr = new StreamReader(path, Encoding.Default))
 
 string[] lines = File.ReadAllLines(path);
 
+foreach (string line in lines)
+{
+    Console.WriteLine(line);
+}
+
 Console.ReadKey();
