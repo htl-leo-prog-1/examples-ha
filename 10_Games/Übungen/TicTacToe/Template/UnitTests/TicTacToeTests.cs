@@ -318,7 +318,7 @@ public sealed class TicTacToeTests
         }
     };
 
-    private static void InitBoard(int[][] fieldsToSet = null)
+    private static void InitBoard(int[][]? fieldsToSet = null)
     {
         Board.Init(3, 3, string.Empty);
         fieldsToSet ??= new[]

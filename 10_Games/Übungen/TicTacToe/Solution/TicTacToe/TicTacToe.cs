@@ -263,7 +263,7 @@ public static class TicTacToe
         {
             for (int col = 0; col < SIZE; col++)
             {
-                Board.SetText(row, col, numbers[row, col].ToString(), "LightGrey");
+                Board.SetText(row, col, numbers[row, col].ToString(), "LightGray");
             }
         }
     }

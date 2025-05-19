@@ -14,7 +14,7 @@ public static class TicTacToe
     private const string GAME = "TicTacToe";
     private const int SIZE = 3;
     private const int MIN_NUM = 1;
-    private const int MAX_NUM = 9;
+    private const int MAX_NUM   = 9;
     private const int MAX_TURNS = MAX_NUM;
     private const string X = "X";
     private const string O = "O";
@@ -25,27 +25,30 @@ public static class TicTacToe
     /// </summary>
     public static void Run()
     {
-        Console.WriteLine($"{GAME}{Environment.NewLine}=========");
+        Console.WriteLine("TicTacToe ");
+        Console.WriteLine("=========");
+        
         Board.Init(SIZE, SIZE, "TicTacToe");
 
         var playerIndex = random.Next(0, 2); // randomly decide who starts
-        
-        InitPositions(); // initialize playing field
 
-        int counter = 0;
+        InitPositions();
+
+        int counter     = 0;
         int winnerIndex = -1; // either player 1 (0) or player 2 (1) won, -1 indicates a draw
+
         do
         {
             int position = GetStonePosition(playerIndex);
-            int row = GetRowFromPosition(position);
-            int col = GetColFromPosition(position, row);
+            int row      = GetRowFromPosition(position);
+            int col      = GetColFromPosition(position, row);
             if (playerIndex == 0)
             {
-                Board.SetText(row, col, O, "Red");
+                Board.SetText(row, col, "O", "Red");
             }
             else
             {
-                Board.SetText(row, col, X, "Green");
+                Board.SetText(row, col, "X", "Green");
             }
 
             counter++;
@@ -57,9 +60,15 @@ public static class TicTacToe
             playerIndex = 1 - playerIndex;
         } while (counter < MAX_TURNS && winnerIndex == -1);
 
-        Console.WriteLine(winnerIndex != -1
-            ? $"The player with number {winnerIndex} has won!"
-            : "The game ended in a draw");
+
+        if (winnerIndex == -1)
+        {
+            Console.WriteLine("The game ended in a draw");
+        }
+        else
+        {
+            Console.WriteLine("The player with number {winnerIndex} has won!");
+        }
     }
 
     /// <summary>
