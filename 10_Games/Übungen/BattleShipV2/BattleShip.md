@@ -39,7 +39,7 @@ Schreiben Sie ein Programm **BattleShip** mit folgenden Eigenschaften:
     * In den Nachbarfeldern (horizontal, vertikal und diagonal) ein Schiff existiert.  
       Ein Schiff darf an eine Randposition gesetzt werden.  Die Nachbarpositionen, die ausserhalb des Feldes liegen, werden ignoriert.  
 * **!row,col**  
-   Mit dieser Eingabe wird ein Schiff gelöscht. Eine Fehlermeldung ist auszugeben, wenn and der Position kein Schiff gespeichert ist.  
+   Mit dieser Eingabe wird ein Schiff gelöscht. Eine Fehlermeldung ist auszugeben, wenn an der Position kein Schiff gespeichert ist.  
 
 ### Programmdesign
 
@@ -47,7 +47,7 @@ Achten Sie bei der Umsetzung auf ein sauberes Design Ihres Programms.
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementieren Sie die Methoden so, dass **alle** Unittests erfolgreich ausgeführt werden können. Änderungen an den *Unittests* sind nicht erlaubt.  
 Damit die Unittests ausgeführt werden können, müssen sie folgende (Hilfs-)Methoden umsetzen:
 
-* `bool CanSetShip(int[,] battlefield, int row, int col)`  
+* `bool CanSetShip(bool[,] battlefield, int row, int col)`  
 Überprüft, ob ein Schiff an die angegeben Position gesetzt werden kann.  
 Die Position muss leer sein und es dürfen sich keine Schiffe in der *Nachbarschaft* befinden.  
 * `bool GetShipCount(bool[,] battlefield)`  
@@ -55,7 +55,7 @@ Die Position muss leer sein und es dürfen sich keine Schiffe in der *Nachbarsch
 * `void SaveField(bool[,] battlefield, string fileName)`  
   Das Spielfeld (gespeichert im `battlefield`) wird in eine Datei geschrieben. Die CSV Datei hat folgende Spalten: `"No;Row;Col"` (*No* ist eine fortlaufende Nummer).  
   Hinweis: es werden nur *Schiffe* in die Datei geschrieben, die leeren Position jedoch nicht.  
-* `int[,]? LoadGame(int boardSize, string fileName)`  
+* `bool[,]? LoadGame(int boardSize, string fileName)`  
   Ein Spiel wird aus der angegebenen Datei geladen. Das Format der Datei entspricht der CSV Datei der Methode `SaveGame`.  
   Hinweis: Die Datei kann eine "ungültige" Definition enthalten (ungültige Positionen der Schiffe). In diesem Fall liefert die Methode `null` als Rückgabewert.  
 

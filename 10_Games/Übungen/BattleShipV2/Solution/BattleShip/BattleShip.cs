@@ -27,6 +27,12 @@ public static class BattleShip
         DesignField(battlefield);
     }
 
+    /// <summary>
+    /// Ask user for board-size (repeat until valid).
+    /// Initialize board (GUI).
+    /// Call InitBattleField to initialize array.  
+    /// </summary>
+    /// <returns></returns>
     public static bool[,] InitField()
     {
         int  boardSize;
@@ -92,7 +98,7 @@ public static class BattleShip
                 case 0: // set ship on position row/col
                     if (!SetShip(battlefield, row, col))
                     {
-                        Console.WriteLine("Cannot set ship at {row}:{col}");
+                        Console.WriteLine($"Cannot set ship at {row}:{col}");
                     }
 
                     break;
@@ -101,7 +107,7 @@ public static class BattleShip
 
                     if (!ClearShip(battlefield, row, col))
                     {
-                        Console.WriteLine("No ship at {row}:{col}");
+                        Console.WriteLine($"No ship at {row}:{col}");
                     }
 
                     break;
@@ -318,7 +324,7 @@ public static class BattleShip
         int cols  = battlefield.GetLength(1);
         int count = 0;
 
-        lines[count++] = "No;Row;Col;Player";
+        lines[count++] = "No;Row;Col";
 
         for (int row = 0; row < rows; row++)
         {
