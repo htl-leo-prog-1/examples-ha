@@ -15,8 +15,8 @@ public class GameCsv
 {
     public int      Round         { get; set; }
     public DateTime Date          { get; set; }
-    public string   HomeTeam      { get; set; }
-    public string   GuestTeam     { get; set; }
-    public string   Score         { get; set; }
-    public string   ScoreHalfTime { get; set; }
+    public string   HomeTeam      { get; set; } = string.Empty;
+    public string   GuestTeam     { get; set; } = string.Empty;
+    public string   Score         { get; set; } = string.Empty;
+    public string   ScoreHalfTime { get; set; } = string.Empty;
 }

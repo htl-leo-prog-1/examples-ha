@@ -17,8 +17,8 @@ public class Game
 {
     public int      Round              { get; set; }
     public DateTime Date               { get; set; }
-    public string   HomeTeam           { get; set; }
-    public string   GuestTeam          { get; set; }
+    public string   HomeTeam           { get; set; } = string.Empty;
+    public string   GuestTeam          { get; set; } = string.Empty;
     public int      GoalsHome          { get; set; }
     public int      GoalsGuest         { get; set; }
     public int      HalfTimeGoalsHome  { get; set; }

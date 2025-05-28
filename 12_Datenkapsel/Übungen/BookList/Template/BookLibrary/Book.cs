@@ -1,59 +1,58 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: Book Library
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: Book Library
+ *--------------------------------------------------------------
+ */
 
-namespace BookLibrary
+namespace BookLibrary;
+
+public class Book
 {
-    public class Book
+    private string _author = string.Empty;
+    private string _title = string.Empty;
+    private string _publisher = string.Empty;
+    private string _isbn = string.Empty;
+
+    public void SetAuthor(string author)
     {
-        private string _author;
-        private string _title;
-        private string _publisher;
-        private string _isbn;
+        _author = author;
+    }
 
-        public void SetAuthor(string author)
-        {
-            _author = author;
-        }
+    public string GetAuthor()
+    {
+        return _author;
+    }
 
-        public string GetAuthor()
-        {
-            return _author;
-        }
+    public void SetTitle(string title)
+    {
+        _title = title;
+    }
 
-        public void SetTitle(string title)
-        {
-            _title = title;
-        }
+    public string GetTitle()
+    {
+        return _title;
+    }
 
-        public string GetTitle()
-        {
-            return _title;
-        }
+    public void SetPublisher(string publisher)
+    {
+        _publisher = publisher;
+    }
 
-        public void SetPublisher(string publisher)
-        {
-            _publisher = publisher;
-        }
+    public string GetPublisher()
+    {
+        return _publisher;
+    }
 
-        public string GetPublisher()
-        {
-            return _publisher;
-        }
+    public void SetISBN(string isbn)
+    {
+        _isbn = isbn;
+    }
 
-        public void SetISBN(string isbn)
-        {
-            _isbn = isbn;
-        }
-
-        public string GetISBN()
-        {
-            return _isbn;
-        }
+    public string GetISBN()
+    {
+        return _isbn;
     }
 }

@@ -89,8 +89,8 @@ public sealed class ChessTests
         var field       = Chess.CreateField(chessPieces);
 
         field.Should().NotBeNull();
-        field.GetLength(0).Should().Be(8);
-        field.GetLength(1).Should().Be(8);
+        field!.GetLength(0).Should().Be(8);
+        field!.GetLength(1).Should().Be(8);
 
         foreach (var chessPiece in chessPieces)
         {

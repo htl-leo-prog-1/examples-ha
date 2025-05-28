@@ -89,7 +89,7 @@ Programmintern können/sollen folgende Punkte umgesetzt sein:
 
 * `ChessPiece[] ReadFromCsv(string fileName)`  
   Die Csv Datei wird gelesen und der Inhalt in einem Array der Datenkapsel `ChessPiece` gespeichert. Eine Validierung wird NICHT durchgeführt.  
-* `ChessPiece[,] CreateField(ChessPiece[] pieces)`  
+* `ChessPiece?[,]? CreateField(ChessPiece[] pieces)`  
   Die Methode erstellt das Spielfeld (Array mit einer fixe Größe von 8x8). Jedes durch ein Figur belegte Feld wird mit der Referenz auf die Datenkapsel `ChessPiece` initialisiert, alle anderen Felder bleiben null.  
   Es werden nur gültige Spielfelder erstellt. Im Fehlerfall gibt die Methode `null` als Ergebnis zurück.  
   Gültige Spielfelder sind jene Felder, die die richtige Anzahl von Figuren aufweisen und die Figuren korrekt platziert haben (siehe **Aufgabenstellung**).

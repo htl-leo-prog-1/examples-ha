@@ -15,8 +15,8 @@ public class Game
 {
     private int      _round;
     private DateTime _date;
-    private string   _homeTeam;
-    private string   _guestTeam;
+    private string   _homeTeam  = string.Empty;
+    private string   _guestTeam = string.Empty;
     private int      _goalsHome;
     private int      _goalsGuest;
     private int      _halfTimeGoalsHome;
