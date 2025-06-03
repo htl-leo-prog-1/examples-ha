@@ -32,9 +32,10 @@ public sealed class RomanTests
     [InlineData(444,  "CDXLIV")]
     [InlineData(999,  "CMXCIX")]
     [InlineData(1999, "MCMXCIX")]
+    [InlineData(3999, "MMMCMXCIX")]
     [InlineData(4000, null)]
 
-    public void ConvertToTest(int number, string expected)
+    public void ConvertToTest(int number, string? expected)
     {
         Roman.RomanNumerals.ConvertToRomanLiteral(number).Should().Be(expected);
     }
@@ -64,7 +65,8 @@ public sealed class RomanTests
         for (int i = 1; i < 4000; i++)
         {
             var roman = Roman.RomanNumerals.ConvertToRomanLiteral(i);
-            Roman.RomanNumerals.ConvertFromRomanLiteral(roman).Should().Be(i);
+            roman.Should().NotBeNull();
+            Roman.RomanNumerals.ConvertFromRomanLiteral(roman!).Should().Be(i);
             Console.WriteLine($"{i} => {roman}");
         }
     }

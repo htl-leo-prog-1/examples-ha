@@ -43,7 +43,7 @@ namespace Roman
             do
             {
                 Console.Write(message);
-                var input = Console.ReadLine();
+                var input = Console.ReadLine()!;
                 if (int.TryParse(input, out number))
                 {
                     isOk = true;

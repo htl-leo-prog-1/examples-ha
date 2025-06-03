@@ -47,7 +47,7 @@ public static class RomanNumerals
 
     #region ConvertTo
 
-    public static string ConvertToRomanLiteral(int number)
+    public static string? ConvertToRomanLiteral(int number)
     {
         if (!IsValidLiteral(number))
         {

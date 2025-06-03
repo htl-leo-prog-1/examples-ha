@@ -19,8 +19,10 @@ Das Programm soll die folgenden Funktionalitäten aufweisen.
 * Beim Programmstart wird geprüft, ob die richtige Anzahl von Argumente übergeben wurden.
 * Das erste Argument (wenn angegeben) muss ein gültiger Dateiname **mit** der Erweiterung CSV sein.
   Bitte beachten Sie, die Datei muss auch existieren.  
-* Das Programm liest anschließend alle Spiele aus der CSV Datei in eine interne Liste (=Array).
-* Alle in den Spielen vorkommenden Teams werden anonymisiert.  
+* Das Programm liest anschließend alle Spiele aus der CSV Datei in eine interne Liste (=Array).  
+  Die CSV Datei hat folgende Werte:
+  `ID;Round;Date;HomeTeam;GuestTeam;Score;ScoreHalfTime`
+* Alle in den Spielen vorkommenden Teams (Spalten: **HomeTeam** und **GuestTeam**) werden anonymisiert.  
   Es wird z.B. aus "SV Horn" der neue Name "Team 1".  
 * Geben sie *nach* der Anonymisierung eine Tabelle aus, wie die Teams verändert wurden:  
 
@@ -52,6 +54,8 @@ Wiener Sport-Club                        => Team 13
 * Das Programm muss Modular aufgebaut sein.  
   Für jede Funktionalität ist eine Methode zu erstellen!  
 * Bei einem Fehler (falsche Argumente) ist der Exit-Code der Main Methode zu verwenden.  
+* Kein Linq, keine Listen - nur Arrays, ...  
+  Methoden, die unabhängig vom Projekt sind (z.B. IndexOf), können Sie in der Datei Tools.cs implementieren.  
 
 ### Unittests
 In dem bereitgestellten Programm-Template sind Unittests vorhanden. Implementieren Sie die Methoden so, dass **alle** Unittests erfolgreich ausgeführt werden können. Änderungen an den *Unittests* sind nicht erlaubt.
