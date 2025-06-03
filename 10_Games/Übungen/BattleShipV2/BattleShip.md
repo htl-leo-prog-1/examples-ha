@@ -12,7 +12,7 @@ c# Programmieren (c) HTL-Leonding
 
 Gesucht ist ein Programm für das Spiel **Schiffe versenken**.  
 In dieser Varianten soll "nur" das Erstellen eines Spielfelds unterstützt werden.  
-Der Anwender kann durch eine Konsolen-Eingabe Schiffe am Spielfeld setzen (oder auch wieder löschen). Das Spielfeld soll in einer Datei speichert und aus einer Datei wieder geladen werden können.  
+Der Anwender kann durch eine Konsolen-Eingabe Schiffe (wir beschränken uns auf 1x1 Schiffe) am Spielfeld setzen (oder auch wieder löschen). Das Spielfeld soll in einer Datei speichert und aus einer Datei wieder geladen werden können.  
 
 ### Programmablauf
 Schreiben Sie ein Programm **BattleShip** mit folgenden Eigenschaften:  
