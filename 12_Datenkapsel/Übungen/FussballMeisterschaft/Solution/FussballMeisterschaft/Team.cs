@@ -11,7 +11,7 @@ namespace FussballMeisterschaft;
 
 public class Team
 {
-    private string _teamName;
+    private string _teamName = string.Empty;
     private int    _winCount;
     private int    _lossCount;
     private int    _tieCount;

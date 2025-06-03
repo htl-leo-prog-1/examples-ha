@@ -182,7 +182,7 @@ public class SoccerChampion
         PrintTeams(subTeamsList); // for debug
 
         int  posIfSamePoints = 1;
-        Team lastTeam        = null;
+        Team? lastTeam        = null;
 
         foreach (var team in subTeamsList)
         {

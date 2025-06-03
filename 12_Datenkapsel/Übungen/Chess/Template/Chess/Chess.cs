@@ -38,15 +38,15 @@ namespace Chess
         /// </summary>
         /// <param name="chessPieces">The list of pieces.</param>
         /// <returns>valid field or null (if invalid).</returns>
-        public static ChessPiece[,] CreateField(ChessPiece[] chessPieces)
+        public static ChessPiece?[,]? CreateField(ChessPiece[] chessPieces)
         {
             //TODO Implement CreateField
         }
 
         // TODO Implement bool IsValidPieceAmount(ChessPiece[] chessPieces)
-        // TODO Implement bool CanPlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
-        // TODO Implement bool bool PlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
-        // TODO Implement bool IsValidPawnPosition(ChessPiece[,] field, ChessPiece chessPiece)
+        // TODO Implement bool CanPlaceChessPiece(ChessPiece?[,] field, ChessPiece chessPiece)
+        // TODO Implement bool bool PlaceChessPiece(ChessPiece?[,] field, ChessPiece chessPiece)
+        // TODO Implement bool IsValidPawnPosition(ChessPiece?[,] field, ChessPiece chessPiece)
 
     }
 }

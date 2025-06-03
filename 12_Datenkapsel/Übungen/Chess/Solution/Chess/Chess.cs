@@ -55,12 +55,12 @@ namespace Chess
         }
 
         /// <summary>
-        /// Print the battle-field to the console.
+        /// Print the field to the console.
         /// </summary>
         /// <param name="chessPieces"></param>
         public static void Print(ChessPiece[] chessPieces)
         {
-            var field = CreateField(chessPieces);
+            var field = CreateField(chessPieces)!;
 
             string colHeader = "   ";
             string line      = "   +";
@@ -84,7 +84,7 @@ namespace Chess
                     }
                     else
                     {
-                        Console.Write($"{ToConsoleString(field[row, col]),3}|");
+                        Console.Write($"{ToConsoleString(field[row, col]!),3}|");
                     }
                 }
 
@@ -172,7 +172,7 @@ namespace Chess
         /// </summary>
         /// <param name="chessPieces">The list of pieces.</param>
         /// <returns>valid field or null (if invalid).</returns>
-        public static ChessPiece[,] CreateField(ChessPiece[] chessPieces)
+        public static ChessPiece?[,]? CreateField(ChessPiece[] chessPieces)
         {
             if (!IsValidPieceAmount(chessPieces))
             {
@@ -199,7 +199,7 @@ namespace Chess
         /// <param name="field"></param>
         /// <param name="chessPiece"></param>
         /// <returns>true if the field is empty, false otherwise</returns>
-        public static bool CanPlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
+        public static bool CanPlaceChessPiece(ChessPiece?[,] field, ChessPiece chessPiece)
         {
             int row = chessPiece.Row;
             int col = chessPiece.Col;
@@ -217,7 +217,7 @@ namespace Chess
         /// <param name="field"></param>
         /// <param name="chessPiece">chessPiece, must be a pawn.</param>
         /// <returns>true, if the pawn is on a valid row, otherwise false.</returns>
-        private static bool IsValidPawnPosition(ChessPiece[,] field, ChessPiece chessPiece)
+        private static bool IsValidPawnPosition(ChessPiece?[,] field, ChessPiece chessPiece)
         {
             int invalidRow = chessPiece.IsBlack ? 7 : 0;
             return chessPiece.Row != invalidRow;
@@ -229,7 +229,7 @@ namespace Chess
         /// <param name="field">The field where to set the chessPiece.</param>
         /// <param name="chessPiece"></param>
         /// <returns>true if the chessPiece can be placed, otherwise false</returns>
-        public static bool PlaceChessPiece(ChessPiece[,] field, ChessPiece chessPiece)
+        public static bool PlaceChessPiece(ChessPiece?[,] field, ChessPiece chessPiece)
         {
             if (!CanPlaceChessPiece(field, chessPiece))
             {
