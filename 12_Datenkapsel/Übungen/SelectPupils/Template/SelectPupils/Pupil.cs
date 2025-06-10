@@ -10,4 +10,9 @@
 namespace SelectPupils
 {
     //TODO Implement "public class Pupil" here
+
+    public class Pupil
+    {
+        // LastName;FirstName;GradeGerman;GradeEnglish;GradeMath
+    }
 }

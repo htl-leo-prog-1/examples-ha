@@ -1,21 +1,20 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: SelectPupils
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: SelectPupil
+ *--------------------------------------------------------------
+ */
 
-namespace UnitTest
+namespace UnitTest;
+
+public class PupilGrad
 {
-    public class PupilGrad
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int GradeGerman { get; set; }
-        public int GradeEnglish { get; set; }
-        public int GradeMath { get; set; }
-        public double GradeAverage { get; set; }
-    }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public int GradeGerman { get; set; }
+    public int GradeEnglish { get; set; }
+    public int GradeMath { get; set; }
+    public double GradeAverage { get; set; }
 }
