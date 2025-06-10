@@ -1,132 +1,131 @@
 ﻿/*--------------------------------------------------------------
-*				HTBLA-Leonding / Class: 1xHIF
-*--------------------------------------------------------------
-*              Musterlösung-HA
-*--------------------------------------------------------------
-* Description: RationalNumber
-* see:https://en.wikipedia.org/wiki/Rational_number
-*--------------------------------------------------------------
-*/
+ *				HTBLA-Leonding / Class: 1xHIF
+ *--------------------------------------------------------------
+ *              Musterlösung-HA
+ *--------------------------------------------------------------
+ * Description: RationalNumber
+ * see:https://en.wikipedia.org/wiki/Rational_number
+ *--------------------------------------------------------------
+ */
 
-namespace RationalNumber
+namespace RationalNumber;
+
+using System;
+
+public class RationalNumber
 {
-    using System;
+    public int Numerator   { get; private set; }
+    public int Denominator { get; private set; }
 
-    public class RationalNumber
+    public double Value
     {
-        public int Numerator   { get; private set; }
-        public int Denominator { get; private set; }
+        get { return (double)Numerator / (double)Denominator; }
+    }
 
-        public double Value
+    public RationalNumber(int numerator, int denominator)
+    {
+        Numerator   = numerator;
+        Denominator = denominator;
+    }
+
+    public RationalNumber() : this(0, 1)
+    {
+    }
+
+    private void NormalizeThis()
+    {
+        var ggt = Math.Abs(GGT(Numerator, Denominator));
+        Numerator   = Numerator / ggt;
+        Denominator = Denominator / ggt;
+
+        if (Denominator < 0)
         {
-            get { return (double)Numerator / (double)Denominator; }
+            Numerator   = -Numerator;
+            Denominator = -Denominator;
+        }
+    }
+
+    public override string ToString()
+    {
+        string result;
+        if (Numerator == 0)
+        {
+            result = "0";
+        }
+        else if (Denominator == 0)
+        {
+            result = "invalid";
+        }
+        else if (Numerator % Denominator == 0)
+        {
+            result = (Numerator / Denominator).ToString();
+        }
+        else
+        {
+            result = $"{Numerator}/{Denominator}";
         }
 
-        public RationalNumber(int numerator, int denominator)
-        {
-            Numerator   = numerator;
-            Denominator = denominator;
-        }
+        return result;
+    }
 
-        public RationalNumber() : this(0, 1)
-        {
-        }
+    public RationalNumber Normalize()
+    {
+        var rat = new RationalNumber(Numerator, Denominator);
+        rat.NormalizeThis();
+        return rat;
+    }
 
-        private void NormalizeThis()
+    private int GGT(int a, int b)
+    {
+        if (b != 0)
         {
-            var ggt = Math.Abs(GGT(Numerator, Denominator));
-            Numerator   = Numerator / ggt;
-            Denominator = Denominator / ggt;
-
-            if (Denominator < 0)
+            int c;
+            do
             {
-                Numerator   = -Numerator;
-                Denominator = -Denominator;
-            }
+                c = a % b;
+                a = b;
+                b = c;
+            } while (c != 0);
         }
 
-        public string ToString()
-        {
-            string result;
-            if (Numerator == 0)
-            {
-                result = "0";
-            }
-            else if (Denominator == 0)
-            {
-                result = "invalid";
-            }
-            else if (Numerator % Denominator == 0)
-            {
-                result = (Numerator / Denominator).ToString();
-            }
-            else
-            {
-                result = $"{Numerator}/{Denominator}";
-            }
+        return a;
+    }
 
-            return result;
-        }
+    public RationalNumber Add(RationalNumber val)
+    {
+        return new RationalNumber(
+            Numerator * val.Denominator + Denominator * val.Numerator,
+            Denominator * val.Denominator);
+    }
 
-        public RationalNumber Normalize()
-        {
-            var rat = new RationalNumber(Numerator, Denominator);
-            rat.NormalizeThis();
-            return rat;
-        }
+    public RationalNumber Sub(RationalNumber val)
+    {
+        return new RationalNumber(
+            Numerator * val.Denominator - Denominator * val.Numerator,
+            Denominator * val.Denominator);
+    }
 
-        private int GGT(int a, int b)
-        {
-            if (b != 0)
-            {
-                int c;
-                do
-                {
-                    c = a % b;
-                    a = b;
-                    b = c;
-                } while (c != 0);
-            }
+    public RationalNumber Inverse()
+    {
+        return new RationalNumber(
+            -Numerator,
+            Denominator);
+    }
 
-            return a;
-        }
+    public RationalNumber Reciprocal()
+    {
+        return new RationalNumber(Denominator, Numerator);
+    }
 
-        public RationalNumber Add(RationalNumber val)
-        {
-            return new RationalNumber(
-                Numerator * val.Denominator + Denominator * val.Numerator,
-                Denominator * val.Denominator);
-        }
+    public RationalNumber Mult(RationalNumber val)
+    {
+        return new RationalNumber(
+            Numerator * val.Numerator,
+            Denominator * val.Denominator);
+    }
 
-        public RationalNumber Sub(RationalNumber val)
-        {
-            return new RationalNumber(
-                Numerator * val.Denominator - Denominator * val.Numerator,
-                Denominator * val.Denominator);
-        }
-
-        public RationalNumber Inverse()
-        {
-            return new RationalNumber(
-                -Numerator,
-                Denominator);
-        }
-
-        public RationalNumber Reciprocal()
-        {
-            return new RationalNumber(Denominator, Numerator);
-        }
-
-        public RationalNumber Mult(RationalNumber val)
-        {
-            return new RationalNumber(
-                Numerator * val.Numerator,
-                Denominator * val.Denominator);
-        }
-
-        public RationalNumber Div(RationalNumber b)
-        {
-            return Mult(b.Reciprocal());
-        }
+    public RationalNumber Div(RationalNumber b)
+    {
+        return Mult(b.Reciprocal());
     }
 }
