@@ -59,7 +59,7 @@ namespace MyRectangle
         {
             Console.SetCursorPosition(0, 24);
             Console.Write("Skalieren (s), Rotieren (r), Sortieren (sort)? ");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine()!;
             return input;
         }
 
