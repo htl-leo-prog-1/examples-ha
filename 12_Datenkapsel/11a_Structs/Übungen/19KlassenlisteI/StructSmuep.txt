@@ -1,9 +1,0 @@
-Es sollen 10 Haustiere in einem Array gespeichet werden können.
-
-Jedes Haustier hat einen Namen, eine Rasse und ein Alter.
-
-Speichere zusätzlich an die erste Stelle des Arrays folgendes Tier:
-
-Schnurli
-Katze
-3
