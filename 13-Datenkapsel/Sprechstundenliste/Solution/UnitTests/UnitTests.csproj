@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<OutputType>Exe</OutputType>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Game1.csv" />
+	  <None Remove="GameInvalidPawnCountB.csv" />
+	  <None Remove="GameInvalidPawnCountW.csv" />
+	  <None Remove="GameInvalidPawnQueenCountB.csv" />
+	  <None Remove="GameInvalidPawnQueenCountW.csv" />
+	  <None Remove="GameInvalidPawnQueenKnightCountW.csv" />
+	  <None Remove="GameInvalidPawnRowB.csv" />
+	  <None Remove="GameInvalidPawnRowW.csv" />
+	  <None Remove="InValidchessPiecesAmount.csv" />
+	  <None Remove="InValidchessPiecesPosition.csv" />
+	  <None Remove="StartGame.csv" />
+	  <None Remove="ValidchessPieces.csv" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="GameInvalidPawnQueenCountB.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnQueenKnightCountW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnQueenCountW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnCountW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnCountB.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnRowW.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="GameInvalidPawnRowB.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Game1.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="StartGame.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="6.5.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Chess\Chess.csproj" />
+	</ItemGroup>
+
+
+</Project>
